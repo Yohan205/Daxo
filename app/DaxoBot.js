@@ -90,9 +90,12 @@ botxi.on("message", message => {
             "8ball          :: El bot respondera a tus preguntas con un sí o un no.\n" + "Por ejemplo:**b.8ball hoy llueve?**\n" +
             "-> " +
             prefix +
-            "saludos        :: Retorna un saludo como mensaje.\n```\n\n" +
+            "love       :: El bot calculará el porcentaje de amor entre dos usuarios 7u7.\n" + "Por ejemplo:**" + prefix + " love <@usuario1> <@usuario2>**\n" +
+            "-> " +
             prefix +
             "saludos        :: Retorna un saludo como mensaje.\n```\n\n" +
+            prefix +
+            "inviteBot      :: Enviará el link para que puedas tener a Daxo en tu servidor preferido. :wink: \n```\n\n" +
             "**" + server.name + " - Discord Server's" + server.owner.user.username + "**"
         );
     }
