@@ -7,7 +7,7 @@
     "description": "un bot para aprender a hacer un bot",
     "main": "app/DaxoBot.js",
     "scripts": {
-        "test": "Hi Daxo",
+        "test": "Echo Hi Daxo",
         "start": "node app/DaxoBot.js"
     },
     "keywords": [

@@ -22,7 +22,21 @@
       type: "listening"
     }
   });}*/
+
+  npm start => inicia el bot
+  npm install -g heroku
+
+  git status => ver si los archivos estan en verde
+  git add . => cargar archivos si estan en rojo
+  git commit -m "[name]" => guardar carga de archivos y nombrar actualizacion
+  git push heroku master => subir archivos al servidor
+
+  heroku logs => ejecutar en el cmd para ver la consola de heroku
+
+  git help => ayuda de Git
   
+  git remote add clever git://git@push-n2-par-clevercloud-customers.services.clever-cloud.com/app_9a6f1be3-2f1b-486d-98b3-ccaf72b2084d.git
+
   /*Dentro de cada comando a usar cooldown debera colocar este código:
 
 //Que detendra cualquier comando si el usuario esta dentro del enfriamiento.

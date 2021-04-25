@@ -14,7 +14,7 @@ botxi.once("ready", () => { //Al iniciar el bot...
     botxi.user.setPresence({
         status: "online",
         activity: {
-            name: "daxo help",
+            name: "Daxo help",
             type: "PLAYING"
         }
     });
@@ -26,7 +26,7 @@ botxi.once("ready", () => { //Al iniciar el bot...
 let cooldown = new Set();
 
 botxi.on("message", message => {
-    const prefixes = ['d ', 'daxo ', '//', 'D'];
+    const prefixes = ['d ', 'daxo ', 'Daxo ', 'D '];
     let prefix = false;
     for (const thisPrefix of prefixes) {
         if (message.content.startsWith(thisPrefix)) prefix = thisPrefix;
@@ -49,11 +49,10 @@ botxi.on("message", message => {
       if(!message.author.id !== 'IDOWNER')
     */
 
-    if (message.content.startsWith(prefix + "help") || message.content.startsWith("daxo help")) {
+    if (message.content.startsWith(prefix + "help") || message.content.startsWith("Daxo help")) {
         message.channel.send(
-            /*"**" + message.author.username + "**, Revisa tus mensajes privados."
-    );
-    //message.author.send( //Envia el mensaje al DM*/
+            /*"**" + message.author.username + "**, Revisa tus mensajes privados.");
+                    //message.author.send( //Envia el mensaje al DM*/
             "**COMANDOS DE DAXO BOT**\n```\n" +
             "-> " +
             prefix +
@@ -87,16 +86,19 @@ botxi.on("message", message => {
             "server         :: Muestra información del servidor donde está el bot.\n" +
             "-> " +
             prefix +
-            "8ball          :: El bot respondera a tus preguntas con un sí o un no.\n" + "Por ejemplo:**b.8ball hoy llueve?**\n" +
+            "8ball          :: El bot respondera a tus preguntas con un sí o un no.\n" + "Por ejemplo:**" + prefix + "8ball hoy llueve?**\n" +
             "-> " +
             prefix +
-            "love       :: El bot calculará el porcentaje de amor entre dos usuarios 7u7.\n" + "Por ejemplo:**" + prefix + " love <@usuario1> <@usuario2>**\n" +
+            "ppt       :: Juega `Piedra`, `Papel` o `Tijera` con Daxo y prueba tu suerte. :wink: \n" + "Por ejemplo:**" + prefix + "ppt piedra**\n" +
             "-> " +
             prefix +
-            "saludos        :: Retorna un saludo como mensaje.\n```\n\n" +
+            "love       :: El bot calculará el porcentaje de amor entre dos usuarios 7u7.\n" + "Por ejemplo:**" + prefix + "love <@usuario1> <@usuario2>**\n" +
+            "-> " +
+            prefix +
+            "saludos        :: Retorna un saludo como mensaje.\n" +
             prefix +
             "inviteBot      :: Enviará el link para que puedas tener a Daxo en tu servidor preferido. :wink: \n```\n\n" +
-            "**" + server.name + " - Discord Server's" + server.owner.user.username + "**"
+            "**" + server.name + " - Discord Server's " + server.owner.user.username + "**"
         );
     }
     if (command === "brolandia") {
@@ -184,9 +186,52 @@ botxi.on("message", message => {
         }, 10000);
     }
 
+    if (command === "ppt") { //Piedra Papel o Tijera
+        // Condicionaremos que si el usuario no manda ningun argumento. O sea solo escribe el comando. *
+        if (!args[0]) return message.channel.send("Opciones: `piedra`, `papel` o `tijera`").then(m => m.delete({ timeout: 10000 })) //El .then() es opcional, yo siempre lo agrego porque me gusta.
+
+        // Haremos una declaracion en matriz con las diferentes opciones ya dichas.
+        let Options = ["piedra", "papel", "tijera"]
+            // Condicionamos la matriz con el metodo .includes() que nos va a determinar si lo que mandamos esta dentro de la matriz, si es si no devolvera true sino false.
+        if (!Options.includes(args[0].toLowerCase())) return message.reply(":x: Opcion incorrecta!").then(d => d.delete({ timeout: 60000 }));
+
+        //Ahora empezamos a obtener las cosas de la matriz y condicionamos..
+
+        // Si args[0] es igual a "piedra" es decir, if(args[0] == <-piedra-/papel/tijera>)
+        if (args[0] == "piedra") {
+            // Creamos una condicional de matriz que tendra las respuestas.
+            let random1 = ["He ganado! Jejej Elegi papel :page_facing_up:. El papel cubre a la roca. :sunglasses:", // Perdedor -jeje-
+                    "Has ganado! Elegi tijera :scissors:. Las tijeras no pueden cortar rocas. :pensive:", // Ganaste :D
+                    "Empate. :rock: vs :rock:, gana... La piedra! :neutral_face:"
+                ] // Empate ._.
+
+            // Enviamos el mensaje aplicando Math.random() que nos dara una respuesta aleatoria de la matriz.
+            message.reply(" " + random1[Math.floor(Math.random() * random1.length)] + "")
+
+            // Si no es "piedra", pero es "papel"
+        } else if (args[0] == "papel") {
+
+            let random2 = ["He ganado! Elegi tijera :scissors:. Las tijeras cortan el papel. :sunglasses:", // Perdedor -jeje-
+                "Has ganado! Elegi piedra :rock:. El papel cubre a la roca. :unamused:", // Ganaste :D
+                "Empate.. :page_facing_up: vs :page_facing_up: ._."
+            ]
+
+            message.reply(" " + random2[Math.floor(Math.random() * random2.length)] + "")
+
+        } else if (args[0] == "tijera") {
+            let random3 = ["He ganado! Elegi piedra :rock:. Tus tijeras no pueden cortar rocas. :sunglasses:", // Perdedor -jeje-
+                "Has ganado! Elegi papel :page_facing_up:. Las tijeras cortan el papel. :confused:", // Ganaste :D
+                "Empate! :scissors: contra :scissors:... ._. :handshake:"
+            ]
+
+            message.reply(" " + random3[Math.floor(Math.random() * random3.length)] + "")
+        }
+
+    }
+
     switch (command) {
         case "saludos":
-            message.channel.send("Y salutaciones xD :joy:");
+            message.reply("Y salutaciones xD :joy:");
             break;
         case 'clearMsg':
             const mesg = message.channel.fetch();
@@ -269,7 +314,6 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
                 });
             break;
     }
-
     if (command === "server") {
 
         const embed = new MessageEmbed()
