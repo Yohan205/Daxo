@@ -1,0 +1,40 @@
+/* var st1 = 5; 
+  
+  if (st1 <= 10){
+  botxi.user.setPresence({
+    status: "online",
+    game: {
+      name: "Minecraft",
+      type: "playing"
+    }
+  });} if (st1 >= 50){
+    botxi.user.setPresence({
+    status: "online",
+    game: {
+      name: "Botcitos",
+      type: "waching"
+    }
+  });} if (st1 == 20){
+      botxi.user.setPresence({
+    status: "online",
+    game: {
+      name: "b.help",
+      type: "listening"
+    }
+  });}*/
+  
+  /*Dentro de cada comando a usar cooldown debera colocar este código:
+
+//Que detendra cualquier comando si el usuario esta dentro del enfriamiento.
+if(cooldown.has(message.author.id)){
+   message.channel.send(message.author.username+ " utilice el comando despues de 10 segundos!");
+   return;
+}
+//Si no se encuentra dentro del enfriamiento, agrega al usuario para que
+//no pueda utilizar el comando durante 10 segundos.
+cooldown.add(message.author.id);
+
+//Quita al usuario del enfriamiento después de pasar los 10 segundos.
+setTimeout(() => {
+  cooldown.delete(message.author.id);
+}, 10000);*/

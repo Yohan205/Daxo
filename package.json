@@ -1,0 +1,25 @@
+{
+    "//1": "describes your app and its dependencies",
+    "//2": "https://docs.npmjs.com/files/package.json",
+    "//3": "updating this file will download and update your packages",
+    "name": "daxobot",
+    "version": "0.0.1",
+    "description": "un bot para aprender a hacer un bot",
+    "main": "app/DaxoBot.js",
+    "scripts": {
+        "test": "Hi Daxo",
+        "start": "node app/DaxoBot.js"
+    },
+    "keywords": [
+        "node"
+    ],
+    "author": "YohanColla",
+    "license": "ISC",
+    "dependencies": {
+        "botdash.pro": "^1.0.2",
+        "discord.js": "^12.5.3"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7"
+    }
+}
