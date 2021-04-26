@@ -25,6 +25,16 @@ botxi.once("ready", () => { //Al iniciar el bot...
 
 let cooldown = new Set();
 
+/*if (cooldown.has(message.author.id)) {
+    message.channel.send(message.author.username + " utilice el comando despues de 10 segundos!");
+    return;
+}
+
+cooldown.add(message.author.id);
+setTimeout(() => {
+    cooldown.delete(message.author.id);
+}, 10000);*/
+
 botxi.on("message", message => {
     const prefixes = ['d ', 'daxo ', 'Daxo ', 'D '];
     let prefix = false;
@@ -37,69 +47,43 @@ botxi.on("message", message => {
     console.log(message.content);
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift(); //.toLowerCase();
-    const server = message.guild; //Por si falla, mencionar el servidor botxi.guilds.resolve(args[0]) ||
+    const server = message.guild; //Por si falla, se menciona el servidor botxi.guilds.resolve(args[0]) ||
 
     /*botxi.on("guildMemberAdd", member => {
-        console.log(
-         `Nuevo usuario:  ${member.user.username} se ha unido a ${member.guild.name}.`
-        );
+        console.log(`Nuevo usuario:  ${member.user.username} se ha unido a ${member.guild.name}.`);
         var canal = botxi.channels.get("654830450920914958");
         canal.send(`${member.user}, bienvenido al servidor pasala bien.`);
-      });
-      if(!message.author.id !== 'IDOWNER')
-    */
+    });
+    if(!message.author.id !== 'IDOWNER')*/
 
     if (message.content.startsWith(prefix + "help") || message.content.startsWith("Daxo help")) {
-        message.channel.send(
-            /*"**" + message.author.username + "**, Revisa tus mensajes privados.");
-                    //message.author.send( //Envia el mensaje al DM*/
-            "**COMANDOS DE DAXO BOT**\n```\n" +
-            "-> " +
-            prefix +
-            "brolandia      :: Muestra información sobre el server de Minecraft.\n" +
-            "-> " +
-            prefix +
-            "ping           :: Comprueba la latencia del bot y de tus mensajes.\n" +
-            "-> " +
-            prefix +
-            "announce       :: Hace que el bot diga un mensaje(beta).\n" +
-            "-> " +
-            prefix +
-            "galleta         :: Da una galleta a un usuario.\n" +
-            "-> " +
-            prefix +
-            "rol <@user> <rol>   :: Muestra información del rol de un usuario mencionado.\n" +
-            "-> " +
-            prefix +
-            "rol-list    :: Muestra los roles del servidor.\n" +
-            "-> " +
-            prefix +
-            "rol-add <@user> <rol>   :: Agrega un rol a un usuario mencionado.\n" +
-            "-> " +
-            prefix +
-            "rol-remove <@user> <rol>   :: Quita un rol de un usuario mencionado.\n" +
-            "-> " +
-            prefix +
-            "user <@user>   :: Muestra información sobre un usuario mencioando.\n" +
-            "-> " +
-            prefix +
-            "server         :: Muestra información del servidor donde está el bot.\n" +
-            "-> " +
-            prefix +
-            "8ball          :: El bot respondera a tus preguntas con un sí o un no.\n" + "Por ejemplo:**" + prefix + "8ball hoy llueve?**\n" +
-            "-> " +
-            prefix +
-            "ppt       :: Juega `Piedra`, `Papel` o `Tijera` con Daxo y prueba tu suerte. :wink: \n" + "Por ejemplo:**" + prefix + "ppt piedra**\n" +
-            "-> " +
-            prefix +
-            "love       :: El bot calculará el porcentaje de amor entre dos usuarios 7u7.\n" + "Por ejemplo:**" + prefix + "love <@usuario1> <@usuario2>**\n" +
-            "-> " +
-            prefix +
-            "saludos        :: Retorna un saludo como mensaje.\n" +
-            prefix +
-            "inviteBot      :: Enviará el link para que puedas tener a Daxo en tu servidor preferido. :wink: \n```\n\n" +
-            "**" + server.name + " - Discord Server's " + server.owner.user.username + "**"
-        );
+        const emHelp = new MessageEmbed()
+            .setColor("RANDOM")
+            .setAuthor("Comandos de Daxo", botxi.user.avatarURL())
+            .setTitle("Comandos de Información")
+            .addField("-> `" + prefix + "brolandia`", ":: Muestra información sobre el server de Minecraft.")
+            .addField("-> `" + prefix + "user <@user>`", ":: Muestra información sobre un usuario mencioando.")
+            .addField("-> `" + prefix + "server`", ":: Muestra información del servidor donde está el bot.")
+            .addField("-> `" + prefix + "inviteBot`", ":: Enviará un link para que puedas tener a Daxo en tu servidor preferido. :wink:")
+            .setTitle("Comandos de Diversión")
+            .addField("-> `" + prefix + "galleta`", ":: Da una galleta a un usuario.")
+            .addField("-> `" + prefix + "8ball`", ":: El bot respondera a tus preguntas con una respuesta aleatoria. \nPor ejemplo: *" + prefix + "8ball hoy llueve?*")
+            .addField("-> `" + prefix + "ppt`", ":: Juega `Piedra`, `Papel` o `Tijera` con Daxo y prueba tu suerte.:wink: \nPor ejemplo: *" + prefix + "ppt piedra*")
+            .addField("-> `" + prefix + "love`", ":: El bot calculará el porcentaje de amor entre dos usuarios 7u7. \nPor ejemplo: *" + prefix + "love <@usuario1> <@usuario2>*")
+            .setTitle("Comandos Admin/Moderadores")
+            .addField("-> `" + prefix + "rol <@user> <rol>`", ":: Muestra información del rol de un usuario mencionado.")
+            .addField("-> `" + prefix + "rol-list`", ":: Muestra los roles del servidor.")
+            .addField("-> `" + prefix + "rol-add <@user> <rol>`", ":: Agrega un rol a un usuario mencionado.")
+            .addField("-> `" + prefix + "rol-remove <@user> <rol>`", ":: Quita un rol de un usuario mencionado.")
+            .setTitle("Comandos de Interacción")
+            .addField("-> `" + prefix + "saludos`", ":: Retorna un saludo como mensaje.")
+            .addField("-> `" + prefix + "announce`", ":: Hace que el bot diga un mensaje (AUN EN DESARROLLO).")
+            .setFooter("Unete al servidor de soporte para conocer más sobre el bot", botxi.user.avatarURL());
+        message.channel.send(emHelp);
+        /*"**" + message.author.username + "**, Revisa tus mensajes privados.");
+                //message.author.send( //Envia el mensaje al DM
+         +
+        "-> " + prefix + "ping           :: Comprueba la latencia del bot y de tus mensajes.\n"*/
     }
     if (command === "brolandia") {
         const embed = new MessageEmbed()
@@ -122,24 +106,24 @@ botxi.on("message", message => {
     }
 
     if (command === "galleta") {
-        let user = message.mentions.members.first() || //por mencion
+        let user = message.mentions.users.first() || //por mencion
             server.members.resolve(args[0]); //por id
         let razon = args.slice(1).join(" ");
 
         if (!user) return message.channel.send("Menciona a un usuario para darle una galleta >.<");
 
-        if (!razon) { razon = "Sin razón alguna"; }
-        message.channel.send(
-            "**" +
-            user.username +
-            ", **tienes una :cookie: de **" +
-            message.author.username +
-            "**\n\n**Razón:** " +
-            razon +
-            "\n(づ｡◕‿‿◕｡)づ:･ﾟ✧ :cookie:"
-        );
+        if (!razon) { razon = "Sin razón alguna :grin:"; }
+
+        const emCookie = new MessageEmbed()
+            .setColor("0xF49F0A")
+            .setAuthor(message.author.username, message.author.avatarURL())
+            .setFooter(botxi.user.username, botxi.user.avatarURL())
+            .setThumbnail(message.author.avatarURL())
+            .setTitle("***" + user.username + ", *** tienes una :cookie: de **" + message.author.username + "**")
+            .setDescription("*Razón:* " + razon + "\n\n***(づ｡◕‿‿◕｡)づ:･ﾟ✧ :cookie:***");
         /*zeew.sfw.hug().then((hug) => console.log(hug));
         let cokie = zeew.sfw.cookie();*/
+        message.channel.send(emCookie);
         if (cooldown.has(message.author.id)) {
             message.channel.send(message.author.username + " utilice el comando despues de 15 segundos!");
             return;
@@ -167,18 +151,20 @@ botxi.on("message", message => {
             " Por supuesto que no "
         ];
         if (!text) return message.reply(`Escriba una pregunta.`);
-        message.channel.send(
-            message.author.username +
-            " a su pregunta `" +
-            text +
-            "` mi respuesta es: `" +
-            rpts[Math.floor(Math.random() * rpts.length)] +
-            "`"
-        );
+
+        const em8ball = new MessageEmbed()
+            .setColor("RANDOM")
+            .setAuthor(message.author.username, message.author.avatarURL())
+            .setFooter(botxi.user.username, botxi.user.avatarURL())
+            .addField(message.author.username + " a su pregunta `" + text + "`",
+                "Mi respuesta es: `" + rpts[Math.floor(Math.random() * rpts.length)] + "`");
+
         if (cooldown.has(message.author.id)) {
             message.channel.send(message.author.username + " utilice el comando despues de 10 segundos!");
             return;
         }
+
+        message.channel.send(em8ball);
 
         cooldown.add(message.author.id);
         setTimeout(() => {
@@ -186,56 +172,46 @@ botxi.on("message", message => {
         }, 10000);
     }
 
-    if (command === "ppt") { //Piedra Papel o Tijera
-        // Condicionaremos que si el usuario no manda ningun argumento. O sea solo escribe el comando. *
-        if (!args[0]) return message.channel.send("Opciones: `piedra`, `papel` o `tijera`").then(m => m.delete({ timeout: 10000 })) //El .then() es opcional, yo siempre lo agrego porque me gusta.
+    if (command == "encuesta") {
+        message.delete({ timeout: 7000 }); //Elimina el mensaje del autor despues de 7 segundos
 
-        // Haremos una declaracion en matriz con las diferentes opciones ya dichas.
-        let Options = ["piedra", "papel", "tijera"]
-            // Condicionamos la matriz con el metodo .includes() que nos va a determinar si lo que mandamos esta dentro de la matriz, si es si no devolvera true sino false.
-        if (!Options.includes(args[0].toLowerCase())) return message.reply(":x: Opcion incorrecta!").then(d => d.delete({ timeout: 60000 }));
+        let reporte = args.join(' '); //Aqui se guarda la pregunta
+        //if (!message.member.roles.cache.get('ID-RANGO')) return; //Podes poner permisos si lo quieres hacer privado el comando
+        if (!reporte) return message.channel.send(`:grey_exclamation: | **Envia tu pregunta**`)
 
-        //Ahora empezamos a obtener las cosas de la matriz y condicionamos..
+        const embed = new MessageEmbed()
+            .setTitle(':e_mail: | **Votación Activada**')
+            .addField('**Pregunta: ' + reporte + '**', '▔▔▔▔▔▔▔▔▔▔')
+            .addField('Opcion 1', '1\u20e3 Si')
+            .addField('Opcion 2', '2\u20e3 No')
+            .setColor(0x77AEFF)
+            .setFooter('Votación enviada por ' + message.author.tag, message.author.avatarURL());
+        message.channel.send(embed).then(m => {
+            m.react("1\u20e3");
+            m.react("2\u20e3");
+        });
 
-        // Si args[0] es igual a "piedra" es decir, if(args[0] == <-piedra-/papel/tijera>)
-        if (args[0] == "piedra") {
-            // Creamos una condicional de matriz que tendra las respuestas.
-            let random1 = ["He ganado! Jejej Elegi papel :page_facing_up:. El papel cubre a la roca. :sunglasses:", // Perdedor -jeje-
-                    "Has ganado! Elegi tijera :scissors:. Las tijeras no pueden cortar rocas. :pensive:", // Ganaste :D
-                    "Empate. :rock: vs :rock:, gana... La piedra! :neutral_face:"
-                ] // Empate ._.
-
-            // Enviamos el mensaje aplicando Math.random() que nos dara una respuesta aleatoria de la matriz.
-            message.reply(" " + random1[Math.floor(Math.random() * random1.length)] + "")
-
-            // Si no es "piedra", pero es "papel"
-        } else if (args[0] == "papel") {
-
-            let random2 = ["He ganado! Elegi tijera :scissors:. Las tijeras cortan el papel. :sunglasses:", // Perdedor -jeje-
-                "Has ganado! Elegi piedra :rock:. El papel cubre a la roca. :unamused:", // Ganaste :D
-                "Empate.. :page_facing_up: vs :page_facing_up: ._."
-            ]
-
-            message.reply(" " + random2[Math.floor(Math.random() * random2.length)] + "")
-
-        } else if (args[0] == "tijera") {
-            let random3 = ["He ganado! Elegi piedra :rock:. Tus tijeras no pueden cortar rocas. :sunglasses:", // Perdedor -jeje-
-                "Has ganado! Elegi papel :page_facing_up:. Las tijeras cortan el papel. :confused:", // Ganaste :D
-                "Empate! :scissors: contra :scissors:... ._. :handshake:"
-            ]
-
-            message.reply(" " + random3[Math.floor(Math.random() * random3.length)] + "")
-        }
-
+        /*let canal = server.channels.cache.find(ch => ch.id == "835748557570310187"); //si hay un canal para logs colocar la id del canal
+            let canal = client.channels.get("ID-CANAL");  const e = new MessageEmbed()
+            .setTitle("Sistema de logs por votacion").setDescription("Esto se activa, por votacion activada")
+            .addField("Se ha activado el sistema y dice", reporte, false)
+            canal.send(e)
+                            NOTA: CONFIGURAR ESTE COMANDO*/
     }
 
-    switch (command) {
+    switch (command) { //Games-ejemplo Embed
         case "saludos":
-            message.reply("Y salutaciones xD :joy:");
+            const emSld = new MessageEmbed()
+                .setTitle("Y salutaciones xD :joy:")
+                .setColor("RANDOM");
+            message.send({ emSld });
             break;
         case 'clearMsg':
-            const mesg = message.channel.fetch();
-            console.log(mesg);
+            message.channel.send("Se borrarán todos los mensajes de este canal...");
+
+            message.channel.fetch().then(d => d.delete()).catch(e => {
+                console.log('Ocurrio un error y no pude borrar los mensajes')
+            });
             break;
         case "announce":
             let text = args.join(" ");
@@ -265,7 +241,7 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
 
             message.channel.send(rolDest + text);
             break;
-        case 'ejemploembed':
+        case 'ejemploEmbed':
             const ejemploembed = new MessageEmbed()
                 .setTitle("Este es su título, puede contener 256 caracteres")
                 .setAuthor(message.author.username, message.author.avatarURL())
@@ -279,7 +255,7 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
                     "Este es un valor de campo, puede contener 2048 caracteres.")
                 .addField("Campo en línea", "Debajo del campo en línea", true)
                 .addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true);
-            message.channel.send({ ejemploembed });
+            message.channel.send(ejemploembed);
             break;
         case 'love':
             let personas = message.mentions.users.map(m => m.username).join(' y ');
@@ -303,7 +279,7 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
             const embedLove = new MessageEmbed()
                 .setTitle('El porcentaje de amor de ' + personas + ' es:')
                 .setDescription(heard + ' **' + random + ' %**' + ' ' + heard)
-                .setColor(0xe9f10a)
+                .setColor("RANDOM")
 
             message.channel.send(embedLove);
             break;
@@ -312,6 +288,47 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
                 .then(li => {
                     message.channel.send('Este es mi link para que me invites a tu servidor :wink: : ' + li);
                 });
+            break;
+        case "ppt":
+            // Condicionaremos que si el usuario no manda ningun argumento. O sea solo escribe el comando. *
+            if (!args[0]) return message.channel.send("Opciones: `piedra`, `papel` o `tijera`").then(m => m.delete({ timeout: 10000 })) //El .then() es opcional, yo siempre lo agrego porque me gusta.
+
+            // Haremos una declaracion en matriz con las diferentes opciones ya dichas.
+            let Options = ["piedra", "papel", "tijera"]
+                // Condicionamos la matriz con el metodo .includes() que nos va a determinar si lo que mandamos esta dentro de la matriz, si es si no devolvera true sino false.
+            if (!Options.includes(args[0].toLowerCase())) return message.reply(":x: Opcion incorrecta!").then(d => d.delete({ timeout: 60000 }));
+
+            //Ahora empezamos a obtener las cosas de la matriz y condicionamos..
+
+            // Si args[0] es igual a "piedra" es decir, if(args[0] == <-piedra-/papel/tijera>)
+            if (args[0] == "piedra") {
+                // Creamos una condicional de matriz que tendra las respuestas.
+                let random1 = ["He ganado! Jejej Elegi papel :page_facing_up:. El papel cubre a la roca. :sunglasses:", // Perdedor -jeje-
+                        "Has ganado! Elegi tijera :scissors:. Las tijeras no pueden cortar rocas. :pensive:", // Ganaste :D
+                        "Empate. :rock: vs :rock:, gana... La piedra! :neutral_face:"
+                    ] // Empate ._.
+
+                // Enviamos el mensaje aplicando Math.random() que nos dara una respuesta aleatoria de la matriz.
+                message.reply(" " + random1[Math.floor(Math.random() * random1.length)] + "")
+
+                // Si no es "piedra", pero es "papel"
+            } else if (args[0] == "papel") {
+
+                let random2 = ["He ganado! Elegi tijera :scissors:. Las tijeras cortan el papel. :sunglasses:", // Perdedor -jeje-
+                    "Has ganado! Elegi piedra :rock:. El papel cubre a la roca. :unamused:", // Ganaste :D
+                    "Empate.. :page_facing_up: vs :page_facing_up: ._."
+                ]
+
+                message.reply(" " + random2[Math.floor(Math.random() * random2.length)] + "")
+
+            } else if (args[0] == "tijera") {
+                let random3 = ["He ganado! Elegi piedra :rock:. Tus tijeras no pueden cortar rocas. :sunglasses:", // Perdedor -jeje-
+                    "Has ganado! Elegi papel :page_facing_up:. Las tijeras cortan el papel. :confused:", // Ganaste :D
+                    "Empate! :scissors: contra :scissors:... ._. :handshake:"
+                ]
+
+                message.reply(" " + random3[Math.floor(Math.random() * random3.length)] + "")
+            }
             break;
     }
     if (command === "server") {
@@ -464,39 +481,38 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
             return message.channel.send("Wey no tienes permisos para hacer eso! D:")
         }
 
-        let persona = message.mentions.members.first()
+        let persona = message.mentions.members.first();
         if (!persona) return message.channel.send('Oye menciona o pon la id de alguien para quitarle el rol')
 
-        let nombrerol = args.slice(1).join(' ')
-        if (!nombrerol) return message.channel.send('Escribe el nombre comploeto del rol a quitar')
+        let nombrerol = args.slice(1).join(' ');
+        if (!nombrerol) return message.channel.send('Escribe el nombre completo del rol a quitar')
 
-        let rolname = message.guild.roles.find(r => r.name == nombrerol);
+        let rolname = server.roles.cache.find(r => r.name == nombrerol);
+        //console.log(message.member);
         if (!rolname) {
-            return message.channel.send('Parece que ese rol no está en el servidor :/')
+            return message.channel.send('Parece que ese rol no está en el servidor :confused:')
         } else if (!rolname.editable) {
             return message.channel.send("Lo siento, pero no puedo quitarle ese rol a nadie, debido a que esta mas alto que mi rol")
-        } else if (rolname.comparePositionTo(message.member.highestRole) > 0) {
-            return message.channel.send("Ese rol es mas alto que tu rol mas alto (en lo que a jerarquia se refiere), asi no puedes quitarselo a   nadie")
+        } else if (rolname.comparePositionTo(message.member.roles.highest) > 0) {
+            return message.channel.send("Ese rol es mas alto que tu rol mas alto (en lo que a jerarquia se refiere), asi no puedes quitarselo a nadie")
         }
         /*let reason = args.slice(2).join('');
         if(!reason) return message.channel.send("Necesitas decir una razón");*/
 
-        persona.removeRole(rolname.id).catch(e => message.reply("Ocurrio un **error**"))
-        message.channel.send(`Listo, le quité el rol **${rolname.name}** a **${persona.user.username}**`)
+        persona.roles.remove(rolname.id).catch(e => message.reply("Ocurrio un **error**"))
+        message.channel.send(`Listo! le quité el rol **${rolname.name}** a **${persona.user.username}**`)
             //message.channel.send(`Listo, le saque el rol **${rol.name}** a **${persona.user.username}** con la razon de: _${reason}`)
         if (cooldown.has(message.author.id)) {
             message.channel.send(message.author.username + " utilice el comando despues de 10 segundos!");
             return;
         }
-
         cooldown.add(message.author.id);
-
         setTimeout(() => {
             cooldown.delete(message.author.id);
-        }, 5000);
+        }, 10000);
     }
 
-    if (command === 'rol-list' || command === 'rol-l') {
+    if (command === 'rol-list' || command === 'rl-l') {
         const embed = new MessageEmbed()
             .setColor(0x00AE86)
             .setDescription(
