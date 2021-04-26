@@ -28,7 +28,10 @@
 
   git status => ver si los archivos estan en verde
   git add . => cargar archivos si estan en rojo
-  git commit -m "[name]" => guardar carga de archivos y nombrar actualizacion
+  git branch [name new branch] => muestra, crea y borra versiones del proyecto
+  git checkout [name branch] => cambiar version del proyecto
+  git log => ver logs
+  git commit -m "name" => guardar carga de archivos y nombrar actualizacion
   git push heroku master => subir archivos al servidor
 
   heroku logs => ejecutar en el cmd para ver la consola de heroku

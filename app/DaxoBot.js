@@ -7,6 +7,8 @@ para usar libreria nodemon: npx nodemon --help
 const { Client, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
 const botxi = new Client(); // Create an instance of a Discord client
 const config = require("./config.json"); //Extract the objects from config.json
+//require("/functions.js");
+let cooldownSet = new Set();
 //const botdash = require('botdash.pro'); //Require botdash.pro
 //const { prefix, token } = require('./config.json');
 
@@ -23,19 +25,7 @@ botxi.once("ready", () => { //Al iniciar el bot...
     );
 });
 
-let cooldown = new Set();
-
-/*if (cooldown.has(message.author.id)) {
-    message.channel.send(message.author.username + " utilice el comando despues de 10 segundos!");
-    return;
-}
-
-cooldown.add(message.author.id);
-setTimeout(() => {
-    cooldown.delete(message.author.id);
-}, 10000);*/
-
-botxi.on("message", message => {
+botxi.on("message", async message => {
     const prefixes = ['d ', 'daxo ', 'Daxo ', 'D '];
     let prefix = false;
     for (const thisPrefix of prefixes) {
@@ -48,6 +38,7 @@ botxi.on("message", message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift(); //.toLowerCase();
     const server = message.guild; //Por si falla, se menciona el servidor botxi.guilds.resolve(args[0]) ||
+    //require("./functions.js");
 
     /*botxi.on("guildMemberAdd", member => {
         console.log(`Nuevo usuario:  ${member.user.username} se ha unido a ${member.guild.name}.`);
@@ -106,6 +97,22 @@ botxi.on("message", message => {
     }
 
     if (command === "galleta") {
+        var und = "",
+            timeMsg = "",
+            time = 10;
+        if (time >= 60) {
+            und = " minutos!";
+            timeMsg = time / 60;
+        } else {
+            und = " segundos!";
+            timeMsg = time;
+        }
+
+        if (cooldownSet.has(message.author.id)) {
+            message.channel.send(message.author.username + " puedes usar el comando despues de " + timeMsg + und);
+            return;
+        }
+        //cooldownIf(20);
         let user = message.mentions.users.first() || //por mencion
             server.members.resolve(args[0]); //por id
         let razon = args.slice(1).join(" ");
@@ -117,21 +124,14 @@ botxi.on("message", message => {
         const emCookie = new MessageEmbed()
             .setColor("0xF49F0A")
             .setAuthor(message.author.username, message.author.avatarURL())
-            .setFooter(botxi.user.username, botxi.user.avatarURL())
+            //.setFooter(botxi.user.username, botxi.user.avatarURL())
             .setThumbnail(message.author.avatarURL())
             .setTitle("***" + user.username + ", *** tienes una :cookie: de **" + message.author.username + "**")
             .setDescription("*Razón:* " + razon + "\n\n***(づ｡◕‿‿◕｡)づ:･ﾟ✧ :cookie:***");
         /*zeew.sfw.hug().then((hug) => console.log(hug));
         let cokie = zeew.sfw.cookie();*/
         message.channel.send(emCookie);
-        if (cooldown.has(message.author.id)) {
-            message.channel.send(message.author.username + " utilice el comando despues de 15 segundos!");
-            return;
-        }
-        cooldown.add(message.author.id);
-        setTimeout(() => {
-            cooldown.delete(message.author.id);
-        }, 15000);
+        cooldownAdd(10);
     }
 
     if (command === "8ball") {
@@ -201,10 +201,19 @@ botxi.on("message", message => {
 
     switch (command) { //Games-ejemplo Embed
         case "saludos":
+            var und = " segundos!",
+                timeMsg = 10;
+
+            if (cooldownSet.has(message.author.id)) {
+                message.channel.send(message.author.username + " puedes usar el comando despues de " + timeMsg + und);
+                return;
+            }
+            //cooldownIf(20);
             const emSld = new MessageEmbed()
                 .setTitle("Y salutaciones xD :joy:")
                 .setColor("RANDOM");
-            message.send({ emSld });
+            message.channel.send(emSld);
+            cooldownAdd(10);
             break;
         case 'clearMsg':
             message.channel.send("Se borrarán todos los mensajes de este canal...");
@@ -291,12 +300,14 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
             break;
         case "ppt":
             // Condicionaremos que si el usuario no manda ningun argumento. O sea solo escribe el comando. *
-            if (!args[0]) return message.channel.send("Opciones: `piedra`, `papel` o `tijera`").then(m => m.delete({ timeout: 10000 })) //El .then() es opcional, yo siempre lo agrego porque me gusta.
+            const m_3 = await message.channel.send("Opciones: `piedra`, `papel` o `tijera`");
+            if (!args[0]) return await m_3.delete({ timeout: 11000 }); //El .then() es opcional, yo siempre lo agrego porque me gusta.
 
             // Haremos una declaracion en matriz con las diferentes opciones ya dichas.
-            let Options = ["piedra", "papel", "tijera"]
-                // Condicionamos la matriz con el metodo .includes() que nos va a determinar si lo que mandamos esta dentro de la matriz, si es si no devolvera true sino false.
-            if (!Options.includes(args[0].toLowerCase())) return message.reply(":x: Opcion incorrecta!").then(d => d.delete({ timeout: 60000 }));
+            let Options = ["piedra", "papel", "tijera"];
+            // Condicionamos la matriz con el metodo .includes() que nos va a determinar si lo que mandamos esta dentro de la matriz, si es si no devolvera true sino false.
+            const d_1 = await message.reply(":x: Opcion incorrecta!");
+            if (!Options.includes(args[0].toLowerCase())) return await d_1.delete({ timeout: 60000 });
 
             //Ahora empezamos a obtener las cosas de la matriz y condicionamos..
 
@@ -530,6 +541,31 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
         setTimeout(() => {
             cooldown.delete(message.author.id);
         }, 10000);
+    }
+
+    function cooldownIf(time) {
+        var und = "",
+            timeMsg = "";
+        if (time >= 60) {
+            und = " minutos!";
+            timeMsg = time / 60;
+        } else {
+            und = " segundos!";
+            timeMsg = time;
+        }
+
+        if (cooldownSet.has(message.author.id)) {
+            message.channel.send(message.author.username + " puedes usar el comando despues de " + timeMsg + und);
+            return;
+        }
+    }
+
+    function cooldownAdd(time) {
+        const timeNum = time * 1000;
+        cooldownSet.add(message.author.id);
+        setTimeout(function() {
+            cooldownSet.delete(message.author.id)
+        }, timeNum);
     }
 });
 botxi.once("error", e => console.error(e));
