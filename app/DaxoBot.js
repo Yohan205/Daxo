@@ -300,14 +300,12 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
             break;
         case "ppt":
             // Condicionaremos que si el usuario no manda ningun argumento. O sea solo escribe el comando. *
-            const m_3 = await message.channel.send("Opciones: `piedra`, `papel` o `tijera`");
-            if (!args[0]) return await m_3.delete({ timeout: 11000 }); //El .then() es opcional, yo siempre lo agrego porque me gusta.
+            if (!args[0]) return message.channel.send("Opciones: `piedra`, `papel` o `tijera`").then(m => m.delete({ timeout: 10000 })) //El .then() es opcional, yo siempre lo agrego porque me gusta.
 
             // Haremos una declaracion en matriz con las diferentes opciones ya dichas.
             let Options = ["piedra", "papel", "tijera"];
             // Condicionamos la matriz con el metodo .includes() que nos va a determinar si lo que mandamos esta dentro de la matriz, si es si no devolvera true sino false.
-            const d_1 = await message.reply(":x: Opcion incorrecta!");
-            if (!Options.includes(args[0].toLowerCase())) return await d_1.delete({ timeout: 60000 });
+            if (!Options.includes(args[0].toLowerCase())) return message.reply(":x: Opcion incorrecta!").then(d => d.delete({ timeout: 60000 }));
 
             //Ahora empezamos a obtener las cosas de la matriz y condicionamos..
 
