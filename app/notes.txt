@@ -33,6 +33,7 @@
   git log => ver logs
   git commit -m "name" => guardar carga de archivos y nombrar actualizacion
   git push heroku master => subir archivos al servidor
+  git remote add (name repository remote) (direccion de internet)
 
   heroku logs => ejecutar en el cmd para ver la consola de heroku
 
