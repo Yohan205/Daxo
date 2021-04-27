@@ -13,6 +13,8 @@ The Project
 
 This project contains:
 
+Instalar Git y Heroku para usar
+
 On the Webpage,
 - Here contains a demonstration and images about server.
 
