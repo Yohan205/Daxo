@@ -26,7 +26,7 @@ botxi.once("ready", () => { //Al iniciar el bot...
 });
 
 botxi.on("message", async message => {
-    const prefixes = ['d ', 'daxo ', 'Daxo ', 'D '];
+    const prefixes = ['d ', 'daxo ', 'Daxo ', 'D ', '//'];
     let prefix = false;
     for (const thisPrefix of prefixes) {
         if (message.content.startsWith(thisPrefix)) prefix = thisPrefix;
@@ -51,22 +51,22 @@ botxi.on("message", async message => {
         const emHelp = new MessageEmbed()
             .setColor("RANDOM")
             .setAuthor("Comandos de Daxo", botxi.user.avatarURL())
-            .setTitle("Comandos de Información").addField('▔▔▔▔▔▔▔▔▔')
-            .addField("-> `" + prefix + "brolandia`", ":: Muestra información sobre el server de Minecraft.", true)
+            .addField("Comandos de Información", '▔▔▔▔▔▔▔▔▔▔▔▔', true)
+            .addField("-> `" + prefix + "brolandia`", ":: Muestra información sobre el server de Minecraft.")
             .addField("-> `" + prefix + "user <@user>`", ":: Muestra información sobre un usuario mencioando.")
             .addField("-> `" + prefix + "server`", ":: Muestra información del servidor donde está el bot.")
             .addField("-> `" + prefix + "inviteBot`", ":: Enviará un link para que puedas tener a Daxo en tu servidor preferido. :wink: \n")
-            .addField("Comandos de Diversión", '▔▔▔▔▔▔▔▔▔▔', true)
+            .addField("Comandos de Diversión", '▔▔▔▔▔▔▔▔▔▔▔', true)
             .addField("-> `" + prefix + "galleta`", ":: Da una galleta a un usuario.")
             .addField("-> `" + prefix + "8ball`", ":: El bot respondera a tus preguntas con una respuesta aleatoria. \nPor ejemplo: *" + prefix + "8ball hoy llueve?*")
             .addField("-> `" + prefix + "ppt`", ":: Juega `Piedra`, `Papel` o `Tijera` con Daxo y prueba tu suerte.:wink: \nPor ejemplo: *" + prefix + "ppt piedra*")
             .addField("-> `" + prefix + "love`", ":: El bot calculará el porcentaje de amor entre dos usuarios 7u7. \nPor ejemplo: *" + prefix + "love <@usuario1> <@usuario2>* \n")
-            .addField("Comandos Admin/Moderadores", '▔▔▔▔▔▔▔▔▔▔', true)
+            .addField("Comandos Admin/Moderadores", '▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔', true)
             .addField("-> `" + prefix + "rol <@user> <rol>`", ":: Muestra información del rol de un usuario mencionado.")
             .addField("-> `" + prefix + "rol-list`", ":: Muestra los roles del servidor.")
             .addField("-> `" + prefix + "rol-add <@user> <rol>`", ":: Agrega un rol a un usuario mencionado.")
             .addField("-> `" + prefix + "rol-remove <@user> <rol>`", ":: Quita un rol de un usuario mencionado. \n")
-            .addField("Comandos de Interacción", '▔▔▔▔▔▔▔▔▔▔', true)
+            .addField("Comandos de Interacción", '▔▔▔▔▔▔▔▔▔▔▔▔', true)
             .addField("-> `" + prefix + "saludos`", ":: Retorna un saludo como mensaje.")
             .addField("-> `" + prefix + "announce`", ":: Hace que el bot diga un mensaje (AUN EN DESARROLLO).")
             .setFooter("Unete al servidor de soporte para conocer más sobre el bot", botxi.user.avatarURL());
