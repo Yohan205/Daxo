@@ -1,1 +1,3 @@
 node_modules
+.github/workflows/dependabot.yml
+app/*.env
