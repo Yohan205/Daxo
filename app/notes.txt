@@ -36,7 +36,7 @@ Use Git
   git checkout [name branch] => cambiar version del proyecto
   git log => ver logs
   git commit -m "name" => guardar carga de archivos y nombrar actualizacion
-  git push heroku master => subir archivos al servidor
+  git push (BranchDestino) (BranchOrigen) => subir archivos al repositorio
   git remote add (name repository remote) (direccion de internet)
   git help => ayuda de Git  
   git remote add clever git://git@push-n2-par-clevercloud-customers.services.clever-cloud.com/app_9a6f1be3-2f1b-486d-98b3-ccaf72b2084d.git
