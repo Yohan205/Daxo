@@ -6,11 +6,12 @@ para usar libreria nodemon: npx nodemon --help
 
 const { Client, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
 const botxi = new Client(); // Create an instance of a Discord client
-const config = require("./config.json"); //Extract the objects from config.json
+const config = require("./.config/config.json"); //Extract the objects from config.json
+const Zeew = require("zeew");
 //require("/functions.js");
 let cooldownSet = new Set();
 //const botdash = require('botdash.pro'); //Require botdash.pro
-//const { prefix, token } = require('./config.json');
+const sfw = new Zeew.sfw(config.TOKENZEEW);
 
 botxi.once("ready", () => { //Al iniciar el bot...
     botxi.user.setPresence({
@@ -26,7 +27,7 @@ botxi.once("ready", () => { //Al iniciar el bot...
 });
 
 botxi.on("message", async message => {
-    const prefixes = ['d ', 'daxo ', 'Daxo ', 'D ', '//'];
+    const prefixes = ['d!', 'daxo ', 'Daxo ', 'D!'];
     let prefix = false;
     for (const thisPrefix of prefixes) {
         if (message.content.startsWith(thisPrefix)) prefix = thisPrefix;
@@ -52,7 +53,7 @@ botxi.on("message", async message => {
             .setColor("RANDOM")
             .setAuthor("Comandos de Daxo", botxi.user.avatarURL())
             .addField("Comandos de Información", '▔▔▔▔▔▔▔▔▔▔▔▔', true)
-            .addField("-> `" + prefix + "brolandia`", ":: Muestra información sobre el server de Minecraft.")
+            //.addField("-> `" + prefix + "brolandia`", ":: Muestra información sobre el server de Minecraft.")
             .addField("-> `" + prefix + "user <@user>`", ":: Muestra información sobre un usuario mencioando.")
             .addField("-> `" + prefix + "server`", ":: Muestra información del servidor donde está el bot.")
             .addField("-> `" + prefix + "inviteBot`", ":: Enviará un link para que puedas tener a Daxo en tu servidor preferido. :wink: \n")
@@ -73,7 +74,6 @@ botxi.on("message", async message => {
         message.channel.send(emHelp);
         /*"**" + message.author.username + "**, Revisa tus mensajes privados.");
                 //message.author.send( //Envia el mensaje al DM
-         +
         "-> " + prefix + "ping           :: Comprueba la latencia del bot y de tus mensajes.\n"*/
     }
     if (command === "brolandia") {
@@ -120,15 +120,16 @@ botxi.on("message", async message => {
         if (!user) return message.channel.send("Menciona a un usuario para darle una galleta >.<");
 
         if (!razon) { razon = "Sin razón alguna :grin:"; }
-
+        let gif = await sfw.hug();
         const emCookie = new MessageEmbed()
             .setColor("0xF49F0A")
             .setAuthor(message.author.username, message.author.avatarURL())
             //.setFooter(botxi.user.username, botxi.user.avatarURL())
             .setThumbnail(message.author.avatarURL())
-            .setTitle("***" + user.username + ", *** tienes una :cookie: de **" + message.author.username + "**")
-            .setDescription("*Razón:* " + razon + "\n\n***(づ｡◕‿‿◕｡)づ:･ﾟ✧ :cookie:***");
-        /*zeew.sfw.hug().then((hug) => console.log(hug));
+            .setTitle("***" + user.username + ", *** tienes una galleta :cookie: de **" + message.author.username + "**")
+            .setDescription("*Razón:* " + razon + "\n\n***(づ｡◕‿‿◕｡)づ:･ﾟ✧ :cookie:***")
+            .setImage(gif);
+        /*
         let cokie = zeew.sfw.cookie();*/
         message.channel.send(emCookie);
         cooldownAdd(10);
@@ -148,7 +149,8 @@ botxi.on("message", async message => {
             " Sí ",
             " No ",
             " Por supuesto! ",
-            " Por supuesto que no "
+            " Por supuesto que no ",
+            " No estoy seguro :confused:"
         ];
         if (!text) return message.reply(`Escriba una pregunta.`);
 
@@ -159,17 +161,7 @@ botxi.on("message", async message => {
             .addField(message.author.username + " a su pregunta `" + text + "`",
                 "Mi respuesta es: `" + rpts[Math.floor(Math.random() * rpts.length)] + "`");
 
-        if (cooldown.has(message.author.id)) {
-            message.channel.send(message.author.username + " utilice el comando despues de 10 segundos!");
-            return;
-        }
-
         message.channel.send(em8ball);
-
-        cooldown.add(message.author.id);
-        setTimeout(() => {
-            cooldown.delete(message.author.id);
-        }, 10000);
     }
 
     if (command == "encuesta") {
@@ -469,16 +461,6 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
             .then(() => {
                 message.channel.send(`Listo, le agrege el rol **${rol.name}** a **${persona.user.username}**`)
             })
-
-        if (cooldown.has(message.author.id)) {
-            message.channel.send(`Hey **${message.author.username}** utiliza el comando despues de 10 segundos!`);
-            return;
-        } //cooldown 10s
-
-        cooldown.add(message.author.id);
-        setTimeout(() => {
-            cooldown.delete(message.author.id);
-        }, 10000);
     }
 
     if (command === "rol-remove" || command == "rl-r") {
@@ -511,14 +493,6 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
         persona.roles.remove(rolname.id).catch(e => message.reply("Ocurrio un **error**"))
         message.channel.send(`Listo! le quité el rol **${rolname.name}** a **${persona.user.username}**`)
             //message.channel.send(`Listo, le saque el rol **${rol.name}** a **${persona.user.username}** con la razon de: _${reason}`)
-        if (cooldown.has(message.author.id)) {
-            message.channel.send(message.author.username + " utilice el comando despues de 10 segundos!");
-            return;
-        }
-        cooldown.add(message.author.id);
-        setTimeout(() => {
-            cooldown.delete(message.author.id);
-        }, 10000);
     }
 
     if (command === 'rol-list' || command === 'rl-l') {
@@ -529,16 +503,7 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
                 .join('\n')
             )
             .setFooter(`Lista de roles de: ${server.name}`, server.iconURL());
-        message.channel.send({ embed }); //Lists of rols
-        if (cooldown.has(message.author.id)) {
-            message.channel.send(message.author.username + " utiliza el comando despues de 10 segundos!");
-            return;
-        } //cooldown 10s
-
-        cooldown.add(message.author.id);
-        setTimeout(() => {
-            cooldown.delete(message.author.id);
-        }, 10000);
+        message.channel.send(embed); //Lists of rols
     }
 
     function cooldownIf(time) {

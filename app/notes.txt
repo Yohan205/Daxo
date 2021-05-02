@@ -23,9 +23,13 @@
     }
   });}*/
 
+heroku logs => ejecutar en el cmd para ver la consola de heroku
+
+Use NPM
   npm start => inicia el bot
   npm install -g heroku
 
+Use Git
   git status => ver si los archivos estan en verde
   git add . => cargar archivos si estan en rojo
   git branch [name new branch] => muestra, crea y borra versiones del proyecto
@@ -34,14 +38,17 @@
   git commit -m "name" => guardar carga de archivos y nombrar actualizacion
   git push heroku master => subir archivos al servidor
   git remote add (name repository remote) (direccion de internet)
-
-  heroku logs => ejecutar en el cmd para ver la consola de heroku
-
-  git help => ayuda de Git
-  
+  git help => ayuda de Git  
   git remote add clever git://git@push-n2-par-clevercloud-customers.services.clever-cloud.com/app_9a6f1be3-2f1b-486d-98b3-ccaf72b2084d.git
 
-  /*Dentro de cada comando a usar cooldown debera colocar este código:
+Usando zeew devuelve un link de una imagen gif:
+  para enviar por send():
+    sfw.hug().then((img) => message.channel.send(img));
+  para enviar por embed:
+    let img = await sfw.neko();
+    .setImage(img);
+
+/*Dentro de cada comando a usar cooldown debera colocar este código:
 
 //Que detendra cualquier comando si el usuario esta dentro del enfriamiento.
 if(cooldown.has(message.author.id)){
