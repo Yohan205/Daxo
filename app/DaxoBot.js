@@ -3,15 +3,14 @@ para crear una carpeta npm: npm init
 Para instalar una libreria npm: npm install(i) [--save, -D (como dependenciaDesarrollo)] (nombre libreria)
 para usar libreria nodemon: npx nodemon --help
 */
-
+require('dotenv').config(); //Use env variables
 const { Client, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
 const botxi = new Client(); // Create an instance of a Discord client
-const config = require("./.config/config.json"); //Extract the objects from config.json
 const Zeew = require("zeew");
 //require("/functions.js");
 let cooldownSet = new Set();
 //const botdash = require('botdash.pro'); //Require botdash.pro
-const sfw = new Zeew.sfw(config.TOKENZEEW);
+const sfw = new Zeew.sfw(process.env.TOKEN_ZEEW);
 
 botxi.once("ready", () => { //Al iniciar el bot...
     botxi.user.setPresence({
@@ -534,4 +533,4 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
 botxi.once("error", e => console.error(e));
 botxi.once("warn", e => console.warn(e));
 botxi.once("debug", (e) => console.info(e));
-botxi.login(config.TOKEN); //Login to Discord Client
+botxi.login(process.env.TOKEN); //Login to Discord Client
