@@ -1,9 +1,4 @@
-/* Para iniciar el bot: npm start
-para crear una carpeta npm: npm init
-Para instalar una libreria npm: npm install(i) [--save, -D (como dependenciaDesarrollo)] (nombre libreria)
-para usar libreria nodemon: npx nodemon --help
-*/
-require('dotenv').config(); //Use env variables
+/* Para iniciar el bot: npm start*/
 const { Client, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
 const botxi = new Client(); // Create an instance of a Discord client
 const Zeew = require("zeew");
@@ -534,3 +529,5 @@ botxi.once("error", e => console.error(e));
 botxi.once("warn", e => console.warn(e));
 botxi.once("debug", (e) => console.info(e));
 botxi.login(process.env.TOKEN); //Login to Discord Client
+
+module.exports = botxi

@@ -26,8 +26,12 @@
 heroku logs => ejecutar en el cmd para ver la consola de heroku
 
 Use NPM
-  npm start => inicia el bot
+  npm run start => inicia el bot
   npm install -g heroku
+  npm update => actualizar dependencias
+  para crear una carpeta npm: npm init
+  Para instalar una libreria npm: npm install(i) [--save, -D (como dependenciaDesarrollo)] (nombre libreria)
+  para usar libreria nodemon: npx nodemon --help
 
 Use Git
   git status => ver si los archivos estan en verde
