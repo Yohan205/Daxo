@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>{{title}} - YohanColla</title>
+    <link rel="shrotcut icon" href="/IMG/logo/favicon.ico">
+    <!--META_TAGS-->
+    <meta charset="utf-8" http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Yohan Colla">
+    <meta name="description" content={{descPag}}>
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta content='#008000' name='theme-color' />
+    <!-- Windows Phone -->
+    <meta content='GREEN' name='msapplication-navbutton-color' />
+    <meta name="google-site-verification" content="H3EGmlKbSsWQJk1RMP9-HIEuVsTnth3gq-EFRfiIPAM" />
+    <!--END_META_TAGS-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Handlee|Indie+Flower|Monoton|Permanent+Marker|Shadows+Into+Light"
+        rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+        integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/button.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/general.css" />
+    {{>head}}
+</head>
+
+<body>
+    {{> header}}
+    <section class="content">
+        {{{ body }}}
+    </section>
+    {{>footer}}
+    {{>scripts_footer}}
+</body>
+
+</html>
