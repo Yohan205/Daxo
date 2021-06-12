@@ -49,12 +49,28 @@ app.get('/', (req, res) => {
 })
 
 app.get('/login', passport.authenticate("discord", { failureRedirect: '/' }), (req, res) => {
-    res.redirect('/profile')
+    res.redirect('/dash')
 })
 
-app.get('/profile', auth, (req, res) => {
+app.get('/dash', auth, (req, res) => {
     res.json({
-        datos: req.user
+        user: req.user,
+        bot: req.botxi
+    })
+})
+
+app.get('/dash/:id', auth, (req, res) => {
+
+    let id = req.params.id;
+    let servidor = req.botxi.guilds.cache.get(id);
+    let canales = servidor.channels.cache;
+
+    res.render('dash', {
+        title: "Dashboard",
+        descPag: "Dashboard_de_Daxo",
+        user: req.user,
+        servidor,
+        canales
     })
 })
 

@@ -1,4 +1,4 @@
-/* var st1 = 5; 
+﻿/* var st1 = 5; 
   
   if (st1 <= 10){
   botxi.user.setPresence({
@@ -43,7 +43,7 @@ Use Git
   git push (BranchDestino) (BranchOrigen) => subir archivos al repositorio
   git remote add (name repository remote) (direccion de internet)
   git help => ayuda de Git  
-  git remote add clever git://git@push-n2-par-clevercloud-customers.services.clever-cloud.com/app_9a6f1be3-2f1b-486d-98b3-ccaf72b2084d.git
+  git remote add DaxoGit https://github.com/Yohan205/Daxo.git
 
 Usando zeew devuelve un link de una imagen gif:
   para enviar por send():
