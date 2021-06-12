@@ -1,0 +1,185 @@
+/*==================================
+=        Formulario                =
+==================================*/
+a , .prf {color: lime;text-decoration: none;font-size: 1.3em;}
+
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url(css/fonts/comic.ttf);
+}
+
+* {
+    font-family: 'handlee', 'kalam', "Comic Sans";
+    font-weight: lighter;
+}
+
+body {
+    background: url(../IMG/backgrounds/BG_3.jpg) no-repeat center center fixed;
+    background-size: cover;
+    margin: 10px;
+    padding: 0px;
+}
+
+@media screen and (min-width: 1025px){
+	section#formulario{
+		position: absolute;
+		top: 10%;
+		left: 40%;
+		margin: 0;
+		width: 400px;
+		height: auto;
+		max-height: 500px;
+		background-color: #fff;
+		overflow: hidden;
+		border-radius: 20px;
+	}
+
+	input[type="submit"],
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+    	width: 300px;
+        height: 50px;
+        margin-left:35px;
+        margin-top: 10px;
+        padding-left: 20px;
+        font-size: 20px;
+        border-style: dashed;
+        border-radius: 10px;
+    }
+
+    input[type="submit"] {
+    	border-style: none;
+    	outline-style: none;
+        margin-top:30px;
+        margin-left: 45px;
+        font-size: 1.3em;
+        color: white;
+        background-color: #21E040;
+        box-shadow: 0px 4px 0px #18CB35;
+        cursor: pointer;
+    }
+
+    .prf_title {
+    	text-align: center;
+    	font-size: 1.7em;
+    	margin: 0;
+    	margin-top: 20px;
+    }
+
+    #tb_lgn {
+    	padding-bottom: 10px;
+    	margin-left: 20px;
+        margin-top: 30px;
+    }
+
+    #tb_lgn td {
+        padding-left: 20px;
+        width: 380px;
+    }
+
+    #tb_reg td{
+    	padding: 0;
+    	margin: 0;
+
+    }
+
+    #tb_reg td p{
+    	margin-left: 20px;
+    	margin-left: 20px;
+    	padding-bottom: 10px;
+    	padding-right: 25px;
+    }
+
+    #image {
+    	width: 100px;
+        height: 100px;
+        box-shadow: 0px 0px 3px #18CB35;
+        position: fixed;
+        left: 50%;
+    }
+
+    #user_icon {
+        position: absolute;
+        left: 45%;
+        top: 8%;
+        background-color: #fff;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+    }
+}
+
+@media screen and (max-width: 900px){
+	body {
+		background:none;
+	}
+
+	section#formulario {
+		position: static;
+		width: all;
+		height: all;
+		background-color: #fff;
+
+	}
+
+	input[type="submit"],
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+    	width: 90%;
+    	height: 50%;
+    	/*max-width: 800px;
+        max-height: 70px;*/
+        margin-top: 10px;
+        padding-left: 20px;
+        font-size: 2em;
+        border-style: dashed;
+        border-radius: 10px;
+    }
+
+    input[type="submit"] {
+    	border-style: none;
+    	outline-style: none;
+        margin-top:30px;
+        margin-left: 10px;
+        font-size: 2em;
+        color: white;
+        background-color: #21E040;
+        box-shadow: 0px 4px 0px #18CB35;
+        cursor: pointer;
+    }
+
+    .prf {font-size: 2em;}
+
+    .prf_title {
+    	text-align: center;
+    	font-size: 2em;
+    	margin: 0;
+    	margin-top: 20px;
+    }
+
+    #tb_lgn {
+    	padding-bottom: 10px;
+    	margin-left: 20px;
+        margin-top: 30px;
+    }
+
+    #tb_lgn td {
+        padding-left: 20px;
+        width: 380px;
+    }
+
+    #tb_reg td{
+    	padding: 0;
+    	margin: 0;
+
+    }
+
+    #tb_reg td p{
+    	margin-left: 20px;
+    	margin-left: 20px;
+    	padding-bottom: 10px;
+    	padding-right: 25px;
+    }
+}

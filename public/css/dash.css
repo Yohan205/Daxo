@@ -1,0 +1,21 @@
+.cards {
+    background-color: #a9ef10;
+    width: 350px;
+    height: 300px;
+    border-radius: 15px;
+    color: black;
+    padding: 10px 8px 10px 15px;
+}
+
+.cards img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    left: 20%;
+    z-index: 0;
+}
+
+.crads-body {
+    text-align: center;
+}

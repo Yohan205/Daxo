@@ -53,7 +53,9 @@ app.get('/login', passport.authenticate("discord", { failureRedirect: '/' }), (r
 })
 
 app.get('/dash', auth, (req, res) => {
-    res.json({
+    res.render("dash", {
+        title: "Dashboard",
+        descPag: "Dashboard_de_Daxo",
         user: req.user,
         bot: req.botxi
     })
@@ -71,6 +73,13 @@ app.get('/dash/:id', auth, (req, res) => {
         user: req.user,
         servidor,
         canales
+    })
+})
+
+app.get('/dashjs', auth, (req, res) => {
+    res.json({
+        user: req.user,
+        bot: req.botxi
     })
 })
 
