@@ -63,14 +63,15 @@ app.get('/dash', auth, (req, res) => {
                 esta: true,
                 id: req.botxi.guilds.cache.get(gild[key].id).id,
                 name: req.botxi.guilds.cache.get(gild[key].id).name,
-                iconS: req.botxi.guilds.cache.get(gild[key].id).icon
+                icon: req.botxi.guilds.cache.get(gild[key].id).icon,
+                acronym: req.botxi.guilds.cache.get(gild[key].id).nameAcronym
             })
         } else {
             servidoresU.push({
                 esta: false,
                 id: gild[key].id,
                 name: gild[key].name,
-                iconS: gild[key].icon
+                icon: gild[key].icon
             })
         }
     }
@@ -89,13 +90,20 @@ app.get('/dash/:id', auth, (req, res) => {
     let servers = req.botxi.guilds.cache.get(id);
     let canales = servers.channels.cache;
 
-    res.render('dash', {
-        title: "Dashboard",
-        descPag: "Dashboard_de_Daxo",
-        user: req.user,
+    res.json({
         servers,
-        canales
-    });
+        canales,
+        roles: servers.roles.cache,
+        personas: servers.members
+    })
+
+    //res.render('panel', {
+    //    title: "Dashboard",
+    //    descPag: "Dashboard_de_Daxo",
+    //    user: req.user,
+    //    servers,
+    //    canales
+    //});
 });
 
 app.get('/dashjs', auth, (req, res) => {

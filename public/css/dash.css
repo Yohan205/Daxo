@@ -9,13 +9,20 @@
     display: inline-block;
 }
 
-.cards img {
+.cards-icon {
+    position: relative;
+    left: 24%;
+}
+
+.cards-icon img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    position: relative;
-    left: 24%;
     z-index: 0;
+}
+
+.card-icon p {
+    text-align: center;
 }
 
 .cards-body {
