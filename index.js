@@ -53,28 +53,50 @@ app.get('/login', passport.authenticate("discord", { failureRedirect: '/' }), (r
 })
 
 app.get('/dash', auth, (req, res) => {
+
+    let servidoresU = [];
+    let gild = req.user.guilds.filter(p => (p.permissions & 8) === 8);
+
+    for (const key in gild) {
+        if (req.botxi.guilds.cache.get(gild[key].id)) {
+            servidoresU.push({
+                esta: true,
+                id: req.botxi.guilds.cache.get(gild[key].id).id,
+                name: req.botxi.guilds.cache.get(gild[key].id).name,
+                iconS: req.botxi.guilds.cache.get(gild[key].id).icon
+            })
+        } else {
+            servidoresU.push({
+                esta: false,
+                id: gild[key].id,
+                name: gild[key].name,
+                iconS: gild[key].icon
+            })
+        }
+    }
+
     res.render("dash", {
         title: "Dashboard",
         descPag: "Dashboard_de_Daxo",
         user: req.user,
-        bot: req.botxi
-    })
-})
+        servidoresU
+    });
+});
 
 app.get('/dash/:id', auth, (req, res) => {
 
     let id = req.params.id;
-    let servidor = req.botxi.guilds.cache.get(id);
-    let canales = servidor.channels.cache;
+    let servers = req.botxi.guilds.cache.get(id);
+    let canales = servers.channels.cache;
 
     res.render('dash', {
         title: "Dashboard",
         descPag: "Dashboard_de_Daxo",
         user: req.user,
-        servidor,
+        servers,
         canales
-    })
-})
+    });
+});
 
 app.get('/dashjs', auth, (req, res) => {
     res.json({

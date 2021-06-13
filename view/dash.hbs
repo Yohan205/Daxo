@@ -1,10 +1,16 @@
 
-    <h1>Usuario: {{user.username}} # {{user.discriminator}}</h1>
+    <h1>Usuario: {{user.username}} #{{user.discriminator}}</h1>
     <hr>
+    {{#each servidoresU}}
     <div class="cards">
-        <img src="/IMG/logo/icon-1.png" alt="Icon">
+        <img src="http://cdn.yohancolla.ga/IMG/logo/icon-2.png" alt="Icon">
         <div class="cards-body">
-            <h2 class="cards-tittle">Servidor: {{servidor.name}}</h2>
-            <a href="/dash/654830450920914955" class="btn radius yellow">Ver</a>
+            <h4 class="cards-tittle">{{this.name}}</h4>
+            {{#if this.esta}}
+            <a href="/dash/{{this.id}}" class="btn radius yellow">Ver</a>
+            {{ else}}
+            <a href="https://discord.com/api/oauth2/authorize?client_id=668118265779716106&permissions=0&redirect_uri=http%3A%2F%2Fhidaxo.ga%2Flogin&scope=bot" target="_blank" class="btn radius cian">Invitar</a>
+            {{/if}}
         </div>
     </div>
+    {{/each}}
