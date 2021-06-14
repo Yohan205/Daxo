@@ -1,3 +1,18 @@
+.dash-tittle {
+    height: 100px;
+    width: auto;
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.dash-img img {
+    height: 90px;
+    width: 90px;
+    border-radius: 25%;
+    margin-right: 15px;
+}
+
 .cards {
     background-color: #e6e6e6;
     width: 300px;
@@ -26,5 +41,10 @@
 }
 
 .cards-body {
+    text-align: justify;
+}
+
+.cards-title,
+.cards-body a {
     text-align: center;
 }

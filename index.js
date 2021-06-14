@@ -88,28 +88,32 @@ app.get('/dash/:id', auth, (req, res) => {
 
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
-    let canales = servers.channels.cache;
+    let canales = servers.channels.cache.filter(c => c.type === "text").map(ch => ({ name: ch.name, id: ch.id }));
+    let emoji = JSON.stringify(servers.emojis.cache);
 
-    res.json({
+    res.render('panel', {
+        title: "Dashboard " + servers.name,
+        descPag: "Dashboard_Daxo",
+        user: req.user,
         servers,
         canales,
-        roles: servers.roles.cache,
-        personas: servers.members
-    })
-
-    //res.render('panel', {
-    //    title: "Dashboard",
-    //    descPag: "Dashboard_de_Daxo",
-    //    user: req.user,
-    //    servers,
-    //    canales
-    //});
+        emojis: JSON.parse(emoji)
+    });
 });
 
-app.get('/dashjs', auth, (req, res) => {
+app.get('/dashjs/:id', auth, (req, res) => {
+    let id = req.params.id;
+    let servers = req.botxi.guilds.cache.get(id);
+    let canales = servers.channels.cache.filter(c => c.type === "text" || c.type === "category").map(ch => ({ type: ch.type, name: ch.name, id: ch.id, rawpstn: ch.rawPosition }));
+    let emoji = JSON.stringify(servers.emojis.cache);
+
     res.json({
         user: req.user,
-        bot: req.botxi
+        servers,
+        canales,
+        emoji: JSON.parse(emoji),
+        roles: servers.roles.cache,
+        personas: servers.members
     })
 })
 
