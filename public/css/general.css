@@ -9,7 +9,7 @@
 }
 
 body {
-    background: url(../IMG/backgrounds/BG_3.jpg) no-repeat center center fixed;
+    background: url(https://cdn.hidaxo.ga/IMG/backgrounds/BG_3.jpg) no-repeat center center fixed;
     background-size: cover;
     margin: 10px;
     padding: 0px;
@@ -42,8 +42,10 @@ body {
     padding-top: 10px;
 }
 
+
+/*PC - TABLETS*/
+
 @media screen and (min-width: 1025px) {
-    /*PC - TABLETS*/
     body {
         padding-top: 72px;
     }
@@ -140,7 +142,7 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-    /*CELULARES*/
+    /* CELULARES */
     body {
         padding-top: 69px;
     }
@@ -216,7 +218,7 @@ body {
     }
     footer .copy {
         display: inline-block;
-        font-size: 1.5em;
+        font-size: 1.2em;
         color: #DDD;
     }
     footer img {

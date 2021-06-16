@@ -1,4 +1,3 @@
 node_modules
 ignore
 .env
-.github/workflows/dependabot.yml

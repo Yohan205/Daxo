@@ -13,7 +13,7 @@ passport.use(new Strategy({
     clientID: process.env.ID_BOTXI,
     clientSecret: process.env.SECRET_BOTXI,
     callbackURL: process.env.URL_CALBAK,
-    scope: ['identify', 'guilds']
+    scope: ['identify', 'guilds', 'email']
 }, (accesstoken, refreshtoken, profile, cb) => {
     process.nextTick(() => {
         return cb(null, profile)

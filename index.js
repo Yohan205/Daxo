@@ -80,24 +80,28 @@ app.get('/dash', auth, (req, res) => {
         title: "Dashboard",
         descPag: "Dashboard_de_Daxo",
         user: req.user,
+        email: req.user.email,
         servidoresU
     });
 });
+
+app.get('/dashjs', auth, (req, res) => {
+    res.json({
+        user: req.user,
+        email: req.user.email
+    })
+})
 
 app.get('/dash/:id', auth, (req, res) => {
 
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
-    let canales = servers.channels.cache.filter(c => c.type === "text").map(ch => ({ name: ch.name, id: ch.id }));
-    let emoji = JSON.stringify(servers.emojis.cache);
 
     res.render('panel', {
         title: "Dashboard " + servers.name,
         descPag: "Dashboard_Daxo",
         user: req.user,
-        servers,
-        canales,
-        emojis: JSON.parse(emoji)
+        servers
     });
 });
 
@@ -117,6 +121,54 @@ app.get('/dashjs/:id', auth, (req, res) => {
     })
 })
 
+app.get('/dash/:id/commands', auth, (req, res) => {
+
+    let id = req.params.id;
+    let servers = req.botxi.guilds.cache.get(id);
+    let canales = servers.channels.cache.filter(c => c.type === "text").map(ch => ({ name: ch.name, id: ch.id }));
+    let emoji = JSON.stringify(servers.emojis.cache);
+
+    res.render('customCMD', {
+        title: "Custom Commands " + servers.name,
+        descPag: "Dashboard_Daxo",
+        user: req.user,
+        servers,
+        canales,
+        emojis: JSON.parse(emoji)
+    });
+});
+
+app.get('/dash/:id/emojis', auth, (req, res) => {
+
+    let id = req.params.id;
+    let servers = req.botxi.guilds.cache.get(id);
+    let emoji = JSON.stringify(servers.emojis.cache);
+
+    res.render('emojis', {
+        title: "Lista de emojis | " + servers.name,
+        descPag: '"Lista de emojis"',
+        user: req.user,
+        servers,
+        emojis: JSON.parse(emoji)
+    });
+});
+
+app.get('/dash/:id/canales', auth, (req, res) => {
+
+    let id = req.params.id;
+    let servers = req.botxi.guilds.cache.get(id);
+    let canalesTxt = servers.channels.cache.filter(c => c.type === "text").map(ch => ({ name: ch.name, id: ch.id, position: ch.rawPosition }));
+    let canalesCty = servers.channels.cache.filter(c => c.type === "category").map(ch => ({ name: ch.name, id: ch.id, position: ch.rawPosition }));
+
+    res.render('channels', {
+        title: "lista de canales | " + servers.name,
+        descPag: "Dashboard_Daxo",
+        user: req.user,
+        servers,
+        canalesTxt,
+        canalesCty
+    });
+});
 require('./DaxoBot')
 
 app.listen(app.get('port'), () => {

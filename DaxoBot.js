@@ -27,20 +27,22 @@ botxi.on("message", async message => {
         if (message.content.startsWith(thisPrefix)) prefix = thisPrefix;
     }
     if (!prefix) return;
-    if (!message.content.startsWith(prefix)) return;
     if (message.author.bot) return;
-    console.log(message.content);
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift(); //.toLowerCase();
-    const server = message.guild; //Por si falla, se menciona el servidor botxi.guilds.resolve(args[0]) ||
-    //require("./functions.js");
-
+    const command = args.shift().toLowerCase();
+    const server = message.guild; //Por si falla, se menciona el servidor || botxi.guilds.resolve(args[0])
+    console.log(command);
+    if (command === "test") {
+        console.log(args);
+        console.log(server.roles.cache.find(r => r.name === args));
+        // console.log(message.member._roles);
+    }
     /*botxi.on("guildMemberAdd", member => {
         console.log(`Nuevo usuario:  ${member.user.username} se ha unido a ${member.guild.name}.`);
         var canal = botxi.channels.get("654830450920914958");
         canal.send(`${member.user}, bienvenido al servidor pasala bien.`);
-    });
-    if(!message.author.id !== 'IDOWNER')*/
+    });*/
+    // if (!message.author.id !== 'IDOWNER')
 
     if (message.content.startsWith(prefix + "help") || message.content.startsWith("Daxo help")) {
         const emHelp = new MessageEmbed()
@@ -110,11 +112,11 @@ botxi.on("message", async message => {
         let user = message.mentions.users.first() || //por mencion
             server.members.resolve(args[0]); //por id
         let razon = args.slice(1).join(" ");
+        let gif = await sfw.wink();
 
         if (!user) return message.channel.send("Menciona a un usuario para darle una galleta >.<");
 
-        if (!razon) { razon = "Sin razón alguna :grin:"; }
-        let gif = await sfw.hug();
+        if (!razon) razon = "Sin razón alguna :grin:";
         const emCookie = new MessageEmbed()
             .setColor("0xF49F0A")
             .setAuthor(message.author.username, message.author.avatarURL())
@@ -123,8 +125,6 @@ botxi.on("message", async message => {
             .setTitle("***" + user.username + ", *** tienes una galleta :cookie: de **" + message.author.username + "**")
             .setDescription("*Razón:* " + razon + "\n\n***(づ｡◕‿‿◕｡)づ:･ﾟ✧ :cookie:***")
             .setImage(gif);
-        /*
-        let cokie = zeew.sfw.cookie();*/
         message.channel.send(emCookie);
         cooldownAdd(10);
     }
@@ -162,7 +162,8 @@ botxi.on("message", async message => {
         message.delete({ timeout: 7000 }); //Elimina el mensaje del autor despues de 7 segundos
 
         let reporte = args.join(' '); //Aqui se guarda la pregunta
-        //if (!message.member.roles.cache.get('ID-RANGO')) return; //Podes poner permisos si lo quieres hacer privado el comando
+        //if (!message.member.roles.cache.get('ID-RANGO')) return;
+        //Podes poner permisos si lo quieres hacer privado el comando
         if (!reporte) return message.channel.send(`:grey_exclamation: | **Envia tu pregunta**`)
 
         const embed = new MessageEmbed()
@@ -177,8 +178,9 @@ botxi.on("message", async message => {
             m.react("2\u20e3");
         });
 
-        /*let canal = server.channels.cache.find(ch => ch.id == "835748557570310187"); //si hay un canal para logs colocar la id del canal
-            let canal = client.channels.get("ID-CANAL");  const e = new MessageEmbed()
+        /*let canal = server.channels.cache.find(ch => ch.id === "835748557570310187"); //si hay un canal para logs colocar la id del canal
+            let canal = client.channels.get("ID-CANAL");
+            const e = new MessageEmbed()
             .setTitle("Sistema de logs por votacion").setDescription("Esto se activa, por votacion activada")
             .addField("Se ha activado el sistema y dice", reporte, false)
             canal.send(e)
@@ -211,11 +213,8 @@ botxi.on("message", async message => {
         case "announce":
             let text = args.join(" ");
             //let rolDest = message.guild.roles.find("name", args.slice(1).join(" "));
-            if (!text) {
-                return;
-                message.channel.send(`Escriba un contenido para decir.`);
-            }
-            let rolDest = "@everyone";
+            if (!text) return message.channel.send(`Escriba un contenido para decir.`);
+            let rolDest = "@everyone ";
             //if(!rolDest){rolDest = '@everyone'}
             /*const embed = new MessageEmbed()
         .setTitle("Announce")
@@ -325,6 +324,10 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
                 message.reply(" " + random3[Math.floor(Math.random() * random3.length)] + "")
             }
             break;
+        case "neko":
+            let gifNeko = await sfw.neko();
+            message.channel.send(gifNeko)
+            break;
     }
     if (command === "server") {
 
@@ -389,115 +392,119 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
 
     /*Working with rol*/
     if (command === "rol") {
+        //NOTA: poner cuando solo se manda este comando "daxo rol"
         let persona = message.mentions.members.first() || //por mencion
-            message.guild.members.resolve(args[0]) || //por id
+            message.guild.members.resolve(args[1]) || //por id
             message.member;
-
-        if (persona == message.member) {
-            if (!args) { message.channel.send("Debes poner el nombre del rol"); return; }
-
-            var rol = message.guild.roles.cache.find(r => r.name == args.join(' ')) || //busca nombre rol
-                message.guild.roles.cache.find(r => r.id == args.join(' '));
-            if (!rol) { message.channel.send('Rol no encontrado en el servidor'); return; }
-
-            if (persona.roles.cache.some(r => r == rol)) {
-                message.channel.send(`Tu si tienes el rol \`${rol.name}\` `)
-            } else {
-                message.channel.send(`Tu no tienes el rol \`${rol.name}\` `)
-            }
-        } else {
-            let nombrerol = args.slice(1).join(' ')
-            if (!nombrerol) { message.channel.send("Debes poner el nombre del rol despues de la mencion o id"); return; }
-
-            let rol = message.guild.roles.cache.find(r => r.name == nombrerol)
-            if (!rol) { message.channel.send('Rol no encontrado en el servidor'); return; }
-
-            if (persona.roles.cache.some(r => r == rol)) {
-                message.channel.send(`**${persona.user.tag}** si tiene el rol \`${rol.name}\` `)
-            } else {
-                message.channel.send(`**${persona.user.tag}** no tiene el rol \`${rol.name}\` `)
-            }
-        }
-    }
-
-    if (command === "rol-add" || command === "rl-a") {
-        if (!server.me.hasPermission("MANAGE_ROLES")) {
-            return message.channel.send("Que mal, no tengo permisos para hacer eso") //revisa si el bot tiene permiso para añadir roles
-        }
-
-        if (!message.member.hasPermission("MANAGE_ROLES")) {
-            return message.channel.send("Wey no tienes permisos para hacer eso! D:") //revisa si el autor tiene el permiso
-        }
-
-        let persona = message.mentions.members.first() || //por mencion
-            message.guild.members.resolve(args[0]); //por id
-
-        if (!persona) return message.channel.send('Oye menciona o pon la id de alguien para darle el rol')
-
-        if (!args[1]) {
-            return message.channel.send('Menciona o pon el nombre o id del rol a dar sino, cómo voy a saber que rol quieres jsjsjs')
-        }
-
         let rol = message.mentions.roles.first() || //por mencion
-            message.guild.roles.resolve(args[1]) || //por id
-            message.guild.roles.cache.find(r => r.name == args.slice(1).join(' ')); //por nombre
+            server.roles.resolve(args[1]) || //por id
+            server.roles.cache.find(r => r.name == args.slice(1).join(' ')); //por nombre
+        let rol2 = server.roles.resolve(args[2]) || //por id
+            server.roles.cache.find(r => r.name == args.slice(2).join(' '));
 
-        if (!rol) {
-            return message.channel.send('Parece que ese rol no está en el servidor :/')
-        } else if (!rol.editable) {
-            return message.channel.send('Lo siento, pero no puedo darle ese rol a nadie, pues es más alto que mi rol')
-        } else if (rol.comparePositionTo(message.member.roles.highest) > 0) {
-            return message.channel.send('El rol mencionado es más alto que tu rol (en lo que a jerarquia se refiere), asi no puedes darselo a nadie')
+        switch (args[0]) {
+            case "find":
+                if (persona == message.member) {
+                    if (!args) { message.channel.send("Porfa, pon el nombre o id del rol para poder buscarlo"); return; }
+
+                    if (!rol) { message.channel.send('No pude encontrar el rol en el servidor o está mal escrito :c'); return; }
+
+                    let rolName = persona.roles.cache.some(r => r == rol);
+
+                    if (rolName) {
+                        message.channel.send(`**${persona.user.tag}** si tienes el rol \`${rol.name}\` `)
+                    } else {
+                        message.channel.send(`**${persona.user.tag}** no tienes el rol \`${rol.name}\` `)
+                    }
+                } else {
+                    console.log(server.roles.cache.find(r => r === args.slice(2).join(' ')));
+                    // console.log(rol2);
+                    if (!rol2) { message.channel.send("Porfa, pon el nombre o id del rol para poder buscarlo"); return; }
+                    console.log(server.roles.cache.map(r => ({ id: r.id, name: r.name })));
+
+                    let personaInRol = persona.roles.cache.some(r => r == rol2);
+                    console.log(personaInRol);
+
+                    if (!personaInRol) { message.channel.send('No pude encontrar el rol en el servidor :c'); return; }
+
+                    if (personaInRol) {
+                        message.channel.send(`**${persona.user.tag}** si tiene el rol \`${rol2.name}\` `)
+                    } else {
+                        message.channel.send(`**${persona.user.tag}** no tiene el rol \`${rol2.name}\` `)
+                    }
+                }
+                break;
+            case "add":
+                if (!server.me.hasPermission("MANAGE_ROLES")) {
+                    return message.channel.send("Que mal, no tengo permisos para hacer eso") //revisa si el bot tiene permiso para añadir roles
+                }
+                if (!message.member.hasPermission("MANAGE_ROLES")) {
+                    return message.channel.send("Wey no tienes permisos para hacer eso! D:") //revisa si el autor tiene el permiso
+                }
+
+                if (!persona) return message.channel.send('Oye menciona o pon la id de alguien para darle el rol')
+
+                if (!args[1]) {
+                    return message.channel.send('Menciona o pon el nombre o id del rol a dar sino, cómo voy a saber qué rol quieres jsjsjs')
+                }
+
+                if (!rol) {
+                    return message.channel.send('Parece que ese rol no está en el servidor :/')
+                } else if (!rol.editable) {
+                    return message.channel.send('Lo siento, pero no puedo darle ese rol a nadie, pues es más alto que mi rol')
+                } else if (rol.comparePositionTo(message.member.roles.highest) > 0) {
+                    return message.channel.send('El rol mencionado es más alto que tu rol (en lo que a jerarquia se refiere), asi no puedes darselo a nadie')
+                }
+
+                persona.roles.add(rol)
+                    .catch(e => message.reply('Ups, ocurrio un **error** vuelve a intentarlo'))
+                    .then(() => {
+                        message.channel.send(`Listo, le agrege el rol **${rol.name}** a **${persona.user.username}**`)
+                    })
+                break;
+            case "remove":
+                if (!message.guild.me.hasPermission("MANAGE_ROLES")) {
+                    return message.channel.send("Que mal, no tengo permisos para hacer eso")
+                }
+
+                if (!message.member.hasPermission("MANAGE_ROLES")) {
+                    return message.channel.send("Wey no tienes permisos para hacer eso! D:")
+                }
+
+                if (!persona) return message.channel.send('Oye menciona o pon la id de alguien para quitarle el rol')
+
+                let nombrerol = args.slice(1).join(' ');
+                if (!nombrerol) return message.channel.send('Escribe el nombre completo del rol a quitar')
+
+                let rolname = server.roles.cache.find(r => r.name == nombrerol);
+                //console.log(message.member);
+                if (!rolname) {
+                    return message.channel.send('Parece que ese rol no está en el servidor :confused:')
+                } else if (!rolname.editable) {
+                    return message.channel.send("Lo siento, pero no puedo quitarle ese rol a nadie, debido a que esta mas alto que mi rol")
+                } else if (rolname.comparePositionTo(message.member.roles.highest) > 0) {
+                    return message.channel.send("Ese rol es mas alto que tu rol mas alto (en lo que a jerarquia se refiere), asi no puedes quitarselo a nadie")
+                }
+                /*let reason = args.slice(2).join('');
+                if(!reason) return message.channel.send("Necesitas decir una razón");*/
+
+                persona.roles.remove(rolname.id).catch(e => message.reply("Ocurrio un **error**"))
+                message.channel.send(`Listo! le quité el rol **${rolname.name}** a **${persona.user.username}**`)
+                    //message.channel.send(`Listo, le saque el rol **${rol.name}** a **${persona.user.username}** con la razon de: _${reason}`)
+                break;
+            case "list":
+                const embed = new MessageEmbed()
+                    .setColor(0x00AE86)
+                    .setDescription(
+                        server.roles.cache.map(role => `<@&${role.id}>`)
+                        .join('\n')
+                    )
+                    .setFooter(`Lista de roles de: ${server.name}`, server.iconURL());
+                message.channel.send(embed);
+                break;
+            default:
+                break;
         }
-
-        persona.roles.add(rol)
-            .catch(e => message.reply('Ups, ocurrio un **error** vuelve a intentarlo'))
-            .then(() => {
-                message.channel.send(`Listo, le agrege el rol **${rol.name}** a **${persona.user.username}**`)
-            })
-    }
-
-    if (command === "rol-remove" || command == "rl-r") {
-        if (!message.guild.me.hasPermission("MANAGE_ROLES")) {
-            return message.channel.send("Que mal, no tengo permisos para hacer eso")
-        }
-
-        if (!message.member.hasPermission("MANAGE_ROLES")) {
-            return message.channel.send("Wey no tienes permisos para hacer eso! D:")
-        }
-
-        let persona = message.mentions.members.first();
-        if (!persona) return message.channel.send('Oye menciona o pon la id de alguien para quitarle el rol')
-
-        let nombrerol = args.slice(1).join(' ');
-        if (!nombrerol) return message.channel.send('Escribe el nombre completo del rol a quitar')
-
-        let rolname = server.roles.cache.find(r => r.name == nombrerol);
-        //console.log(message.member);
-        if (!rolname) {
-            return message.channel.send('Parece que ese rol no está en el servidor :confused:')
-        } else if (!rolname.editable) {
-            return message.channel.send("Lo siento, pero no puedo quitarle ese rol a nadie, debido a que esta mas alto que mi rol")
-        } else if (rolname.comparePositionTo(message.member.roles.highest) > 0) {
-            return message.channel.send("Ese rol es mas alto que tu rol mas alto (en lo que a jerarquia se refiere), asi no puedes quitarselo a nadie")
-        }
-        /*let reason = args.slice(2).join('');
-        if(!reason) return message.channel.send("Necesitas decir una razón");*/
-
-        persona.roles.remove(rolname.id).catch(e => message.reply("Ocurrio un **error**"))
-        message.channel.send(`Listo! le quité el rol **${rolname.name}** a **${persona.user.username}**`)
-            //message.channel.send(`Listo, le saque el rol **${rol.name}** a **${persona.user.username}** con la razon de: _${reason}`)
-    }
-
-    if (command === 'rol-list' || command === 'rl-l') {
-        const embed = new MessageEmbed()
-            .setColor(0x00AE86)
-            .setDescription(
-                server.roles.cache.map(role => `<@&${role.id}>`)
-                .join('\n')
-            )
-            .setFooter(`Lista de roles de: ${server.name}`, server.iconURL());
-        message.channel.send(embed); //Lists of rols
     }
 
     function cooldownIf(time) {
