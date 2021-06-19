@@ -1,7 +1,9 @@
 /* Para iniciar el bot: npm start*/
 const { Client, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
 const botxi = new Client(); // Create an instance of a Discord client
+const msgEMBED = new MessageEmbed();
 const Zeew = require("zeew");
+const sendT = require("./public/js/sendDaxo");
 //require("/functions.js");
 let cooldownSet = new Set();
 //const botdash = require('botdash.pro'); //Require botdash.pro
@@ -20,9 +22,10 @@ botxi.once("ready", () => { //Al iniciar el bot...
     );
 });
 
+const prefixes = ['d!', 'daxo ', 'Daxo ', 'D!'];
+let prefix = false;
+
 botxi.on("message", async message => {
-    const prefixes = ['d!', 'daxo ', 'Daxo ', 'D!'];
-    let prefix = false;
     for (const thisPrefix of prefixes) {
         if (message.content.startsWith(thisPrefix)) prefix = thisPrefix;
     }
@@ -33,9 +36,10 @@ botxi.on("message", async message => {
     const server = message.guild; //Por si falla, se menciona el servidor || botxi.guilds.resolve(args[0])
     console.log(command);
     if (command === "test") {
-        console.log(args);
-        console.log(server.roles.cache.find(r => r.name === args));
-        // console.log(message.member._roles);
+        message.channel.send(sendT.msgToto)
+            // console.log(args);
+            // console.log(server.roles.cache.find(r => r.name === args));
+            // console.log(message.member._roles);
     }
     /*botxi.on("guildMemberAdd", member => {
         console.log(`Nuevo usuario:  ${member.user.username} se ha unido a ${member.guild.name}.`);
@@ -45,7 +49,7 @@ botxi.on("message", async message => {
     // if (!message.author.id !== 'IDOWNER')
 
     if (message.content.startsWith(prefix + "help") || message.content.startsWith("Daxo help")) {
-        const emHelp = new MessageEmbed()
+        const emHelp = msgEMBED
             .setColor("RANDOM")
             .setAuthor("Comandos de Daxo", botxi.user.avatarURL())
             .addField("Comandos de Información", '▔▔▔▔▔▔▔▔▔▔▔▔', true)

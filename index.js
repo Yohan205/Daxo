@@ -1,15 +1,15 @@
 require('dotenv').config(); //Use env variables
-const botxi = require('./DaxoBot')
 const express = require('express');
 const path = require('path');
 const hbs = require('express-handlebars');
 const app = express();
-const auth = require('./middlewares')
+const auth = require('./middlewares');
+const botxi = require('./DaxoBot');
 const session = require('express-session');
 const passport = require('./passport');
 
 //Settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5040);
 
 //Engine
 app.set('views', path.join(__dirname, '/view'))
@@ -41,10 +41,9 @@ app.use((req, res, next) => {
 
 //Routers
 app.get('/', (req, res) => {
-    //res.send('Hello Word')
     res.render('home', {
         title: "Inicio",
-        descPag: "Página de inicio"
+        descPag: "Página_de_inicio"
     })
 })
 
@@ -78,7 +77,7 @@ app.get('/dash', auth, (req, res) => {
 
     res.render("dash", {
         title: "Dashboard",
-        descPag: "Dashboard_de_Daxo",
+        descPag: "Dashboard Daxo",
         user: req.user,
         email: req.user.email,
         servidoresU
@@ -162,7 +161,7 @@ app.get('/dash/:id/canales', auth, (req, res) => {
 
     res.render('channels', {
         title: "lista de canales | " + servers.name,
-        descPag: "Dashboard_Daxo",
+        descPag: "PRUEBA",
         user: req.user,
         servers,
         canalesTxt,

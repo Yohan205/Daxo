@@ -102,6 +102,13 @@ body {
     nav .subnav:hover {
         display: block;
     }
+    .wlc_u {
+        background-color: rgba(0, 0, 0, 0.4);
+        color: white;
+        font-size: 23px;
+        margin: 0;
+        top: 40px;
+    }
     .btn_nav_right {
         margin-right: 30px;
     }
@@ -196,6 +203,11 @@ body {
     nav ul li ul {
         display: block;
         position: relative;
+    }
+    .wlc_u {
+        color: white;
+        font-size: 19px;
+        margin: 0;
     }
     .content {
         padding-left: 0px;
