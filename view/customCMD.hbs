@@ -6,7 +6,10 @@
         <h1><b>{{servers.name}}</b></h1>
     </div>
 </div>
-<form action="" method="GET" onsubmit="alertT()">
+<form action="/dash/formulario" method="POST" onsubmit="alertT()">
     <input type="text" name="msgText" id="msgText" autocomplete="off" placeholder="Escribe tu mensaje">
     <input type="submit" id="btnEnviar" value="Enviar">
 </form>
+{{#each msg}}
+<h2>{{this.id}} - {{this.contenido}}</h2>
+{{/each}}

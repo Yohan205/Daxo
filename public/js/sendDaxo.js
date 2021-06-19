@@ -1,10 +1,7 @@
-let msgT = true;
-
 function alertT() {
-    var msgText = document.getElementById('msgText');
-    msgT = msgText.Value;
-    alert(msgT);
-}
+    var msg = document.getElementById('msgText').value;
+    alert(msg);
+};
 
 const sendT = {
     msgToto: "yeii funciona"

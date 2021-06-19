@@ -1,13 +1,12 @@
-/* Para iniciar el bot: npm start*/
 const { Client, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
 const botxi = new Client(); // Create an instance of a Discord client
-const msgEMBED = new MessageEmbed();
+const EMBED = new MessageEmbed();
 const Zeew = require("zeew");
-const sendT = require("./public/js/sendDaxo");
-//require("/functions.js");
-let cooldownSet = new Set();
-//const botdash = require('botdash.pro'); //Require botdash.pro
 const sfw = new Zeew.sfw(process.env.TOKEN_ZEEW);
+
+const prefixes = ['d!', 'daxo ', 'Daxo ', 'D!'];
+let prefix = false;
+let cooldownSet = new Set();
 
 botxi.once("ready", () => { //Al iniciar el bot...
     botxi.user.setPresence({
@@ -22,9 +21,6 @@ botxi.once("ready", () => { //Al iniciar el bot...
     );
 });
 
-const prefixes = ['d!', 'daxo ', 'Daxo ', 'D!'];
-let prefix = false;
-
 botxi.on("message", async message => {
     for (const thisPrefix of prefixes) {
         if (message.content.startsWith(thisPrefix)) prefix = thisPrefix;
@@ -36,10 +32,10 @@ botxi.on("message", async message => {
     const server = message.guild; //Por si falla, se menciona el servidor || botxi.guilds.resolve(args[0])
     console.log(command);
     if (command === "test") {
-        message.channel.send(sendT.msgToto)
-            // console.log(args);
-            // console.log(server.roles.cache.find(r => r.name === args));
-            // console.log(message.member._roles);
+        console.log(botxi.channels);
+        // message.channel.send(sendT.msgToto)
+        // console.log(server.roles.cache.find(r => r.name === args));
+        // console.log(message.member._roles);
     }
     /*botxi.on("guildMemberAdd", member => {
         console.log(`Nuevo usuario:  ${member.user.username} se ha unido a ${member.guild.name}.`);
@@ -49,7 +45,7 @@ botxi.on("message", async message => {
     // if (!message.author.id !== 'IDOWNER')
 
     if (message.content.startsWith(prefix + "help") || message.content.startsWith("Daxo help")) {
-        const emHelp = msgEMBED
+        const emHelp = EMBED
             .setColor("RANDOM")
             .setAuthor("Comandos de Daxo", botxi.user.avatarURL())
             .addField("Comandos de Información", '▔▔▔▔▔▔▔▔▔▔▔▔', true)
@@ -77,7 +73,7 @@ botxi.on("message", async message => {
         "-> " + prefix + "ping           :: Comprueba la latencia del bot y de tus mensajes.\n"*/
     }
     if (command === "brolandia") {
-        const embed = new MessageEmbed()
+        const embed = EMBED
             .setTitle("The Broland Server")
             .setAuthor(message.author.username, message.author.avatarURL)
             .setColor(0x00aefb)
@@ -121,7 +117,7 @@ botxi.on("message", async message => {
         if (!user) return message.channel.send("Menciona a un usuario para darle una galleta >.<");
 
         if (!razon) razon = "Sin razón alguna :grin:";
-        const emCookie = new MessageEmbed()
+        const emCookie = EMBED
             .setColor("0xF49F0A")
             .setAuthor(message.author.username, message.author.avatarURL())
             //.setFooter(botxi.user.username, botxi.user.avatarURL())
@@ -152,7 +148,7 @@ botxi.on("message", async message => {
         ];
         if (!text) return message.reply(`Escriba una pregunta.`);
 
-        const em8ball = new MessageEmbed()
+        const em8ball = EMBED
             .setColor("RANDOM")
             .setAuthor(message.author.username, message.author.avatarURL())
             .setFooter(botxi.user.username, botxi.user.avatarURL())
@@ -170,7 +166,7 @@ botxi.on("message", async message => {
         //Podes poner permisos si lo quieres hacer privado el comando
         if (!reporte) return message.channel.send(`:grey_exclamation: | **Envia tu pregunta**`)
 
-        const embed = new MessageEmbed()
+        const embed = EMBED
             .setTitle(':e_mail: | **Votación Activada**')
             .addField('**Pregunta: ' + reporte + '**', '▔▔▔▔▔▔▔▔▔▔')
             .addField('Opcion 1', '1\u20e3 Si')
@@ -201,7 +197,7 @@ botxi.on("message", async message => {
                 return;
             }
             //cooldownIf(20);
-            const emSld = new MessageEmbed()
+            const emSld = EMBED
                 .setTitle("Y salutaciones xD :joy:")
                 .setColor("RANDOM");
             message.channel.send(emSld);
@@ -248,7 +244,7 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
                 .setFooter("Pie de página, puede contener 2048 caracteres", botxi.user.avatarURL())
                 .setImage(message.author.avatarURL())
                 .setThumbnail(message.author.avatarURL())
-                .setURL("https://yohancolla.ga/TheBroland.php")
+                .setURL("https://hidaxo.ga")
                 .addField("Este es un título de campo, puede contener 256 caracteres",
                     "Este es un valor de campo, puede contener 2048 caracteres.")
                 .addField("Campo en línea", "Debajo del campo en línea", true)
@@ -274,7 +270,7 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
 
             }
 
-            const embedLove = new MessageEmbed()
+            const embedLove = EMBED
                 .setTitle('El porcentaje de amor de ' + personas + ' es:')
                 .setDescription(heard + ' **' + random + ' %**' + ' ' + heard)
                 .setColor("RANDOM")
@@ -335,7 +331,7 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
     }
     if (command === "server") {
 
-        const embed = new MessageEmbed()
+        const embed = EMBED
             .setAuthor(server.name, server.iconURL())
             .setColor(0xe9f10a)
             .setFooter("Daxo | Shard:" + server.shardID, botxi.user.avatarURL())
@@ -356,7 +352,7 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
         if (!userm) {
             var user = message.author;
 
-            const embed = new MessageEmbed()
+            const embed = EMBED
                 .setThumbnail(user.avatarURL)
                 .setAuthor(user.username + "#" + user.discriminator, user.avatarURL)
                 .addField(
@@ -497,7 +493,7 @@ botxi.on('messageUpdate', (oldMessage, newMessage) => {
                     //message.channel.send(`Listo, le saque el rol **${rol.name}** a **${persona.user.username}** con la razon de: _${reason}`)
                 break;
             case "list":
-                const embed = new MessageEmbed()
+                const embed = EMBED
                     .setColor(0x00AE86)
                     .setDescription(
                         server.roles.cache.map(role => `<@&${role.id}>`)

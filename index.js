@@ -4,9 +4,13 @@ const path = require('path');
 const hbs = require('express-handlebars');
 const app = express();
 const auth = require('./middlewares');
-const botxi = require('./DaxoBot');
 const session = require('express-session');
 const passport = require('./passport');
+const bodyParser = require('body-parser');
+const dbConnection = require('./dbConnection')
+const botxi = require('./DaxoBot');
+
+const cn = dbConnection();
 
 //Settings
 app.set('port', process.env.PORT || 5040);
@@ -21,7 +25,8 @@ app.engine('.hbs', hbs({
 
 //Middlewares
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
     secret: "loginDiscord",
     resave: false,
@@ -127,15 +132,29 @@ app.get('/dash/:id/commands', auth, (req, res) => {
     let canales = servers.channels.cache.filter(c => c.type === "text").map(ch => ({ name: ch.name, id: ch.id }));
     let emoji = JSON.stringify(servers.emojis.cache);
 
-    res.render('customCMD', {
-        title: "Custom Commands " + servers.name,
-        descPag: "Dashboard_Daxo",
-        user: req.user,
-        servers,
-        canales,
-        emojis: JSON.parse(emoji)
-    });
+    cn.query('SELECT * FROM daxoMjs', (err, result) => {
+        res.render('customCMD', {
+            title: "Custom Commands " + servers.name,
+            descPag: "Dashboard_Daxo",
+            user: req.user,
+            servers,
+            canales,
+            msg: result,
+            emojis: JSON.parse(emoji)
+        });
+    })
 });
+
+app.post('/dash/formulario', (req, res) => {
+    let id = req.params.id;
+    const { msgText } = req.body;
+    console.log(req.body);
+    cn.query('INSERT INTO daxoMjs SET?', {
+        contenido: msgText
+    }, (err, result) => {
+        res.redirect('/dash')
+    })
+})
 
 app.get('/dash/:id/emojis', auth, (req, res) => {
 
@@ -168,6 +187,14 @@ app.get('/dash/:id/canales', auth, (req, res) => {
         canalesCty
     });
 });
+
+app.get('/sql', (req, res) => {
+    cn.query('SELECT * FROM daxoMjs', (err, result) => {
+        console.log(result);
+        res.send('Hello World');
+    })
+})
+
 require('./DaxoBot')
 
 app.listen(app.get('port'), () => {
