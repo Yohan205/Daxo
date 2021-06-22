@@ -1,7 +1,4 @@
 {
-    "//1": "describes your app and its dependencies",
-    "//2": "https://docs.npmjs.com/files/package.json",
-    "//3": "updating this file will download and update your packages",
     "name": "daxo",
     "version": "0.0.1",
     "description": "un bot donde estoy aprendiendo a hacer un bot",
@@ -25,6 +22,7 @@
         "mysql": "^2.18.1",
         "passport": "^0.4.1",
         "passport-discord": "^0.1.4",
+        "timeago.js": "^4.0.2",
         "zeew": "^1.2.1"
     },
     "devDependencies": {

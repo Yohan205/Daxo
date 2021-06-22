@@ -3,14 +3,14 @@ const express = require('express');
 const path = require('path');
 const hbs = require('express-handlebars');
 const app = express();
-const auth = require('./middlewares');
+const auth = require('./settings/middlewares');
 const session = require('express-session');
-const passport = require('./passport');
+const passport = require('./settings/passport');
 const bodyParser = require('body-parser');
-const dbConnection = require('./dbConnection')
+const dbConnection = require('./settings/dbConnection')
 const botxi = require('./DaxoBot');
 
-const cn = dbConnection();
+//const cn = dbConnection();
 
 //Settings
 app.set('port', process.env.PORT || 5040);
@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.render('home', {
         title: "Inicio",
-        descPag: "Página_de_inicio"
+        descPag: "Página de inicio"
     })
 })
 
@@ -82,7 +82,7 @@ app.get('/dash', auth, (req, res) => {
 
     res.render("dash", {
         title: "Dashboard",
-        descPag: "Dashboard Daxo",
+        descPag: "Dashboard de tus servidores",
         user: req.user,
         email: req.user.email,
         servidoresU
@@ -103,7 +103,7 @@ app.get('/dash/:id', auth, (req, res) => {
 
     res.render('panel', {
         title: "Dashboard " + servers.name,
-        descPag: "Dashboard_Daxo",
+        descPag: "Dashboard de tu servidor",
         user: req.user,
         servers
     });
@@ -132,28 +132,29 @@ app.get('/dash/:id/commands', auth, (req, res) => {
     let canales = servers.channels.cache.filter(c => c.type === "text").map(ch => ({ name: ch.name, id: ch.id }));
     let emoji = JSON.stringify(servers.emojis.cache);
 
-    cn.query('SELECT * FROM daxoMjs', (err, result) => {
-        res.render('customCMD', {
-            title: "Custom Commands " + servers.name,
-            descPag: "Dashboard_Daxo",
-            user: req.user,
-            servers,
-            canales,
-            msg: result,
-            emojis: JSON.parse(emoji)
-        });
-    })
+    //cn.query('SELECT * FROM daxoMjs', (err, result) => {
+    res.render('customCMD', {
+        title: "Custom Commands " + servers.name,
+        descPag: "Otros comandos",
+        user: req.user,
+        servers,
+        canales,
+        //msg: result,
+        emojis: JSON.parse(emoji)
+    });
+    //})
 });
 
-app.post('/dash/formulario', (req, res) => {
+app.post('/dash/:id/formulario', (req, res) => {
     let id = req.params.id;
-    const { msgText } = req.body;
-    console.log(req.body);
-    cn.query('INSERT INTO daxoMjs SET?', {
-        contenido: msgText
-    }, (err, result) => {
-        res.redirect('/dash')
-    })
+    let servers = req.botxi.guilds.cache.get(id);
+    const { msgText, canalID } = req.body;
+    let canal = servers.channels.cache.get(canalID);
+    canal.send(msgText);
+    // cn.query('INSERT INTO daxoMjs SET?', {
+    //     contenido: msgText
+    // }, (err, result) => {})
+    res.redirect('/dash/' + id)
 })
 
 app.get('/dash/:id/emojis', auth, (req, res) => {
@@ -164,7 +165,7 @@ app.get('/dash/:id/emojis', auth, (req, res) => {
 
     res.render('emojis', {
         title: "Lista de emojis | " + servers.name,
-        descPag: '"Lista de emojis"',
+        descPag: "Lista de emojis del servidor de Discord",
         user: req.user,
         servers,
         emojis: JSON.parse(emoji)
@@ -180,20 +181,13 @@ app.get('/dash/:id/canales', auth, (req, res) => {
 
     res.render('channels', {
         title: "lista de canales | " + servers.name,
-        descPag: "PRUEBA",
+        descPag: "lista de canales del servidor de Discord",
         user: req.user,
         servers,
         canalesTxt,
         canalesCty
     });
 });
-
-app.get('/sql', (req, res) => {
-    cn.query('SELECT * FROM daxoMjs', (err, result) => {
-        console.log(result);
-        res.send('Hello World');
-    })
-})
 
 require('./DaxoBot')
 

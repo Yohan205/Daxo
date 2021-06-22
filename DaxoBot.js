@@ -33,13 +33,12 @@ botxi.on("message", async message => {
     console.log(command);
     if (command === "test") {
         console.log(botxi.channels);
-        // message.channel.send(sendT.msgToto)
         // console.log(server.roles.cache.find(r => r.name === args));
         // console.log(message.member._roles);
     }
     /*botxi.on("guildMemberAdd", member => {
         console.log(`Nuevo usuario:  ${member.user.username} se ha unido a ${member.guild.name}.`);
-        var canal = botxi.channels.get("654830450920914958");
+        var canal = botxi.channels.cache.get("654830450920914958");
         canal.send(`${member.user}, bienvenido al servidor pasala bien.`);
     });*/
     // if (!message.author.id !== 'IDOWNER')

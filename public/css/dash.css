@@ -1,9 +1,16 @@
-.dash-tittle {
+.header-dash {
     height: 100px;
     width: auto;
     display: flex;
     position: relative;
     align-items: center;
+    z-index: 2;
+}
+
+.header-dash div a {
+    text-decoration: none;
+    color: #FFF;
+    font-size: 27px;
 }
 
 .dash-img img {
@@ -32,8 +39,7 @@
 .cards-icon img {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
-    z-index: 0;
+    border-radius: 35%;
 }
 
 .card-icon p {

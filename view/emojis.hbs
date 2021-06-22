@@ -1,11 +1,5 @@
-<div class="dash-tittle">
-    <div class="dash-img">
-        <img src="https://cdn.discordapp.com/icons/{{servers.id}}/{{servers.icon}}.png" alt="icon{{servers.id}}">
-    </div>
-    <div>
-        <h1><b>{{servers.name}}</b></h1>
-        <h2>Lista de emojis</h2>
-    </div>
+<div class="header-dash" aria-owns="true">
+    {{> headerDash}}
 </div>
 {{#each emojis}}
 <div class="cards">

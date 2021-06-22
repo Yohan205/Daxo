@@ -1,11 +1,5 @@
-<div class="dash-tittle">
-    <div class="dash-img">
-        <img src="https://cdn.discordapp.com/icons/{{servers.id}}/{{servers.icon}}.png" alt="icon{{servers.id}}">
-    </div>
-    <div>
-        <h1><b>{{servers.name}}</b></h1>
-        <h2>Lista de canales</h2>
-    </div>
+<div class="header-dash" aria-owns="true">
+    {{> headerDash}}
 </div>
 <hr>
 {{#each canalesTxt}}
@@ -20,22 +14,16 @@
 </section>
 <br>
 <section class="content">
-    <div class="dash-tittle">
-    <div class="dash-img">
-        <img src="https://cdn.discordapp.com/icons/{{servers.id}}/{{servers.icon}}.png" alt="icon{{servers.id}}">
+    <div class="header-dash" aria-owns="true">
+        {{> headerDash}}
     </div>
-    <div>
-        <h1><b>{{servers.name}}</b></h1>
-        <h2>Lista de categorias</h2>
+    <hr>
+    {{#each canalesCty}}
+    <div class="cards">
+        <div class="cards-body">
+            <h3 class="cards-title">Nombre: {{this.name}}</h3>
+            <h4>ID: {{this.id}}</h4>
+            <h4> Posición: {{this.position}}</h4>
+        </div>
     </div>
-</div>
-<hr>
-{{#each canalesCty}}
-<div class="cards">
-    <div class="cards-body">
-        <h3 class="cards-title">Nombre: {{this.name}}</h3>
-        <h4>ID: {{this.id}}</h4>
-        <h4> Posición: {{this.position}}</h4>
-    </div>
-</div>
-{{/each}}
+    {{/each}}
