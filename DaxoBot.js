@@ -29,7 +29,7 @@ botxi.on("message", async message => {
     if (message.author.bot) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-    const server = message.guild; //Por si falla, se menciona el servidor || botxi.guilds.resolve(args[0])
+    const server = message.guild; //Por si falla, se menciona el servidor || botxi.guilds.resolve(args[0]);
     console.log(command);
     if (command === "test") {
         console.log(botxi.channels);

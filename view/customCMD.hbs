@@ -1,6 +1,7 @@
 <div class="header-dash">
     {{> headerDash }}
 </div>
+<hr>
 <section id="form-dash">
     <form action="/dash/{{servers.id}}/formulario" method="POST" onsubmit="alertT()">
         <input type="text" name="msgText" id="msgText" autocomplete="off" required placeholder="Escribe tu mensaje">
@@ -16,4 +17,3 @@
 {{#each msg}}
 <!--h2->{{this.id}} - {{this.contenido}}</h2-->
 {{/each}}
-<hr>

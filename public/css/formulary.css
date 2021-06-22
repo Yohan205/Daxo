@@ -11,22 +11,22 @@
     }
     section#form-dash input[type="text"],
     section#form-dash input[type="submit"],
-    section#form-dash select {
+    section#form-dash select#canalID {
         min-width: 200px;
         height: 40px;
+        margin-top: 10px;
         padding-left: 10px;
         font-size: 20px;
+        max-width: 500px;
         border-style: dashed;
         border-radius: 10px;
     }
-    section#form-dash input[type="text"] {
-        width: 300px;
-    }
     section#form-dash input[type="submit"] {
-        width: 50px;
+        min-width: 100px;
+        width: 250px;
         border-style: none;
         outline-style: none;
-        font-size: 30px;
+        font-size: 25px;
         color: white;
         background-color: #21E040;
         box-shadow: 0px 4px 0px #18CB35;
@@ -112,6 +112,29 @@
 }
 
 @media screen and (max-width: 900px) {
+    section#form-dash {
+        width: 100%;
+    }
+    section#form-dash input[type="text"],
+    section#form-dash input[type="submit"],
+    section#form-dash select#canalID {
+        min-width: 200px;
+        width: 100%;
+        height: 40px;
+        margin-top: 10px;
+        padding-left: 10px;
+        font-size: 25px;
+        border-style: dashed;
+        border-radius: 10px;
+    }
+    section#form-dash input[type="submit"] {
+        border-style: none;
+        outline-style: none;
+        color: white;
+        background-color: #21E040;
+        box-shadow: 0px 4px 0px #18CB35;
+        cursor: pointer;
+    }
     section#formulario {
         position: static;
         width: all;

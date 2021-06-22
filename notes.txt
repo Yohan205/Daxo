@@ -52,8 +52,6 @@ Usando zeew devuelve un link de una imagen gif:
     let img = await sfw.neko();
     .setImage(img);
 
-Note: Solo esta instalado el nodemon pero no esta funcionando
-
 /*Dentro de cada comando a usar cooldown debera colocar este código:
 
 //Que detendra cualquier comando si el usuario esta dentro del enfriamiento.

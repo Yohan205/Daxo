@@ -149,6 +149,7 @@ app.post('/dash/:id/formulario', (req, res) => {
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
     const { msgText, canalID } = req.body;
+    if (canalID === "none") return res.redirect('/dash/' + id + '/commands');
     let canal = servers.channels.cache.get(canalID);
     canal.send(msgText);
     // cn.query('INSERT INTO daxoMjs SET?', {
