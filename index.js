@@ -59,7 +59,7 @@ app.get('/login', passport.authenticate("discord", { failureRedirect: '/' }), (r
 app.get('/dash', auth, (req, res) => {
 
     let servidoresU = [];
-    let gild = req.user.guilds.filter(p => (p.permissions & 8) === 8);
+    let gild = req.user.guilds.filter(p => p.permissions === 8240);
 
     for (const key in gild) {
         if (req.botxi.guilds.cache.get(gild[key].id)) {
@@ -94,6 +94,7 @@ app.get('/dashjs', auth, (req, res) => {
         user: req.user,
         email: req.user.email
     })
+    console.log(req.user)
 })
 
 app.get('/dash/:id', auth, (req, res) => {
