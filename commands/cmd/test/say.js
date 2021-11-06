@@ -8,9 +8,8 @@ module.exports = {
     category: "test",
     isOwner: true,
     run: (botxi, message, args) => {
-        // message.channel.send("Tu mensaje fue: "+`${args.join(" ")}`)
-        message.reply('Pong!');
-        console.log();
+        message.channel.send("Tu mensaje fue: "+`${args.join(" ")}`)
+        // message.reply('Pong!');
 
     }
 }
