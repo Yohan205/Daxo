@@ -73,6 +73,7 @@ body {
     nav {
         float: left;
         line-height: 45px;
+        z-index: 10;
     }
     nav ul {
         display: flex;

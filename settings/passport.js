@@ -1,6 +1,6 @@
 const passport = require("passport");
 const { Strategy } = require('passport-discord');
-const { botID, scopes } = require('./config.json')
+const { BOT } = require("./settings/config.js");
 
 passport.serializeUser((user, done) => {
     done(null, user)
@@ -13,7 +13,7 @@ passport.deserializeUser((obj, done) => {
 passport.use(new Strategy({
     clientID: botID,
     clientSecret: process.env.SECRET_BOTXI,
-    callbackURL: process.env.URL_CALBAK,
+    callbackURL: process.env.URL_CALB,
     scope: scopes
 }, (accesstoken, refreshtoken, profile, cb) => {
     process.nextTick(() => {

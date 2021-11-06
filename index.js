@@ -1,4 +1,4 @@
-require('dotenv').config(); //Use env variables
+const { BOT } = require("./settings/config.js");
 const express = require('express');
 const path = require('path');
 const hbs = require('express-handlebars');
@@ -13,7 +13,7 @@ const botxi = require('./DaxoBot');
 //const cn = dbConnection();
 
 //Settings
-app.set('port', process.env.PORT || 5040);
+app.set('port', BOT.PORT || 5040);
 
 //Engine
 app.set('views', path.join(__dirname, '/view'))
@@ -59,7 +59,7 @@ app.get('/login', passport.authenticate("discord", { failureRedirect: '/' }), (r
 app.get('/dash', auth, (req, res) => {
 
     let servidoresU = [];
-    let gild = req.user.guilds.filter(p => p.permissions === 8240);
+    let gild = req.user.guilds.filter(p => (p.permissions & 8240) == 8240);
 
     for (const key in gild) {
         if (req.botxi.guilds.cache.get(gild[key].id)) {
