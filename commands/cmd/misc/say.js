@@ -5,11 +5,9 @@ module.exports = {
     aliases: [],
     isPrivate: false,
     guildOnly: false,
-    category: "test",
+    category: "misc",
     isOwner: true,
     run: (botxi, message, args) => {
-        message.channel.send("Tu mensaje fue: "+`${args.join(" ")}`)
-        // message.reply('Pong!');
-
+        message.channel.send("Tu mensaje fue: ```"+`${args.join(" ")}`+" ```")
     }
 }

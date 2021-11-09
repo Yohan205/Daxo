@@ -7,14 +7,18 @@ module.exports = {
     aliases: [],
     isPrivate: false,
     guildOnly: false,
-    category: "test",
+    category: "info",
     isOwner: true,
-    run: (botxi, message) => {
+    run: (botxi, message, args) => {
+        const prefix = botxi.configs.get("prefix")
             const emHelp = new MessageEmbed()
                 .setColor("RANDOM")
-                .setAuthor("Comandos de Daxo", botxi.user.avatarURL())
+                .setAuthor("Bot Multiproposito", botxi.user.avatarURL())
+                .setTitle(".::|Comandos de Daxo|::.")
+                .setURL("http://hidaxo.xyz")
+                .setDescription("\u200B")
                 .addField("Comandos de Información", '▔▔▔▔▔▔▔▔▔▔▔▔', true)
-                .addField("-> `" + prefix + "user <@user>`", ":: Muestra información sobre un usuario mencioando.")
+                .addField("-> `" + prefix + "user <@user>`",":: Muestra información sobre un usuario mencioando.")
                 .addField("-> `" + prefix + "server`", ":: Muestra información del servidor donde está el bot.")
                 .addField("-> `" + prefix + "inviteBot`", ":: Enviará un link para que puedas tener a Daxo en tu servidor preferido. :wink: \n")
                 .addField("Comandos de Diversión", '▔▔▔▔▔▔▔▔▔▔▔', true)
@@ -29,7 +33,8 @@ module.exports = {
                 .addField("-> `" + prefix + "rol-remove <@user> <rol>`", ":: Quita un rol de un usuario mencionado. \n")
                 .addField("Comandos de Interacción", '▔▔▔▔▔▔▔▔▔▔▔▔', true)
                 .addField("-> `" + prefix + "saludos`", ":: Retorna un saludo como mensaje.")
-                .addField("-> `" + prefix + "announce`", ":: Hace que el bot diga un mensaje (AUN EN DESARROLLO).")
+                .addField("-> `" + prefix + "say <mensaje>`", ":: Hace que el bot diga un mensaje.")
+                .setTimestamp()
                 .setFooter("Unete al servidor de soporte para conocer más sobre el bot", botxi.user.avatarURL());
             message.channel.send({embeds:[emHelp]});
             /*"**" + message.author.username + "**, Revisa tus mensajes privados.");

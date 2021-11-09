@@ -1,13 +1,14 @@
-const { BOT } = require("./settings/config.js");
 const express = require('express');
 const path = require('path');
 const hbs = require('express-handlebars');
 const app = express();
-const auth = require('./settings/middlewares');
 const session = require('express-session');
-const passport = require('./settings/passport');
 const bodyParser = require('body-parser');
+
+const auth = require('./settings/middlewares');
+const passport = require('./settings/passport');
 const dbConnection = require('./settings/dbConnection')
+const { BOT } = require("./settings/config.js");
 const botxi = require('./DaxoBot');
 
 //const cn = dbConnection();
@@ -59,7 +60,7 @@ app.get('/login', passport.authenticate("discord", { failureRedirect: '/' }), (r
 app.get('/dash', auth, (req, res) => {
 
     let servidoresU = [];
-    let gild = req.user.guilds.filter(p => (p.permissions & 8240) == 8240);
+    let gild = req.user.guilds.filter(p => (p.permissions & 8240) == 8240); // property guilds doesn't it 
 
     for (const key in gild) {
         if (req.botxi.guilds.cache.get(gild[key].id)) {
@@ -190,6 +191,27 @@ app.get('/dash/:id/canales', auth, (req, res) => {
         canalesCty
     });
 });
+
+app.get('/TheBroland', (req, res) => {
+    res.render('TheBroland', {
+        title: "The Broland",
+        descPag: "\'Mira más informacion sobre The Broland\'"
+    })
+})
+
+app.get('/imagesTheBroland', (req, res) => {
+    res.render('gallery_images', {
+        title: "Galería de imágenes",
+        descPag: "Fotos del primer server de The Broland"
+    })
+})
+
+app.get('/music', (req, res) => {
+    res.render('music', {
+        title: "Música",
+        descPag: "Escucha_algunas_canciones"
+    })
+})
 
 require('./DaxoBot')
 

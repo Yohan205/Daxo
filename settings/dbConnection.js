@@ -1,12 +1,12 @@
 const mysql = require('mysql');
-const config = require('./config.json');
+const { BOT } = require('./config.js');
 const { promisify } = require('util');
 
-const pool = mysql.createPool(process.env.URI_DB || {
-    host: config.hostDB,
-    user: config.userDB,
-    password: process.env.PASS_DB,
-    database: config.nameDB
+const pool = mysql.createPool(BOT.uriDB || {
+    host: BOT.hostDB,
+    user: BOT.userDB,
+    password: BOT.passDB,
+    database: BOT.nameDB
 });
 
 pool.getConnection((err, conect) => {
@@ -33,10 +33,10 @@ pool.query = promisify(pool.query);
 
 function cnSQL() {
     return mysql.createConnection(process.env.URI_DB || {
-        host: config.hostDB,
-        user: config.userDB,
-        password: process.env.PASS_DB,
-        database: config.nameDB
+        host: BOT.hostDB,
+        user: BOT.userDB,
+        password: BOT.passDB,
+        database: BOT.nameDB
     });
 }
 

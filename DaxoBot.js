@@ -1,25 +1,24 @@
-const { Client, Intents, Collection, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
+const { Client, Intents, Collection } = require("discord.js"); // Extract the required classes from the discord.js module
 const fs = require('fs');
 const path = require('path');
-const botxi = new Client({intents: 16079}); // Create an instance of a Discord client [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.GUILD_VOICE_STATES (no funciona)]
-const EMBED = new MessageEmbed();
+const botxi = new Client({intents: 32719}); // Create an instance of a Discord client [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.GUILD_VOICE_STATES (no funciona)]
+const zeew = require("zeew");
+
+const { BOT } = require("./settings/config.js");
 botxi.commands = new Collection();
-// const Zeew = require("zeew");
-
-const { BOT } = require("./settings/config");
+botxi.configs = new Collection();
 // const cldwn = require("./settings/functions");
-
-// const sfw = new Zeew.sfw(BOT.TOKEN_ZEEW);
+botxi.configs.set("Zeew", zeew)
 const prefixes = ['d!', 'daxo ', 'Daxo ', 'D!']; //Array of prefixes
 let prefix = ""; // Save prefix used
 
 botxi.once("ready", () => { //On bot is ready
     botxi.user.setPresence({
         status: "online",
-        activity: {
+        activities: [{
             name: "Daxo help",
             type: "PLAYING"
-        }
+        }]
     });
     console.log(
         `Estoy listo! ${botxi.user.username} conectado en ${botxi.guilds.cache.size} servidores y  ${botxi.users.cache.size} usuarios.`
@@ -34,10 +33,13 @@ botxi.on('messageCreate', (message) => {
     // agrega a una lista los argumentos y toma en otra variable el comando
     let [command, ...args] = message.content.slice(prefix.length).trim().split(/\s+/);
     // const command = args.shift().toLowerCase();
+    botxi.configs.set("prefix", prefix)
+    // botxi.configs.set("BOT", BOT)
 
     const cmd = botxi.commands.get(command)
     if(!cmd) return;
-    cmd.run(botxi, message, args, EMBED)
+
+    cmd.run(botxi, message, args, BOT)
 })
 
 const commands = fs.readdirSync(path.join(__dirname, "commands/cmd"));
@@ -54,4 +56,4 @@ botxi.once("warn", e => console.warn(e));
 botxi.once("debug", (e) => console.info(e));
 botxi.login(BOT.TOKEN); //Login to Discord Client
 
-//module.exports = botxi
+// module.exports = botxi
