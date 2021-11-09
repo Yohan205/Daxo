@@ -10,6 +10,7 @@ module.exports = {
     category: "fun",
     isOwner: true,
     run: (botxi, message, args) => {
+        const EMBED = botxi.configs.get("EMBED");
         let text = args.join(" ");
         var rpts = [
             "Sí",
@@ -28,13 +29,14 @@ module.exports = {
         ];
         if (!text) return message.reply(`Escriba una pregunta.`);
 
-        const embed = new MessageEmbed()
+        const embed = EMBED
             .setColor("RANDOM")
-            .setAuthor(message.author.username, message.author.avatarURL())
+            // .setAuthor(message.author.username, message.author.avatarURL())
             .setFooter(botxi.user.username, botxi.user.avatarURL())
-            .addField(message.author.username + " a su pregunta `" + text + "`",
+            .setTimestamp()
+            .addField(message.author.avatarURL(), message.author.username + " a su pregunta `" + text + "`",
                 "Mi respuesta es: `" + rpts[Math.floor(Math.random() * rpts.length)] + "`");
 
-        message.channel.send({embeds:[embed]});
+        message.reply({embeds:[embed]});
     }
 }

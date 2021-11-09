@@ -16,6 +16,7 @@ module.exports = {
                 .setColor(0x00AE86)
                 .setDescription("Este es el cuerpo principal del texto, puede contener 2048 caracteres.")
                 .setFooter("Pie de página, puede contener 2048 caracteres", botxi.user.avatarURL())
+                .setTimestamp()
                 .setImage(message.author.avatarURL())
                 .setThumbnail(message.author.avatarURL())
                 .setURL("http://hidaxo.xyz")

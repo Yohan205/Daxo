@@ -10,21 +10,23 @@ module.exports = {
     category: "info",
     isOwner: true,
     run: (botxi, message, args) => {
+        const EMBED = botxi.configs.get("EMBED");
         let userm = message.mentions.users.first();
         if (!userm) {
             var user = message.author;
-
+            console.log(user);
+            console.log("SALTO DE LINEA");
+            console.log(message.member);
             const embed = new MessageEmbed()
-                .setThumbnail(user.avatarURL)
+                .setThumbnail(user.avatarURL())
                 .setAuthor(user.username + "#" + user.discriminator, user.avatarURL)
                 .addField(
-                    "Jugando a",
-                    user.presence.game != null ? user.presence.game.name : "Nada",
-                    true
-                )
+                    "Jugando a",// user.presence.game != null ? user.presence.game.name : 
+                    "Nada", true
+                    )
                 .addField("ID", user.id, true)
-                .addField("Estado", user.presence.status, true)
-                .addField("Apodo", message.member.nickname, true)
+                // .addField("Estado", user.presence.status, true)
+                // .addField("Apodo", message.member.nickname, true)
                 .addField("Cuenta Creada", user.createdAt.toDateString(), true)
                 .addField("Fecha de Ingreso", message.member.joinedAt.toDateString())
                 .addField(
@@ -35,6 +37,7 @@ module.exports = {
 
             message.channel.send({embeds:[embed]});
         } else {
+            console.log(userm.presence);
             const embed = new MessageEmbed()
                 .setThumbnail(userm.avatarURL)
                 .setAuthor(userm.username + "#" + userm.discriminator, userm.avatarURL)

@@ -10,6 +10,7 @@ module.exports = {
     run: (botxi, message, args, BOT) => {
         console.log(BOT)
         console.log(botxi.users)
+        // console.log(message.guild.memberCount);
         message.delete({ timeout: 6000 });
     }
 }
