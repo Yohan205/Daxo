@@ -17,9 +17,9 @@ module.exports = {
 
             const random = Math.floor(Math.random() * 100);
             let heard = "";
-
-            if (random < 50) {
-                heard = ':broken_heart:';
+            // muestra segun el valor de love cierto emoji de corazon
+            if (random < 50) { // si el valor es menor a 50
+                heard = ':broken_heart:'; // entonces muestra un heart broken
 
             } else if (random < 80) {
                 heard = ':sparkling_heart: :two_hearts:';

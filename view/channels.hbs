@@ -2,15 +2,17 @@
     {{> headerDash}}
 </div>
 <hr>
-{{#each canalesTxt}}
-<div class="cards">
-    <div class="cards-body">
-        <h3 class="cards-title">Nombre: {{this.name}}</h3>
-        <h4>ID: {{this.id}}</h4>
-        <h4> Posición: {{this.position}}</h4>
+<div class="cards-content">
+    {{#each canalesTxt}}
+    <div class="cards">
+        <div>
+            <h3>{{this.name}}</h3>
+            <h4>ID: {{this.id}}</h4>
+            <h4>Posición: {{this.position}}</h4>
+        </div>
     </div>
+    {{/each}}
 </div>
-{{/each}}
 </section>
 <br>
 <section class="content">
@@ -18,12 +20,14 @@
         {{> headerDash}}
     </div>
     <hr>
-    {{#each canalesCty}}
-    <div class="cards">
-        <div class="cards-body">
-            <h3 class="cards-title">Nombre: {{this.name}}</h3>
-            <h4>ID: {{this.id}}</h4>
-            <h4> Posición: {{this.position}}</h4>
+    <div class="cards-content">
+        {{#each canalesCty}}
+        <div class="cards">
+            <div>
+                <h3> {{this.name}} </h3>
+                <h4>ID: {{this.id}}</h4>
+                <h4>Posición: {{this.position}}</h4>
+            </div>
         </div>
+        {{/each}}
     </div>
-    {{/each}}

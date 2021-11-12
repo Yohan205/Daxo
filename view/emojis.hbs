@@ -2,11 +2,15 @@
     {{> headerDash}}
 </div>
 <hr>
-{{#each emojis}}
-<div class="cards">
-    <div class="cards-body">
-        <h4 class="cards-title">Emoji: {{this.name}}</h4>
-        <img src="{{this.url}}" alt="{{this.name}}">
+<div class="cards-content">
+    {{#each emojis}}
+    <div class="cards">
+        <div>
+            <img src="{{this.url}}" alt="{{this.name}}">
+        </div>
+        <div>
+            <h2>{{this.name}}</h2>
+        </div>
     </div>
+    {{/each}}
 </div>
-{{/each}}

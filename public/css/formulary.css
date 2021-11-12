@@ -6,12 +6,12 @@
 /* a , .prf {color: lime;text-decoration: none;font-size: 1.3em;} */
 
 @media screen and (min-width: 1025px) {
-    section#form-dash {
+    section.form-dash {
         width: 500px;
     }
-    section#form-dash input[type="text"],
-    section#form-dash input[type="submit"],
-    section#form-dash select#canalID {
+    section.form-dash input[type="text"],
+    section.form-dash input[type="submit"],
+    section.form-dash select#canalID {
         min-width: 200px;
         height: 40px;
         margin-top: 10px;
@@ -21,7 +21,7 @@
         border-style: dashed;
         border-radius: 10px;
     }
-    section#form-dash input[type="submit"] {
+    section.form-dash input[type="submit"] {
         min-width: 100px;
         width: 250px;
         border-style: none;
@@ -112,12 +112,12 @@
 }
 
 @media screen and (max-width: 900px) {
-    section#form-dash {
+    section.form-dash {
         width: 100%;
     }
-    section#form-dash input[type="text"],
-    section#form-dash input[type="submit"],
-    section#form-dash select#canalID {
+    section.form-dash input[type="text"],
+    section.form-dash input[type="submit"],
+    section.form-dash select#canalID {
         min-width: 200px;
         width: 100%;
         height: 40px;
@@ -127,7 +127,7 @@
         border-style: dashed;
         border-radius: 10px;
     }
-    section#form-dash input[type="submit"] {
+    section.form-dash input[type="submit"] {
         border-style: none;
         outline-style: none;
         color: white;

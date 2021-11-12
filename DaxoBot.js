@@ -35,11 +35,12 @@ botxi.on('messageCreate', (message) => {
     // agrega a una lista los argumentos y toma en otra variable el comando
     let [command, ...args] = message.content.slice(prefix.length).trim().split(/\s+/);
     // const command = args.shift().toLowerCase();
-    botxi.configs.set("prefix", prefix)
+    botxi.configs.set("prefix", prefix);
     // botxi.configs.set("BOT", BOT)
 
-    const cmd = botxi.commands.get(command)
+    const cmd = botxi.commands.get(command) || botxi.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
     if(!cmd) return;
+    // if(cmd.status) si estatus es true mandar mensaje que el comando esta desactivado
     
     cmd.run(botxi, message, args, BOT)
 })

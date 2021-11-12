@@ -36,3 +36,29 @@ function main (){
         
     });
 }
+
+var form = document.getElementById('recargas');
+
+form.addEventListener('submit', function(e){
+    e.preventDefault();
+    // console.log('hiciste click');
+
+    var datos = new FormData(form);
+    var rec = document.getElementById("rec");
+    console.log(datos.get('usuario'));
+
+    fetch("https://mipago.co/set/api.php", { method: 'POST', body: datos})
+    .then( res => res.json())
+    .then( data => {
+        console.log(data);
+        // if (data.Estado == "true"){
+            console.log(data.Estado);
+            rec.innerHTML = `
+                <h3>${data.Detalle}</h3>
+                <ol>
+                    <li><p id="saldo">Saldo: ${data.Saldo}</p></li>
+                    <li><p id="ganancia">Ganancia: ${data.Ganancia}</p></li>
+                </ol>`
+        // }
+    });
+})

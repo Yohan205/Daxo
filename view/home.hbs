@@ -10,17 +10,24 @@
 </section>
 <br>
 <section class="content">
-    <span><i>¿Quieres entrar?</i> Para entrar debes cumplir con unas pequeñas reglas y mandar tu gamertag al chat grupal
-        de <a href="https://discord.gg/yrtZMAxFuF" class="btn radius blue">Discord</a> o WhatsApp. Puedes añadir este
-        servidor en <i>Minecraft</i> haciendo clic aqu&iacute;:<a
-            href="minecraft://?addExternalServer=§b§lTheBroland|hidaxo.xyz:19132"
-            class="btn radius medium red">A&ntilde;adir Server</a></span>
-    <ol>
-        <span>
-            <h3>Reglas para unirse al server</h3>
-        </span>
-        <li><span>Debes tener la versi&oacute;n m&aacute;s actual de minecraft (ya sea la oficial o beta).</span></li>
-        <li><span>Debes tener cuenta XboxLive o Gamertag</span></li>
-        <li><span>Si eres nuevo conéctate por lo menos dos o tres días a la semana al server.</span></li>
-        <li><span>Qué edad tienes? Para entrar al server debes tener más de 12 años.</span></li>
-    </ol>
+    <form id="recargas" action="/">
+        <input type="text" name="usuario" placeholder="usuario">
+        <input type="password" name="clave" placeholder="Contraseña">
+        <input type="text" name="consulta" placeholder="consulta">
+        <button type="submit" class="btn medium blue">Enviar</button>
+    </form>
+    <hr>
+    <button type="button" class="btn large orange" onclick="tarer()">Ver Usuario GD</button>
+    <h2 id="mostrarGD"></h2>
+        <script>        
+            var parf = document.getElementById("mostrarGD");
+            function tarer() {
+                fetch("https://gdbrowser.com/api/profile/CollaGamerYT")
+                .then( res => res.json())
+                .then( data => {
+                    parf.innerHTML = "el usuario es: " + data.username + " con la id: " + data.playerID;
+                });
+            }
+        </script>
+    <br>
+    <div id="rec"></div>

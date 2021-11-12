@@ -1,7 +1,9 @@
+// import fetchApi from 'node-fetch';
+// const axios = require('axios');
+
 const express = require('express');
 const path = require('path');
 const hbs = require('express-handlebars');
-const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
@@ -10,7 +12,7 @@ const passport = require('./settings/passport');
 const dbConnection = require('./settings/dbConnection')
 const { BOT } = require("./settings/config.js");
 const botxi = require('./DaxoBot');
-
+const app = express();
 //const cn = dbConnection();
 
 //Settings
@@ -49,11 +51,11 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.render('home', {
         title: "Inicio",
-        descPag: "Página de inicio"
+        descPag: "Página principal",
     })
 })
 
-app.get('/login', passport.authenticate("discord", { failureRedirect: '/' }), (req, res) => {
+app.get('/loginDiscord', passport.authenticate("discord", { failureRedirect: '/' }), (req, res) => {
     res.redirect('/dash')
 })
 
@@ -114,8 +116,8 @@ app.get('/dash/:id', auth, (req, res) => {
 app.get('/dashjs/:id', auth, (req, res) => {
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
-    let canales = servers.channels.cache.filter(c => c.type === "text" || c.type === "category").map(ch => ({ type: ch.type, name: ch.name, id: ch.id, rawpstn: ch.rawPosition }));
-    let emoji = JSON.stringify(servers.emojis.cache);
+    let canales = servers.channels.cache.filter(c => c.type === "GUILD_TEXT" || c.type === "GUILD_VOICE" || c.type === "GUILD_CATEGORY" || c.type === "GUILD_PUBLIC_THREAD").map(ch => ({ type: ch.type, name: ch.name, id: ch.id, rawpstn: ch.rawPosition }));
+    let emoji = JSON.stringify(servers.emoji.cache);
 
     res.json({
         user: req.user,
@@ -131,7 +133,7 @@ app.get('/dash/:id/commands', auth, (req, res) => {
 
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
-    let canales = servers.channels.cache.filter(c => c.type === "text").map(ch => ({ name: ch.name, id: ch.id }));
+    let canales = servers.channels.cache.filter(c => c.type === "GUILD_TEXT").map(ch => ({ name: ch.name, id: ch.id }));
     let emoji = JSON.stringify(servers.emojis.cache);
 
     //cn.query('SELECT * FROM daxoMjs', (err, result) => {
@@ -147,7 +149,7 @@ app.get('/dash/:id/commands', auth, (req, res) => {
     //})
 });
 
-app.post('/dash/:id/formulario', (req, res) => {
+app.post('/dash/:id/send-cmd', (req, res) => {
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
     const { msgText, canalID } = req.body;
@@ -158,6 +160,22 @@ app.post('/dash/:id/formulario', (req, res) => {
     //     contenido: msgText
     // }, (err, result) => {})
     res.redirect('/dash/' + id)
+})
+
+app.post('/apiGD', (req, res) => {
+    // let id = req.params.id;
+    console.log(req.body);
+    const { userGD } = req.body;
+    if (userGD === "") return res.redirect('/');
+    
+    /* res.json({
+        userGD,
+    }); */
+    res.render('geometry_dash', {
+        title: "Geometry Dash Api",
+        descPag: "API de GeometryDash",
+        userGD,
+    });
 })
 
 app.get('/dash/:id/emojis', auth, (req, res) => {
@@ -179,8 +197,8 @@ app.get('/dash/:id/canales', auth, (req, res) => {
 
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
-    let canalesTxt = servers.channels.cache.filter(c => c.type === "text").map(ch => ({ name: ch.name, id: ch.id, position: ch.rawPosition }));
-    let canalesCty = servers.channels.cache.filter(c => c.type === "category").map(ch => ({ name: ch.name, id: ch.id, position: ch.rawPosition }));
+    let canalesTxt = servers.channels.cache.filter(c => c.type === "GUILD_TEXT").map(ch => ({ name: ch.name, id: ch.id, position: ch.rawPosition }));
+    let canalesCty = servers.channels.cache.filter(c => c.type === "GUILD_CATEGORY").map(ch => ({ name: ch.name, id: ch.id, position: ch.rawPosition }));
 
     res.render('channels', {
         title: "lista de canales | " + servers.name,
@@ -192,10 +210,17 @@ app.get('/dash/:id/canales', auth, (req, res) => {
     });
 });
 
+app.get('/login', (req, res) => {
+    res.render('login', {
+        title: "Iniciar sesión",
+        descPag: " "
+    })
+})
+
 app.get('/TheBroland', (req, res) => {
     res.render('TheBroland', {
         title: "The Broland",
-        descPag: "\'Mira más informacion sobre The Broland\'"
+        descPag: "Mira más informacion sobre The Broland"
     })
 })
 
@@ -209,7 +234,7 @@ app.get('/imagesTheBroland', (req, res) => {
 app.get('/music', (req, res) => {
     res.render('music', {
         title: "Música",
-        descPag: "Escucha_algunas_canciones"
+        descPag: "Escucha algunas canciones"
     })
 })
 

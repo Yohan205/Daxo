@@ -3,7 +3,7 @@
 </div>
 <hr>
 <section id="form-dash">
-    <form action="/dash/{{servers.id}}/formulario" method="POST" onsubmit="alertT()">
+    <form action="/dash/{{servers.id}}/send-cmd" method="POST" onsubmit="alertT()">
         <input type="text" name="msgText" id="msgText" autocomplete="off" required placeholder="Escribe tu mensaje">
         <select name="canalID" id="canalID">
             <option value="none">Selecciona un canal</option>

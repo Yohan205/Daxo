@@ -15,14 +15,15 @@
         /*/ Safari and Chrome */
         -o-transform: scale(1);
         /*/ Opera */
-        -webkit-transition: all 550ms ease-in-out;
-        /*/Safari and Chrome*/
+        /* -webkit- */
+        transition: all 550ms ease-in-out;
+        /*/Safari and Chrome
         -moz-transition: all 600ms ease-in-out;
-        /*/ Firefox*/
+        / Firefox/
         -ms-transition: all 500ms ease-in-out;
-        /*/ IE 9*/
+        / IE 9/
         -o-transition: all 500ms ease-in-out;
-        /*/ Opera */
+        / Opera */
         z-index: 2;
         width: 350px;
         height: 200px;
@@ -46,9 +47,9 @@
 }
 
 @media screen and (max-width: 800px) {
-    #imgs {
-        /*width: 95%;*/
-    }
+    /* #imgs {
+        width: 95%;
+    } */
     #imgs img {
         border-radius: 20px;
         -moz-border-radius: 15px;

@@ -1,0 +1,30 @@
+    <h2>
+        <script type="application/javascript">
+            function getIP(json) {
+                document.write("Tu ip es: ", json.ip);
+            }
+        </script>
+        <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+    </h2>
+    <hr>
+    <form action="/apiGD" method="POST">
+        <input type="text" name="userGD" id="userGD" placeholder="Escribe tu usuario">
+        <input type="submit" id="btnEnviar" value="Enviar">
+    </form>
+    <script>
+        let URL = `https://gdbrowser.com/api/profile/${user}`;
+        let info = [];
+        var parf = document.getElementById("mostrarGD");
+        
+
+        console.log(URL);
+        console.log(info);
+    </script>
+    {{!-- {{#if (hay) 
+        fetch(URL).then( res => res.json())
+        .then( data => {
+            info.push(data.username);
+            info.push(data.playerID);
+            parf.innerHTML = "el usuario es: " + data.username + " con la id: " + data.playerID;
+        });
+    }} --}}
