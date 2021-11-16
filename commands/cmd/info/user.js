@@ -4,54 +4,59 @@ module.exports = {
     name: "user",
     desc: "Da la info de un usuario",
     usage: "user",
-    aliases: [],
+    aliases: ["user", "u"],
     isPrivate: false,
     guildOnly: false,
     category: "info",
     isOwner: true,
     run: (botxi, message, args) => {
         const EMBED = botxi.configs.get("EMBED");
-        let userm = message.mentions.users.first();
-        if (!userm) {
-            var user = message.author;
-            console.log(user);
-            console.log("SALTO DE LINEA");
-            console.log(message.member);
-            const embed = new MessageEmbed()
-                .setThumbnail(user.avatarURL())
-                .setAuthor(user.username + "#" + user.discriminator, user.avatarURL)
-                .addField(
-                    "Jugando a",// user.presence.game != null ? user.presence.game.name : 
-                    "Nada", true
-                    )
-                .addField("ID", user.id, true)
-                // .addField("Estado", user.presence.status, true)
-                // .addField("Apodo", message.member.nickname, true)
-                .addField("Cuenta Creada", user.createdAt.toDateString(), true)
-                .addField("Fecha de Ingreso", message.member.joinedAt.toDateString())
-                .addField(
-                    "Roles",
-                    message.member.roles.cache.map(roles => `\`${roles.name}\``).join(", ")
-                )
-                .setColor(0x66b3ff);
 
-            message.channel.send({embeds:[embed]});
-        } else {
-            console.log(userm.presence);
-            const embed = new MessageEmbed()
-                .setThumbnail(userm.avatarURL)
-                .setAuthor(userm.username + "#" + userm.discriminator, userm.avatarURL)
-                .addField(
-                    "Jugando a",
-                    userm.presence.game != null ? userm.presence.game.name : "Nada",
-                    true
-                )
-                .addField("ID", userm.id, true)
-                .addField("Estado", userm.presence.status, true)
-                .addField("Cuenta Creada", userm.createdAt.toDateString(), true)
-                .setColor(0x66b3ff);
+        let color = {
+            "online": "#00c903",
+            "idle": "#ff9a00",
+            "dnd": "#ff0000",
+            "offline": "#d8d8d8"
+        };
+        let estados = {
+            "online": "En Línea",
+            "idle": "Ausente",
+            "dnd": "No molestar",
+            "offline": "Desconectado/invisible"
+        };
 
-            message.channel.send({embeds:[embed]});
+        let user = message.mentions.users.first() || message.author;
+        const rolAlto = message.guild.members.resolve(user.id).roles.highest;
+
+        // console.log(message.guild.members.resolve(user.id).roles.cache);
+        let pres = true
+        if (message.guild.members.resolve(user.id).presence == null){
+            pres = false;
         }
+
+        const userEmbed = new MessageEmbed()
+            .setThumbnail(user.displayAvatarURL({ format: 'png', size: 1024, dynamic: true }))
+            .addField("Información del usuario: " + user.tag, "**ID: **" + user.id)
+            .addField('Apodo', message.guild.members.resolve(user.id).nickname == null ? "Ninguno" : message.guild.members.resolve(user.id).nickname, true)
+            .addField(
+                'Jugando a',
+                pres == false ? "Nada" :
+                message.guild.members.resolve(user.id).presence.activities[0] ?
+                message.guild.members.resolve(user.id).presence.activities[0].name : 'Nada', true
+            )
+            .addField('Estado', pres == false ? "Desconectado/invisible" : estados[message.guild.members.resolve(user.id).presence.status], true)
+            .addField('Cuenta Creada', user.createdAt.toDateString(), true)
+            .addField('Fecha de Ingreso', message.guild.members.resolve(user.id).joinedAt.toDateString(), true)
+            .addField(
+                'Roles',
+                message.guild.members.resolve(user.id)
+                .roles.cache.map((roles) => `<@&${roles.id}>`)
+                .join(', ')
+            )
+            .setTimestamp()
+            .setFooter("Daxo", botxi.user.avatarURL())
+            .setColor(rolAlto.color);
+
+        message.channel.send({embeds:[userEmbed]});
     }
 }

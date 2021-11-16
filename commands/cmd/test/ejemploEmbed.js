@@ -4,7 +4,7 @@ module.exports = {
     name: "ejemploEmbed",
     desc: "Muestra un ejemplo de un mensaje Embed",
     usage: "ejemploEmbed",
-    aliases: ["embed"],
+    aliases: ["ejemploEmbed", "embed"],
     isPrivate: false,
     guildOnly: false,
     category: "test",

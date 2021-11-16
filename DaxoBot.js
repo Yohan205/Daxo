@@ -1,16 +1,15 @@
-const { Client, Intents, Collection, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
+const Discord = require("discord.js"); // Extract the required classes from the discord.js module
 const fs = require('fs');
 const path = require('path');
-const botxi = new Client({intents: 32719}); // Create an instance of a Discord client [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.GUILD_VOICE_STATES (no funciona)]
-const mEMBED = new MessageEmbed();
+const botxi = new Discord.Client({intents: 32719}); // Create an instance of a Discord client [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.GUILD_VOICE_STATES (no funciona)]
 const zeew = require("zeew");
 
 const { BOT } = require("./settings/config.js");
-botxi.commands = new Collection();
-botxi.configs = new Collection();
+botxi.commands = new Discord.Collection();
+botxi.configs = new Discord.Collection();
 // const cldwn = require("./settings/functions");
 botxi.configs.set("Zeew", zeew)
-botxi.configs.set("EMBED", mEMBED)
+botxi.configs.set("discord", Discord)
 const prefixes = ['d!', 'daxo ', 'Daxo ', 'D!']; //Array of prefixes
 let prefix = ""; // Save prefix used
 
