@@ -7,6 +7,7 @@ module.exports = {
     guildOnly: false,
     category: "fun",
     isOwner: true,
+    status: true,
     run: (botxi, message, args) => {
         // Condicionaremos que si el usuario no manda ningun argumento. O sea solo escribe el comando. *
         if (!args[0]) return message.channel.send("Opciones: `piedra`, `papel` o `tijera`").then(m => m.delete({ timeout: 10000 }))

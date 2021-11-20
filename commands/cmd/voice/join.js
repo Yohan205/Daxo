@@ -8,6 +8,7 @@ module.exports = {
     guildOnly: false,
     category: "voice",
     isOwner: true,
+    status: true,
     run: (botxi, message) => {
         if (!message.member.voice.channelId) return message.channel.send('Debes estar conectado a un canal de voz');
         joinVoiceChannel({

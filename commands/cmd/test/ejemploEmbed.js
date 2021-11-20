@@ -9,6 +9,7 @@ module.exports = {
     guildOnly: false,
     category: "test",
     isOwner: true,
+    status: true,
     run: (botxi, message, args) => {
         const embed = new MessageEmbed()
                 .setTitle("Este es su título, puede contener 256 caracteres")

@@ -1,3 +1,5 @@
+const Zeew = require("zeew");
+
 module.exports = {
     name: "noVer",
     desc: "Comando NSFW",
@@ -9,7 +11,6 @@ module.exports = {
     isOwner: true,
     status: true,
     run: async (botxi, message, args, BOT) => {
-        const Zeew = botxi.configs.get("Zeew");
         const zeewGif = new Zeew.gif(BOT.TOKEN_ZEEW);
         let gif = await zeewGif.nsfw.maid();
         if(!message.channel.nsfw) return message.reply("**Oh no, lo que intentas ver sólo es para +18 en un canal NSFW**")

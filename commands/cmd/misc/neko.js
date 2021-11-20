@@ -9,6 +9,7 @@ module.exports = {
     guildOnly: false,
     category: "misc",
     isOwner: true,
+    status: true,
     run: async (botxi, message, args, BOT) => {
         const Zeew = botxi.configs.get("Zeew");
         const zeewGif = new Zeew.gif(BOT.TOKEN_ZEEW);

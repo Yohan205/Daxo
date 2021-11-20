@@ -1,28 +1,4 @@
 ﻿for use this proyect i need: node, git and VSCode (optional)
-/* var st1 = 5; 
-  
-  if (st1 <= 10){
-  botxi.user.setPresence({
-    status: "online",
-    game: {
-      name: "Minecraft",
-      type: "playing"
-    }
-  });} if (st1 >= 50){
-    botxi.user.setPresence({
-    status: "online",
-    game: {
-      name: "Botcitos",
-      type: "waching"
-    }
-  });} if (st1 == 20){
-      botxi.user.setPresence({
-    status: "online",
-    game: {
-      name: "b.help",
-      type: "listening"
-    }
-  });}*/
 
 heroku logs => ejecutar en el cmd para ver la consola de heroku
 
@@ -62,6 +38,9 @@ npx eslint --init
 
 snippets:
     cmdBot: crea un nuevo comando
+
+Relative path:
+  ctrl+shift+H
 
 /*Dentro de cada comando a usar cooldown debera colocar este código:
 

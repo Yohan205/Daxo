@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js')
+
 module.exports = {
     name: "rol",
     desc: "Moderación de roles",
@@ -5,12 +7,11 @@ module.exports = {
     aliases: ["rol", "r"],
     isPrivate: false,
     guildOnly: false,
-    category: "mod",
+    category: "moderation",
     isOwner: true,
     status: true,
     run: (botxi, message, args) => {
-        let server = message.guild,
-            Discord = botxi.configs.get("discord");
+        let server = message.guild
 
         let rol = message.mentions.roles.first() || //por mencion
             server.roles.resolve(args[1]) || //por id
@@ -24,7 +25,7 @@ module.exports = {
             tieneRol = persona.roles.cache.some(r => r == rol);
 
         if (args[0] === "list" || "l"){
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                     .setColor(0x00AE86)
                     .setDescription(
                         server.roles.cache.map(role => `<@&${role.id}>`)
@@ -83,7 +84,7 @@ module.exports = {
                 .then(() => {
                     message.channel.send(`Listo, le agrege el rol **${rol.name}** a **${persona.user.username}**`)
                 });
-        } else if (args[0] === "remove" || "r"){
+        } else if (args[0] === "remove" || "rv"){
             // Revisa si el bot tiene permiso para añadir roles
             if (!server.me.permissions.has("MANAGE_ROLES")) return message.reply("Que mal, no tengo permisos para hacer eso");
             // Tambien, si el autor tiene el permiso

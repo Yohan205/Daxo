@@ -4,11 +4,12 @@ module.exports = {
     name: "galleta",
     desc: "Da una galleta a un usuario",
     usage: "galleta",
-    aliases: ["cookie", "glt"],
+    aliases: ["galleta","cookie", "glt", "cokie"],
     isPrivate: false,
     guildOnly: false,
     category: "misc",
     isOwner: true,
+    status: true,
     run: async (botxi, message, args, BOT) => {
         const Zeew = botxi.configs.get("Zeew");
         const zeewGif = new Zeew.gif(BOT.TOKEN_ZEEW);
@@ -23,7 +24,7 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor("0xF49F0A")
             .setAuthor(message.author.username, message.author.avatarURL())
-            // .setFooter(botxi.user.username, botxi.user.avatarURL())
+            .setFooter("Gif proporcionado por Zeew", botxi.user.avatarURL())
             .setThumbnail(user.avatarURL())
             .setTitle("***" + user.username + ", *** tienes una galleta :cookie: de **" + message.author.username + "**")
             .setDescription("*Razón:* " + razon + "\n\n***(づ｡◕‿‿◕｡)づ:･ﾟ✧ :cookie:***")

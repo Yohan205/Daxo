@@ -9,31 +9,41 @@ module.exports = {
     guildOnly: false,
     category: "fun",
     isOwner: true,
+    status: true,
     run: (botxi, message, args) => {
-        const EMBED = botxi.configs.get("EMBED");
-        let personas = message.mentions.users.map(m => m.username).join(' y ');
+        const random = Math.floor(Math.random() * 100);
+        let heard = "";
+        if (random < 50) { // si el valor es menor a 50
+            heard = ':broken_heart:'; // entonces muestra un heart broken
+        } else if (random < 80) {
+            heard = ':sparkling_heart: :two_hearts:';
+        } else if (random < 101) {
+            heard = ':heartpulse: :revolving_hearts:';
+        }
+        const embed = new MessageEmbed()
+            .setDescription(heard + ' **' + random + ' %**' + ' ' + heard)
+            .setColor("RANDOM");
+
+        
+        if (args[1]){
+            let personas = message.mentions.users.map(m => m.username).join(' y ');
 
             if (!personas) return message.channel.send('Tienes que mencionar a dos usuarios para calcular');
 
-            const random = Math.floor(Math.random() * 100);
-            let heard = "";
             // muestra segun el valor de love cierto emoji de corazon
-            if (random < 50) { // si el valor es menor a 50
-                heard = ':broken_heart:'; // entonces muestra un heart broken
-
-            } else if (random < 80) {
-                heard = ':sparkling_heart: :two_hearts:';
-
-            } else if (random < 101) {
-                heard = ':heartpulse: :revolving_hearts:';
-
-            }
-
-            const embed = EMBED
-                .setTitle('El porcentaje de amor de ' + personas + ' es:')
-                .setDescription(heard + ' **' + random + ' %**' + ' ' + heard)
-                .setColor("RANDOM");
-
+            
+            embed.setTitle('El porcentaje de amor de ' + personas + ' es:');
+            
             message.channel.send({embeds:[embed]});
+        } else {
+            let persona = message.mentions.members.first() || //por mencion
+            message.guild.members.resolve(args[1]);
+
+            embed.setTitle('El porcentaje de amor entre '+ message.author.username + ' y ' + persona.user.username + ' es:');
+            
+            message.channel.send({embeds:[embed]});
+        }
+
+        
     }
 }

@@ -8,6 +8,7 @@ module.exports = {
     guildOnly: false,
     category: "voice",
     isOwner: true,
+    status: true,
     run: (botxi, message) => {
         const connection = getVoiceConnection(message.guild.id);
         connection.destroy();

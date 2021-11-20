@@ -9,6 +9,7 @@ module.exports = {
     guildOnly: false,
     category: "fun",
     isOwner: true,
+    status: true,
     run: (botxi, message, args) => {
         const EMBED = botxi.configs.get("EMBED");
         let text = args.join(" ");
