@@ -1,4 +1,5 @@
-const Zeew = require('zeew');
+// const Zeew = require('zeew');
+const Discord = require('discord.js');
 
 module.exports = {
     name: "test",
@@ -12,8 +13,7 @@ module.exports = {
     status: true,
     run: async (botxi, message, args, BOT) => {
         // console.log(botxi.users)
-        // console.log(args[1])
-        // console.log(message.guild.memberCount);
+        // console.log(args[1]) 
 
         // let infoRol = []; 
         
@@ -38,6 +38,31 @@ module.exports = {
                 console.log(rolAlto.color);
             }
         } */
-        message.delete({ timeout: 6000 });        
+
+        // BOTONES
+        const row = new Discord.MessageActionRow()
+            .addComponents(
+                new Discord.MessageButton()
+                .setCustomId("b1")
+                .setLabel("Presioname ❤️")
+                .setStyle("PRIMARY")
+                .setEmoji("👍")
+            )
+
+            const m = await message.channel.send({content: "Este es un botón", components: [row], tts: true});
+
+            const ifilter = i => i.user.id === message.author.id;
+
+            const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
+
+            colector.on("collect", async i => {
+                if (i.customId === "b1") {
+                    await i.deferUpdate();
+                    i.editReply({ content: "Respuesta al botón", components: []});
+                }
+            });
+            
+
+        message.delete({ timeout: 10000 });      
     }
 }

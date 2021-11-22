@@ -9,11 +9,11 @@ const bodyParser = require('body-parser');
 
 const auth = require('./settings/middlewares');
 const passport = require('./settings/passport');
-const dbConnection = require('./settings/dbConnection')
+const conectDB = require('./settings/conectMySQL')
 const { BOT } = require("./settings/config.js");
 const botxi = require('./DaxoBot');
 const app = express();
-//const cn = dbConnection();
+const cn = conectDB();
 
 //Settings
 app.set('port', BOT.PORT || 5040);

@@ -11,8 +11,6 @@ module.exports = {
     isOwner: true,
     status: true,
     run: (botxi, message, args) => {
-        const EMBED = botxi.configs.get("EMBED");
-
         let color = {
             "online": "#00c903",
             "idle": "#ff9a00",
@@ -20,10 +18,10 @@ module.exports = {
             "offline": "#d8d8d8"
         };
         let estados = {
-            "online": "En Línea",
-            "idle": "Ausente",
-            "dnd": "No molestar",
-            "offline": "Desconectado/invisible"
+            "online": "🟢 En línea",
+            "idle": "🌙 Ausente",
+            "dnd": "⛔ No molestar",
+            "offline": "⚪ Desconectado/invisible"
         };
 
         let user = message.mentions.users.first() || message.author;
@@ -37,22 +35,40 @@ module.exports = {
 
         const userEmbed = new MessageEmbed()
             .setThumbnail(user.displayAvatarURL({ format: 'png', size: 1024, dynamic: true }))
-            .addField("Información del usuario: " + user.tag, "**ID: **" + user.id)
-            .addField('Apodo', message.guild.members.resolve(user.id).nickname == null ? "Ninguno" : message.guild.members.resolve(user.id).nickname, true)
-            .addField(
-                'Jugando a',
-                pres == false ? "Nada" :
-                message.guild.members.resolve(user.id).presence.activities[0] ?
-                message.guild.members.resolve(user.id).presence.activities[0].name : 'Nada', true
-            )
-            .addField('Estado', pres == false ? "Desconectado/invisible" : estados[message.guild.members.resolve(user.id).presence.status], true)
-            .addField('Cuenta Creada', user.createdAt.toDateString(), true)
-            .addField('Fecha de Ingreso', message.guild.members.resolve(user.id).joinedAt.toDateString(), true)
-            .addField(
-                'Roles',
-                message.guild.members.resolve(user.id)
-                .roles.cache.map((roles) => `<@&${roles.id}>`)
-                .join(', ')
+            .addFields(
+                {
+                    name: "Información del usuario: " + user.tag,
+                    value: "🆔:" + user.id
+                },
+                {
+                    name: 'Apodo',
+                    value: message.guild.members.resolve(user.id).nickname == null ? "Ninguno" : message.guild.members.resolve(user.id).nickname,
+                    inline: true
+                },
+                {
+                    name: 'Jugando a',
+                    value: pres == false ? "Nada" : message.guild.members.resolve(user.id).presence.activities[0] ?message.guild.members.resolve(user.id).presence.activities[0].name : 'Nada',
+                    inline: true
+                },
+                {
+                    name: 'Estado',
+                    value: pres == false ? estados["offline"] : estados[message.guild.members.resolve(user.id).presence.status],
+                    inline: true
+                },
+                {
+                    name:'Cuenta Creada', 
+                    value:user.createdAt.toLocaleDateString("es-co"),
+                    inline:true
+                },
+                {
+                    name: 'Fecha de Ingreso',
+                    value: message.guild.members.resolve(user.id).joinedAt.toLocaleDateString("es-co"),
+                    inline: true
+                },
+                {
+                    name: 'Roles',
+                    value: message.guild.members.resolve(user.id).roles.cache.map((roles) => `<@&${roles.id}>`).join(', ')
+                }
             )
             .setTimestamp()
             .setFooter("Daxo", botxi.user.avatarURL())

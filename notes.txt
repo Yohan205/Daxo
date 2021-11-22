@@ -42,23 +42,31 @@ snippets:
 Relative path:
   ctrl+shift+H
 
-/*Dentro de cada comando a usar cooldown debera colocar este código:
+////////////////////////////////// Usando cooldown ////////////////////////////////////////////////////////
+const cooldown = new Set();
+        /* 
+        Dentro de cada comando a usar cooldown deberá colocar este código:
+        Que detendrá cualquier comando si el usuario está dentro del enfriamiento.
+        */
+        if (cooldown.has(message.author.id))
+            return message.channel.send(`${message.author.username} utilice el comando después de 10 segundos.`);
+        
+        //Si no tiene cooldown se establecerá.
+        cooldown.add(message.author.id);
+        
+        message.channel.send("**Mensaje Prueba**")
 
-//Que detendra cualquier comando si el usuario esta dentro del enfriamiento.
-if(cooldown.has(message.author.id)){
-   message.channel.send(message.author.username+ " utilice el comando despues de 10 segundos!");
-   return;
-}
-//Si no se encuentra dentro del enfriamiento, agrega al usuario para que
-//no pueda utilizar el comando durante 10 segundos.
-cooldown.add(message.author.id);
+        //Quita al usuario del enfriamiento después de pasar los 10 segundos.
+        setTimeout(() => {
+            cooldown.delete(message.author.id);
+          }, 10000);
 
-//Quita al usuario del enfriamiento después de pasar los 10 segundos.
-setTimeout(() => {
-  cooldown.delete(message.author.id);
-}, 10000);*/
+////////////////////////////////// Usando weebhook ////////////////////////////////////////////////////////
+var hook = new Discord.WebhookClient({ id: '856162171042005002', token: "YeKOnQyH0GM2JFEY1jhwezP37tqq4IlEM0qDRM73wUVSZe3pB0InaW05CF4lJxN3tqB_" });
 
-////////////////////////////////// Para mutear un usuario ////////////////////////////////////////////////////////
+hook.send(args[0]);
+
+////////////////////////////////// Mutear un usuario con rol ////////////////////////////////////////////////////////
 
 const ms = require("ms")
     let mutedRole = message.guild.roles.cache.find(x => x.name === "Muted");
@@ -118,5 +126,3 @@ const ms = require("ms")
       member.roles.remove(mutedRole).catch(console.error)
       message.channel.send("desmuetado!")
     }, ms(time));
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////

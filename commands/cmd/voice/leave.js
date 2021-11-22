@@ -10,8 +10,8 @@ module.exports = {
     isOwner: true,
     status: true,
     run: (botxi, message) => {
+        message.channel.send('Desconectando del canal de voz.');
         const connection = getVoiceConnection(message.guild.id);
         connection.destroy();
-        message.channel.send('Desconectando del canal de voz.');
     }
 }
