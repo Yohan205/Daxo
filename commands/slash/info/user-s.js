@@ -62,6 +62,6 @@ module.exports = {
             .setFooter("Daxo", botxi.user.avatarURL())
             .setColor(rolAlto.color);
 
-        int.reply({embeds:[userEmbed], ephemeral: true});
+        int.reply({embeds:[userEmbed]});
     }
 }

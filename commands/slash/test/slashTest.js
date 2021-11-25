@@ -3,7 +3,7 @@ module.exports = {
     description: "Comando ping",
     type: 1,
     run: (botxi, int) => {
-        int.reply({content: "Pong!"})
+        int.reply({content: "Pong!", ephemeral: true});
         console.log(int);
     }
 }

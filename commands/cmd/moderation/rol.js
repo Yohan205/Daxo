@@ -24,16 +24,7 @@ module.exports = {
         let estaRol = server.roles.cache.some(r => r == rol),
             tieneRol = persona.roles.cache.some(r => r == rol);
 
-        if (args[0] === "list" || "l"){
-            const embed = new MessageEmbed()
-                    .setColor(0x00AE86)
-                    .setDescription(
-                        server.roles.cache.map(role => `<@&${role.id}>`)
-                        .join('\n')
-                    )
-                    .setFooter(`Lista de roles de: ${server.name}`, server.iconURL());
-                    message.channel.send({embeds:[embed]});
-        } else if (args[0] === "find" || "f"){
+        if (args[0] == "find" || "f"){
             // Primero revisa si el usuario es el mismo autor o no, luego si en el mensaje hay algun rol
             if (persona == message.member) {
                 if (!args[1]) return message.reply("Porfa, pon el nombre o id del rol para poder buscarlo");
@@ -62,7 +53,7 @@ module.exports = {
                 }
                 message.channel.send(msg)
             }
-        } else if (args[0] === "add"){
+        } else if (args[0] == "add"){
             // Revisa si el bot tiene permiso para añadir roles
             if (!server.me.permissions.has("MANAGE_ROLES")) return message.reply("Que mal, no tengo permisos para hacer eso");
             // Tambien, si el autor tiene el permiso
@@ -84,7 +75,7 @@ module.exports = {
                 .then(() => {
                     message.channel.send(`Listo, le agrege el rol **${rol.name}** a **${persona.user.username}**`)
                 });
-        } else if (args[0] === "remove" || "rv"){
+        } else if (args[0] == "remove" || "rv"){
             // Revisa si el bot tiene permiso para añadir roles
             if (!server.me.permissions.has("MANAGE_ROLES")) return message.reply("Que mal, no tengo permisos para hacer eso");
             // Tambien, si el autor tiene el permiso
@@ -108,6 +99,15 @@ module.exports = {
             .catch(e => message.reply("Ocurrio un **error**"))
             .then(() => message.channel.send(`Listo! le quité el rol **${rol.name}** a **${persona.user.username}**`));
                 //message.channel.send(`Listo, le saque el rol **${rol.name}** a **${persona.user.username}** con la razon de: _${reason}`)
+        } else if (args[0] == "list" || "l"){
+            const embed = new MessageEmbed()
+            .setColor(0x00AE86)
+            .setDescription(
+                server.roles.cache.map(role => `<@&${role.id}>`)
+                .join('\n')
+            )
+            .setFooter(`Lista de roles de: ${server.name}`, server.iconURL());
+            message.channel.send({embeds:[embed]});
         } else {
             message.reply("Debes escribir un comando válido!")
         }

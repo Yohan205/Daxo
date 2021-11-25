@@ -1,3 +1,5 @@
+const chalk = require("chalk");
+
 module.exports = {
     name: "ready",
     once: true,
@@ -31,9 +33,7 @@ module.exports = {
             presence();
         }, 20000);
         
-        console.log(
-            `Estoy listo! ${botxi.user.username} conectado en ${botxi.guilds.cache.size} servidores y  ${botxi.users.cache.size} usuarios.`
-        );
+        console.log(chalk.green.bold(`[${botxi.user.username}] `) + `Conectado en ${botxi.guilds.cache.size} servidores y  ${botxi.users.cache.size} usuarios.`);
 
         const slashCommands = botxi.slashCommands.map(x => x);
         // console.log(slashCommands);

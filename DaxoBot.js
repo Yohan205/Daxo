@@ -12,6 +12,7 @@ botxi.configs = new Collection();
 botxi.configs.set("actions", actions);
 // const cldwn = require("./settings/functions");
 botxi.configs.set("Zeew", zeew);
+// botxi.configs.set("chalk", chalk);
 
 // Busca los eventos
 const eventFiles = fs.readdirSync(path.join(__dirname, "events"));
@@ -23,9 +24,9 @@ for (const file of eventFiles) {
     // si se ejecuta una sola vez:
 	if (event.once) {
         // Con (...args) pasa los argumentos para cada evento/archivo
-		botxi.once(event.name, (...args) => event.run(botxi, ...args)); 
+		botxi.once(event.name, (...arg) => event.run(botxi, ...arg)); 
 	} else {
-		botxi.on(event.name, (...args) => event.run(botxi, ...args, BOT));
+		botxi.on(event.name, (...arg) => event.run(botxi, ...arg, BOT));
 	}
 }
 

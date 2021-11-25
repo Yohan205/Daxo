@@ -24,6 +24,7 @@ module.exports = {
             .addField("-> `" + prefix + "inviteBot`", ":: Enviará un link para que puedas invitar a **Daxo** a tu servidor preferido. :wink: \n")
             .addField("Comandos de Diversión", '▔▔▔▔▔▔▔▔▔▔▔', true)
             .addField("-> `" + prefix + "neko`", ":: Te muestra una hermosa neko")
+            .addField("-> `" + prefix + "espejoMagico <@usuario>`", ":: Usa el espejo mágico nombra a tu persona favorita \nPor ejemplo: *" + prefix + "espejo @Daxo*")
             .addField("-> `" + prefix + "8ball`", ":: El bot respondera a tus preguntas con una respuesta aleatoria. \nPor ejemplo: *" + prefix + "8ball hoy llueve?*")
             .addField("-> `" + prefix + "ppt`", ":: Juega `Piedra`, `Papel` o `Tijera` con Daxo y prueba tu suerte.:wink: \nPor ejemplo: *" + prefix + "ppt piedra*")
             .addField("-> `" + prefix + "love`", ":: El bot calculará el porcentaje de amor entre dos usuarios 7u7. \nPor ejemplo: *" + prefix + "love <@usuario1> <@usuario2>* \n")

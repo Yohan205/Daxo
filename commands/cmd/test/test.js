@@ -1,5 +1,6 @@
 // const Zeew = require('zeew');
 const Discord = require('discord.js');
+const chalk = require('chalk');
 
 module.exports = {
     name: "test",
@@ -40,29 +41,31 @@ module.exports = {
         } */
 
         // BOTONES
-        const row = new Discord.MessageActionRow()
+        /* const row = new Discord.MessageActionRow()
             .addComponents(
                 new Discord.MessageButton()
                 .setCustomId("b1")
                 .setLabel("Presioname ❤️")
                 .setStyle("PRIMARY")
                 .setEmoji("👍")
-            )
+            );
 
-            const m = await message.channel.send({content: "Este es un botón", components: [row], tts: true});
+        message.channel.send({content: "Este es un botón", components: [row]}); */
 
-            const ifilter = i => i.user.id === message.author.id;
+            // const ifilter = i => i.user.id === message.author.id;
 
-            const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
-
-            colector.on("collect", async i => {
-                if (i.customId === "b1") {
-                    await i.deferUpdate();
-                    i.editReply({ content: "Respuesta al botón", components: []});
-                }
-            });
+            // const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
             
 
         message.delete({ timeout: 10000 });      
-    }
+    },
+    btn: [
+        {
+            id: "b1",
+            execute: async (botxi, int) => {
+                await int.deferUpdate();
+                int.editReply({ content: "Respuesta al botón", components: []});
+            }
+        }
+    ]
 }

@@ -11,7 +11,7 @@ module.exports = {
     isOwner: true,
     status: true,
     run: (botxi, message, args) => {
-        const src = createAudioResource("E:/Daxo/public/music/Desmeon - On That Day (feat. ElDiablo Flint  Zadik) [NCS Release].mp3", { inlineVolume: true});
+        const src = createAudioResource("E:/Daxo/public/music/Veorra - Set Free.mp3", { inlineVolume: true});
         const player = createAudioPlayer();
         if (!message.member.voice.channelId) return message.channel.send('Debes estar conectado a un canal de voz');
         const connection = joinVoiceChannel({
@@ -22,7 +22,7 @@ module.exports = {
         
         message.channel.send('Conectado al canal de voz.');
         // new PlayerSubscription(connection, player);
-        src.volume.setVolume(0.2);
+        src.volume.setVolume(0.6);
         player.play(src);
                 connection.subscribe(player);
 

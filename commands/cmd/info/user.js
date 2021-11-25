@@ -10,7 +10,7 @@ module.exports = {
     category: "info",
     isOwner: true,
     status: true,
-    run: (botxi, message, args) => {
+    run: async (botxi, message, args) => {
         let color = {
             "online": "#00c903",
             "idle": "#ff9a00",
@@ -24,14 +24,18 @@ module.exports = {
             "offline": "⚪ Desconectado/invisible"
         };
 
-        let user = message.mentions.users.first() || message.author;
-        const rolAlto = message.guild.members.resolve(user.id).roles.highest;
+        const user = message.mentions.users.first() || message.author,
+            userInGuild = message.guild.members.resolve(user.id), // Obtiene datos del usuario en el guild
+            rolAlto = userInGuild.roles.highest; // Obtiene el rol más alto del usuario
+        let arr = userInGuild._roles.slice(); // Obtiene en un array los roles del usuario
+        let isPres = true; 
+        // Si precense es null, devuelve false sino true
+        if (userInGuild.presence == null) isPres = false;
 
-        // console.log(message.guild.members.resolve(user.id).roles.cache);
-        let pres = true
-        if (message.guild.members.resolve(user.id).presence == null){
-            pres = false;
-        }
+        // Esta condicion pasa cada rol del array en un string
+        if (arr[0]) {
+            arr = arr.map((r) => `<@&${r}>`).join(', ');
+        } else {arr = "Sin Roles"}
 
         const userEmbed = new MessageEmbed()
             .setThumbnail(user.displayAvatarURL({ format: 'png', size: 1024, dynamic: true }))
@@ -42,17 +46,17 @@ module.exports = {
                 },
                 {
                     name: 'Apodo',
-                    value: message.guild.members.resolve(user.id).nickname == null ? "Ninguno" : message.guild.members.resolve(user.id).nickname,
+                    value: userInGuild.nickname == null ? "Ninguno" : userInGuild.nickname,
                     inline: true
                 },
                 {
                     name: 'Jugando a',
-                    value: pres == false ? "Nada" : message.guild.members.resolve(user.id).presence.activities[0] ?message.guild.members.resolve(user.id).presence.activities[0].name : 'Nada',
+                    value: isPres == false ? "Nada" : userInGuild.presence.activities[0] ?userInGuild.presence.activities[0].name : 'Nada',
                     inline: true
                 },
                 {
                     name: 'Estado',
-                    value: pres == false ? estados["offline"] : estados[message.guild.members.resolve(user.id).presence.status],
+                    value: isPres == false ? estados["offline"] : estados[userInGuild.presence.status],
                     inline: true
                 },
                 {
@@ -62,12 +66,12 @@ module.exports = {
                 },
                 {
                     name: 'Fecha de Ingreso',
-                    value: message.guild.members.resolve(user.id).joinedAt.toLocaleDateString("es-co"),
+                    value: userInGuild.joinedAt.toLocaleDateString("es-co"),
                     inline: true
                 },
                 {
                     name: 'Roles',
-                    value: message.guild.members.resolve(user.id).roles.cache.map((roles) => `<@&${roles.id}>`).join(', ')
+                    value: arr
                 }
             )
             .setTimestamp()
