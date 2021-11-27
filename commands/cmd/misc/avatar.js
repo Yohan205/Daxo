@@ -3,12 +3,12 @@ const Discord = require('discord.js');
 module.exports = {
     name: "avatar",
     desc: "Muestra el avatar de un usuario.",
-    usage: "avatar",
+    usage: "avatar [@user]",
     aliases: ["avatar",],
     isPrivate: false,
     guildOnly: false,
     category: "misc",
-    isOwner: true,
+    cooldown: 0,
     status: true,
     run: (botxi, message, args) => {
         let member =

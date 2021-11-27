@@ -1,12 +1,12 @@
 module.exports = {
-    name: "invite",
-    desc: "Invita a Daxo a tu servidor",
-    usage: "invite",
-    aliases: [],
+    name: "inviteBot",
+    desc: "Enviará un link para que puedas invitar a **Daxo** a tu servidor preferido. :wink:",
+    usage: "inviteBot",
+    aliases: ["inviteBot"],
     isPrivate: false,
     guildOnly: false,
     category: "info",
-    isOwner: true,
+    cooldown: 0,
     status: true,
     run: (botxi, message, args) => {
         const link = botxi.generateInvite({

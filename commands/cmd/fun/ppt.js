@@ -2,13 +2,13 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: "ppt",
-    desc: "Juega piedra, Papel o tijeras contra mi",
+    desc: "Juega `Piedra`, `Papel` o `Tijera` contra mi y prueba tu suerte.:wink:",
     usage: "ppt",
     aliases: ["ppt"],
     isPrivate: false,
     guildOnly: false,
     category: "fun",
-    isOwner: true,
+    cooldown: 3,
     status: true,
     /**
      * 

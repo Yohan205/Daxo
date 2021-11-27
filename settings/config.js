@@ -5,6 +5,7 @@ module.exports = {
         PORT: 80,
         TOKEN: process.env.TOKEN,
         TOKEN_ZEEW: process.env.TOKEN_ZEEW,
+        TOKEN_YT: process.env.TOKEN_YT,
         secretBot: process.env.SECRET_BOTXI,
         passDB: process.env.PASS_DB,
         uriDB: `mysql://uhm9clvwkq3t6ovc:${process.env.PASS_DB}@bkxad7etyo8ohsqcoaen-mysql.services.clever-cloud.com:3306/bkxad7etyo8ohsqcoaen`,

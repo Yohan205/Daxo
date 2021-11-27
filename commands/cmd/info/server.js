@@ -8,7 +8,7 @@ module.exports = {
     isPrivate: false,
     guildOnly: false,
     category: "info",
-    isOwner: true,
+    cooldown: 0,
     status: true,
     run: (botxi, message, args) => {
         const server = message.guild

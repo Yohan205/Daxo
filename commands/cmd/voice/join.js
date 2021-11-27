@@ -8,7 +8,7 @@ module.exports = {
     isPrivate: false,
     guildOnly: false,
     category: "voice",
-    isOwner: true,
+    cooldown: 0,
     status: true,
     run: (botxi, message, args) => {
         const src = createAudioResource("E:/Daxo/public/music/Veorra - Set Free.mp3", { inlineVolume: true});

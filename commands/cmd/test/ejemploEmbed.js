@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const Discord = require("discord.js");
 
 module.exports = {
     name: "ejemploEmbed",
@@ -8,11 +8,11 @@ module.exports = {
     isPrivate: false,
     guildOnly: false,
     category: "test",
-    isOwner: true,
+    cooldown: 0,
     status: true,
     run: async (botxi, message, args) => {
         
-        const embed = new MessageEmbed()
+        const embed = new Discord.MessageEmbed()
                 .setTitle("Este es su título, puede contener 256 caracteres")
                 .setAuthor(message.author.username, message.author.avatarURL())
                 .setColor(0x00AE86)

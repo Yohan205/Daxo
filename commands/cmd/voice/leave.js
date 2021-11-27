@@ -7,7 +7,7 @@ module.exports = {
     isPrivate: false,
     guildOnly: false,
     category: "voice",
-    isOwner: true,
+    cooldown: 0,
     status: true,
     run: (botxi, message) => {
         message.channel.send('Desconectando del canal de voz.');

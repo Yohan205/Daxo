@@ -66,7 +66,7 @@ var hook = new Discord.WebhookClient({ id: '856162171042005002', token: "YeKOnQy
 
 hook.send(args[0]);
 
-////////////////////////////////// Mutear un usuario con rol ////////////////////////////////////////////////////////
+////////////////////////////////// Mutear un usuario usando rol ////////////////////////////////////////////////////////
 
 const ms = require("ms")
     let mutedRole = message.guild.roles.cache.find(x => x.name === "Muted");

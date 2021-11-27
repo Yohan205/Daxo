@@ -1,9 +1,11 @@
-const chalk = require("chalk");
+const chalk = require('chalk');
+const countFiles = require("../functions/countFiles")
 
 module.exports = {
     name: "ready",
     once: true,
     run: (botxi) => {
+        const cmdsN = countFiles("E:/Daxo/commands/cmd/", ".js");
         const estados = [
             {
                 name: "Daxo help",
@@ -33,7 +35,7 @@ module.exports = {
             presence();
         }, 20000);
         
-        console.log(chalk.green.bold(`[${botxi.user.username}] `) + `Conectado en ${botxi.guilds.cache.size} servidores y  ${botxi.users.cache.size} usuarios.`);
+        console.log(chalk.green.bold(`[${botxi.user.username}] `) + `Conectado en ${botxi.guilds.cache.size} servidores y ${botxi.users.cache.size} usuarios con ${cmdsN} comandos.`);
 
         const slashCommands = botxi.slashCommands.map(x => x);
         // console.log(slashCommands);

@@ -7,8 +7,8 @@ module.exports = {
     aliases: ["rol", "r"],
     isPrivate: false,
     guildOnly: false,
-    category: "moderation",
-    isOwner: true,
+    category: "mod",
+    cooldown: 0,
     status: true,
     run: (botxi, message, args) => {
         let server = message.guild
@@ -18,13 +18,13 @@ module.exports = {
             server.roles.cache.find(r => r.name == args.slice(1).join(' ')); //por nombre
 
         let persona = message.mentions.members.first() || //por mencion
-            message.guild.members.resolve(args[1]) || //por id
+            server.members.resolve(args[1]) || //por id
             message.member;
         
         let estaRol = server.roles.cache.some(r => r == rol),
             tieneRol = persona.roles.cache.some(r => r == rol);
 
-        if (args[0] == "find" || "f"){
+        if (args[0] == "find" || args[0] === "f") {
             // Primero revisa si el usuario es el mismo autor o no, luego si en el mensaje hay algun rol
             if (persona == message.member) {
                 if (!args[1]) return message.reply("Porfa, pon el nombre o id del rol para poder buscarlo");
@@ -39,7 +39,8 @@ module.exports = {
                     message.reply(`No tienes el rol **${rol.name}** `)
                 }
             } else {
-                if (!rol) return message.reply("Porfa, pon el nombre o id del rol para poder buscarlo");
+                if (!persona) return message.reply("No mencionaste a nadie, debes mencionar o poner la id de un usuario.")
+                if (!rol) return message.reply("Porfa, menciona o pon el id del rol para poder buscarlo");
                 
                 // Si el rol no esta en el servidor manda un mensaje
                 if (!estaRol) return message.reply('No pude encontrar el rol en el servidor o está mal escrito :c');
@@ -59,6 +60,7 @@ module.exports = {
             // Tambien, si el autor tiene el permiso
             if (!message.member.permissions.has("MANAGE_ROLES")) return message.reply("Wey no tienes permisos para hacer eso! D:");
             // Si no menciona el usuario
+            persona = message.mentions.members.first() || message.guild.members.resolve(args[1]);
             if (!persona) return message.reply('Oye menciona o pon la id de alguien para darle el rol');
             // Si no menciona el rol
             if (!rol) return message.reply('Menciona o pon el nombre o id del rol a dar sino, cómo voy a saber qué rol quieres jsjsjs');
@@ -75,12 +77,13 @@ module.exports = {
                 .then(() => {
                     message.channel.send(`Listo, le agrege el rol **${rol.name}** a **${persona.user.username}**`)
                 });
-        } else if (args[0] == "remove" || "rv"){
+        } else if (args[0] == "remove" || args[0] === "rv"){
             // Revisa si el bot tiene permiso para añadir roles
             if (!server.me.permissions.has("MANAGE_ROLES")) return message.reply("Que mal, no tengo permisos para hacer eso");
             // Tambien, si el autor tiene el permiso
             if (!message.member.permissions.has("MANAGE_ROLES")) return message.reply("Wey no tienes permisos para hacer eso! D:");
             // Si no menciona el usuario
+            persona = message.mentions.members.first() || message.guild.members.resolve(args[1]);
             if (!persona) return message.reply('Oye menciona o pon la id de alguien para darle el rol');
             // Si no menciona el rol
             if (!rol) return message.reply('Menciona o pon el nombre o id del rol a dar sino, cómo voy a saber qué rol quieres jsjsjs');
@@ -99,17 +102,17 @@ module.exports = {
             .catch(e => message.reply("Ocurrio un **error**"))
             .then(() => message.channel.send(`Listo! le quité el rol **${rol.name}** a **${persona.user.username}**`));
                 //message.channel.send(`Listo, le saque el rol **${rol.name}** a **${persona.user.username}** con la razon de: _${reason}`)
-        } else if (args[0] == "list" || "l"){
+        } else if (args[0] == "list" || args[0] === "l"){
             const embed = new MessageEmbed()
             .setColor(0x00AE86)
             .setDescription(
-                server.roles.cache.map(role => `<@&${role.id}>`)
+                server.roles.cache.map(role => `O <@&${role.id}>`)
                 .join('\n')
             )
             .setFooter(`Lista de roles de: ${server.name}`, server.iconURL());
             message.channel.send({embeds:[embed]});
         } else {
-            message.reply("Debes escribir un comando válido!")
+            message.reply("Revisa help, para ver los comandos.")
         }
     }
 }

@@ -8,7 +8,7 @@ module.exports = {
     isPrivate: false,
     guildOnly: false,
     category: "nsfw",
-    isOwner: true,
+    cooldown: 0,
     status: true,
     run: async (botxi, message, args, BOT) => {
         const zeewGif = new Zeew.gif(BOT.TOKEN_ZEEW);

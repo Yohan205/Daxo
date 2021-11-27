@@ -24,7 +24,7 @@ for (const file of eventFiles) {
     // si se ejecuta una sola vez:
 	if (event.once) {
         // Con (...args) pasa los argumentos para cada evento/archivo
-		botxi.once(event.name, (...arg) => event.run(botxi, ...arg)); 
+		botxi.once(event.name, (...arg) => event.run(botxi, ...arg, BOT)); 
 	} else {
 		botxi.on(event.name, (...arg) => event.run(botxi, ...arg, BOT));
 	}

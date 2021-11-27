@@ -7,8 +7,8 @@ module.exports = {
     aliases: ["deleteMsg","bulkDelete", "borrar"],
     isPrivate: false,
     guildOnly: false,
-    category: "moderation",
-    isOwner: true,
+    category: "mod",
+    cooldown: 20,
     status: true,
     run: (botxi, message, args) => {
         let canalInfo = message.guild.channels.cache.get(message.guild.systemChannelId);
@@ -21,13 +21,15 @@ module.exports = {
         if (!args[0]) return message.reply('Escriba la cantidad de mensajes a eliminar');
         let cantidad = parseInt(args[0]);
 
-        if (!cantidad || isNaN(cantidad)) return message.channel.send('Introduce un numero por favor');
+        if (!cantidad || isNaN(cantidad)) return message.reply('Introduce un numero por favor');
 
         if (cantidad > 100) {
-            message.channel.send(
-                'El maximo de mensajes que puedo borrar es 100, por lo tanto lo establecere automaticamente ahi'
+            message.reply(
+                'El maximo de mensajes que puedo borrar es 100, por lo tanto lo estableceré automaticamente ahi'
             );
             cantidad = 100;
+        } else {
+            cantidad += 1;
         }
 
         message.channel.messages.fetch({ limit: cantidad }).then((mensajes) => {

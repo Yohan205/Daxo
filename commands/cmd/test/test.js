@@ -10,7 +10,7 @@ module.exports = {
     isPrivate: false,
     guildOnly: false,
     category: "test",
-    isOwner: true,
+    cooldown: 0,
     status: true,
     run: async (botxi, message, args, BOT) => {
         // console.log(botxi.users)
@@ -52,10 +52,11 @@ module.exports = {
 
         message.channel.send({content: "Este es un botón", components: [row]}); */
 
-            // const ifilter = i => i.user.id === message.author.id;
+        // const ifilter = i => i.user.id === message.author.id;
 
-            // const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
-            
+        // const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
+
+        message.channel.send({content: "Recibido!"})
 
         message.delete({ timeout: 10000 });      
     },

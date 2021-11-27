@@ -1,5 +1,7 @@
 const chalk = require('chalk');
+const timeUnd = require("../functions/timeUnd.js");
 const { Client, Message, Collection } = require('discord.js');
+const coolDown = new Set();
 
 module.exports = {
     name: "messageCreate",
@@ -25,11 +27,21 @@ module.exports = {
 
         const cmd = botxi.commands.get(command) || botxi.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
         if(!cmd) return;
-        if(!cmd.status) return message.reply(`El comando **${cmd.name}** no está activo`); // si estatus es true mandar mensaje que el comando esta desactivado
-        if(cmd.btn){
-            cmd.btn.map(b => {botxi.buttons.set(b.id, b)})
-        }
+        if(!cmd.status) return message.reply(`Sorry, el comando **${cmd.name}** no está activo :c`).then((m)=>{console.warn(chalk.bold.yellow("[Daxo] ")+"El comando " + chalk.yellow(cmd.name)+ " no está activo!")}); // si estatus es true mandar mensaje que el comando esta desactivado
 
-        cmd.run(botxi, message, args, BOT)
+        if (cmd.cooldown > 0){
+            const tiempo = timeUnd.timeOUT(cmd.cooldown);
+            if (coolDown.has(message.author.id)) return message.reply("No tan rápido camarada, utiliza el comando después de " + tiempo.msg + tiempo.und);
+            coolDown.add(message.author.id); //Si no tiene cooldown se establecerá.
+        
+            cmd.run(botxi, message, args, BOT)
+
+            setTimeout(() => {
+                coolDown.delete(message.author.id); 
+            }, tiempo.time); //Quita al usuario del enfriamiento después del tiempo establecido.
+        } else {
+            cmd.run(botxi, message, args, BOT)
+        }
+        if(cmd.btn) cmd.btn.map(b => {botxi.buttons.set(b.id, b)});
     }
 }

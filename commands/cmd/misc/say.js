@@ -6,7 +6,7 @@ module.exports = {
     isPrivate: false,
     guildOnly: false,
     category: "misc",
-    isOwner: true,
+    cooldown: 5,
     status: true,
     run: (botxi, message, args) => {
         message.channel.send("Tu mensaje fue: ```"+`${args.join(" ")}`+" ```")

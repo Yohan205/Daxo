@@ -8,7 +8,7 @@ module.exports = {
     isPrivate: false,
     guildOnly: false,
     category: "actions",
-    isOwner: true,
+    cooldown: 10,
     status: true,
     run: async(botxi, message, args, BOT) => {
         const actions = botxi.configs.get("actions");

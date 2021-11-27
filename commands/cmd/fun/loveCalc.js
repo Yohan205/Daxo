@@ -1,14 +1,14 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: "loveCalculator",
-    desc: "Calcula el amor entre dos usuarios",
-    usage: "loveCalculator",
-    aliases: ["love", "loveCalc"],
+    name: "ship",
+    desc: "Daxo calculará el porcentaje de amor entre dos usuarios 7u7.",
+    usage: "ship <@usuario1> <@usuario2>",
+    aliases: ["loveCalculator", "loveCalc", "ship"],
     isPrivate: false,
     guildOnly: false,
     category: "fun",
-    isOwner: true,
+    cooldown: 5,
     status: true,
     run: (botxi, message, args) => {
         const random = Math.floor(Math.random() * 100);

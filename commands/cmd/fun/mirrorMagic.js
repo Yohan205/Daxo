@@ -3,13 +3,13 @@ const Canvas = require('canvas');
 
 module.exports = {
     name: "mirrorMagic",
-    desc: "Espejo mágico",
-    usage: "mirrorMagic",
+    desc: "Usa el espejo mágico y nombra a tu persona favorita. OwO",
+    usage: "espejoMagico <@usuario>",
     aliases: ["mirrorMagic", "espejoMagico", "espejo", "mirror"],
     isPrivate: false,
     guildOnly: false,
     category: "fun",
-    isOwner: true,
+    cooldown: 10,
     status: true,
     /**
     * @param {Discord.Client} botxi

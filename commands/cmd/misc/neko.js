@@ -2,13 +2,13 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "neko",
-    desc: "Imagen de neko",
+    desc: "Te muestra una hermosa neko",
     usage: "neko",
     aliases: [],
     isPrivate: false,
     guildOnly: false,
     category: "misc",
-    isOwner: true,
+    cooldown: 10,
     status: true,
     run: async (botxi, message, args, BOT) => {
         const Zeew = botxi.configs.get("Zeew");

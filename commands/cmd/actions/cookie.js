@@ -3,12 +3,12 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: "galleta",
     desc: "Da una galleta a un usuario",
-    usage: "galleta",
+    usage: "galleta <@usuario>",
     aliases: ["galleta","cookie", "glt", "cokie"],
     isPrivate: false,
     guildOnly: false,
-    category: "misc",
-    isOwner: true,
+    category: "actions",
+    cooldown: 5,
     status: true,
     run: async (botxi, message, args, BOT) => {
         const Zeew = botxi.configs.get("Zeew");

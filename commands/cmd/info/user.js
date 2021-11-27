@@ -2,13 +2,13 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "user",
-    desc: "Da la info de un usuario",
-    usage: "user",
+    desc: "Muestra la información de un usuario",
+    usage: "user [@user]",
     aliases: ["user", "u"],
     isPrivate: false,
     guildOnly: false,
     category: "info",
-    isOwner: true,
+    cooldown: 0,
     status: true,
     run: async (botxi, message, args) => {
         let color = {

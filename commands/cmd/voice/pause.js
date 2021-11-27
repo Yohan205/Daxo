@@ -8,7 +8,7 @@ module.exports = {
     isPrivate: false,
     guildOnly: false,
     category: "voice",
-    isOwner: true,
+    cooldown: 0,
     status: false,
     run: (botxi, message, args) => {
         const player = createAudioPlayer();

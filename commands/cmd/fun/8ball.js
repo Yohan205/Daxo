@@ -2,13 +2,13 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "8ball",
-    desc: "Preguntale a 8ball",
-    usage: "8ball",
-    aliases: [],
+    desc: "Preguntale a la 8ball",
+    usage: "8ball <pregunta>",
+    aliases: ["8ball", "8bl"],
     isPrivate: false,
     guildOnly: false,
     category: "fun",
-    isOwner: true,
+    cooldown: 15,
     status: true,
     run: (botxi, message, args) => {
         const EMBED = botxi.configs.get("EMBED");

@@ -13,7 +13,7 @@ module.exports = (url, action, message) => {
                 return embed;
 
             case "corriendo":
-                embed.setDescription("**"+message.member.displayName+"** está "+action);
+                embed.setDescription("**"+message.member.displayName+"** está "+ action);
                 return embed;
             default:
                 const embedError = new MessageEmbed()
