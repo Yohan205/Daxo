@@ -42,24 +42,8 @@ snippets:
 Relative path:
   ctrl+shift+H
 
-////////////////////////////////// Usando cooldown ////////////////////////////////////////////////////////
-const cooldown = new Set();
-        /* 
-        Dentro de cada comando a usar cooldown deberá colocar este código:
-        Que detendrá cualquier comando si el usuario está dentro del enfriamiento.
-        */
-        if (cooldown.has(message.author.id))
-            return message.channel.send(`${message.author.username} utilice el comando después de 10 segundos.`);
-        
-        //Si no tiene cooldown se establecerá.
-        cooldown.add(message.author.id);
-        
-        message.channel.send("**Mensaje Prueba**")
-
-        //Quita al usuario del enfriamiento después de pasar los 10 segundos.
-        setTimeout(() => {
-            cooldown.delete(message.author.id);
-          }, 10000);
+////////////////////////////////// Cantidad de comandos ////////////////////////////////////////////////////////
+Agregar a un array los nombres de los comandos y luego contar la longitud del array + 1, que dará la cantidad de comandos
 
 ////////////////////////////////// Usando weebhook ////////////////////////////////////////////////////////
 var hook = new Discord.WebhookClient({ id: '856162171042005002', token: "YeKOnQyH0GM2JFEY1jhwezP37tqq4IlEM0qDRM73wUVSZe3pB0InaW05CF4lJxN3tqB_" });
