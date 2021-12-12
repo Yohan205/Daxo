@@ -1,44 +1,53 @@
-{{!>clock-widget}}
-<h1 style="color: aqua;text-align: center">Servidor The Broland</h1>
-<hr>
-<p>
-    <span>¡Este es un servidor de Minecraft Bedrock en el que queremos pasarla bien jugando, charlando y haciendo nuevos
-        amigos!
-    </span><br><br>
-    <span>Al entrar el mundo verás algunas construcciones hechas como: casas, edificios decorativos, administrativos y
-        de vivienda. Y se planea hacer una ciudad en donde podras comprar o rentar una casa (si quieres puedes construir
-        tu propia casa) y tener una profesión o trabajo.
-    </span><br>
-    <img src="IMG/LogoTheBroland.jpg" title="BannerTheBroland" alt="BannerTheBroland" width="150px"
-        style="float: right">
-    <span>Esta imagen es el banner The Broland, creado por <b>CollaGamer</b>. En este server tenemos una jerarquía, es
+<section class="content">
+    {{!>clock-widget}}
+    <style>
+        h2, h3 {
+            text-align: center;
+        }
+
+        .frames div iframe {
+            width: 90%;
+            height:500px;
+            margin-left: 30px;
+        }
+    </style>
+    <h1><strong>Servidor The Broland</strong></h1>
+    <hr>
+    <img src="IMG/Brolandia/S3/img01.jpg" alt="Img1" title="Img1" id="img-brolandia">
+    <p>Al entrar el mundo verás un bosque de abedul y una montaña nevada, al cruzar o subir esta montaña se podrá ver un bosque que en su interior tiene un lago, con el motivo de realizar algo bonito ahí, sólo puedes construir en los alrededores de este lugar, es decir, por donde está el bosque de abedul.
+    </p>
+    <p>
+        En este mundo también tenemos mods para que puedas disfrutar aún más, actualmente en el mundo están estos addons: <a href="#Furniture" class="link">Furniture</a> (Decoración), <a href="#SecurityBE" class="link">Security Craft</a> (Seguridad), <a href="#BotTopia" class="link">Bot Topia</a> (Robots ayudantes), <a href="#MoreStr" class="link">More Structures</a> (Más construcciones que aparecerán por el mundo, como mazmorras u otras sencillas), Rotten Creatures (Agrega más enemigos), One Player Sleep (Permite dormir sin la necesidad de que todos los jugadores duerman). Para que puedas saber sobre cómo usar los mods y qué crafteos hay, puedes dar clic sobre el nombre del addon y verás más información.
+    </p>
+    {{!-- <img src="IMG/LogoTheBroland.jpg" title="BannerTheBroland" alt="BannerTheBroland" width="150px"
+        style="float: right"> Esta imagen es el banner de The Broland, creado por <b>CollaGamer</b>.--}}
+    {{!-- <span>En este server tenemos una jerarquía, es
         decir, tenemos un presidente, policías, médicos, ciudadanos y otros cargos (El presidente será el cargo más alto
         y será él quien dirija todo el servidor). También hay un alcalde y es un rango menor que el presidente.<br>Así
         mismo, se elige un nuevo alcalde cada 2 meses y un presidente cada 4 meses, este proceso se hace por medio de
         una página en la cuál todos los jugadores del server pueden votar.</span>
-    <br><br>
-    <span>Entérate de las reglas para que evites ser baneado del server. Las reglas son:
+    <br><br> --}}
+    <iframe class="discordFrame" src="https://discordapp.com/widget?id=654830450920914955&theme=dark" 
+        allowtransparency="true" frameborder="0" style="float: right;">
+    </iframe><br>
+    <span>Entérate de las reglas para que evites ser baneado del server. Éstas son:
         <ol>
             <li>No Robar</li>
             <li> No destruir la casa de los demás: específicamente no romper ningún bloque en el terreno de la casa de
                 algún jugador a menos que el dueño te lo permita.</li>
-            <li> No destruir las construcciones que están dentro de la muralla.</li>
-            <li> Si vas a hacer alguna broma a algun jugador (así sea con TNT) lo puedes hacer <b>pero</b> tienes que
+            <li> Si vas a contruir algo hazlo pero, NO en el bosque que está dentro de la montaña.</li>
+            {{!-- <li> No destruir las construcciones que están dentro de la montaña.</li> --}}
+            <li> Si vas a hacer alguna broma a algun jugador (así sea con TNT) lo puedes hacer <b>PERO</b> tienes que
                 reconstruirle la casa o recuperarle sus objetos perdidos.</li>
-            <li> NO matar a los demás jugadores o seras encarcelado.</li>
-            <li> Está PROHIBIDO duplicar items o bloques, si se tienen pruebas de que has hecho esto serás expulsado del
-                server.</li>
-            <li> Si eres admin en el mundo y no eres alcalde o presidente, NO uses otros comandos que no esten en los
-                botones del chat.</li>
-            <li> No puedes tener más de dos casas en el mundo. Además <i>¿Para qué más casas?</i></li>
-            <li> Si vas a contruir algo hazlo pero, FUERA DE LA MURALLA.</li>
+            <li> NO matar a los demás jugadores sin motivo alguno si lo haces serás castigado.</li>
+            <li> Está PROHIBIDO duplicar items o bloques, si se tienen pruebas de que has hecho esto serás expulsado del server.</li>
+            {{!-- <li> Si eres admin en el mundo y no eres alcalde o presidente, NO uses otros comandos que no esten en los
+                botones del chat.</li> --}}
+            <li> No puedes tener más de tres casas en el mundo. Además <i>¿Para qué tantas casas?</i></li>
             <span><strong>¡Si no cumples estas reglas seras baneado o castigado!</strong></span>
         </ol>
     </span>
-    <iframe src="https://discordapp.com/widget?id=654830450920914955&theme=dark" width="350px" height="385px"
-        allowtransparency="true" frameborder="0" style="float: right;">
-    </iframe><br>
-    <span>También, según lo que mande el presidente puede modificar los rangos o cargos de los jugadores. En el server
+    {{!-- <span>También, según lo que mande el presidente puede modificar los rangos o cargos de los jugadores. En el server
         no se verá el nombre del rango pero sí el número. Estos rangos están en este orden:
     </span>
     <ol>
@@ -63,35 +72,69 @@
         <li>
             Policía
         </li>
-    <li>
-        Jefe de Policía
-    </li>
-    <li>
-        Asistentes u Organizadores de Eventos
-    </li>
-    <li>
-        <b>Alcade (Admin)</b>
-    </li>
-    <li>
-        <b>Presidente (Admin)</b>
-    </li>
-</ol>
+        <li>
+            Jefe de Policía
+        </li>
+        <li>
+            Asistentes u Organizadores de Eventos
+        </li>
+        <li>
+            <b>Alcade (Admin)</b>
+        </li>
+        <li>
+            <b>Presidente (Admin)</b>
+        </li>
+    </ol> --}}
 </section>
 <br>
 <section class="content">
     <br>
-    <span><i>¿Quieres entrar?</i> Para entrar debes cumplir con unas pequeñas reglas y mandar tu gamertag al chat grupal
-        de <a href="https://discord.gg/yrtZMAxFuF" class="btn radius blue">Discord</a> o WhatsApp. Puedes añadir este
-        servidor en <i>Minecraft</i> haciendo clic aqu&iacute;:<a
-            href="minecraft://?addExternalServer=§b§lDaxoWorld|hidaxo.xyz:19132"
-            class="btn radius medium red">A&ntilde;adir Server</a></span>
+    <span><i>¿Te gustaría entrar a este hermoso lugar The Broland?</i></span><br>
+    <p>Para entrar debes cumplir con unas pequeñas reglas y mandar tu gamertag al chat grupal
+        de <a href="https://discord.gg/yrtZMAxFuF" class="btn radius blue">Discord</a> o también puedes unirte al grupo de WhatsApp. Para añadir este
+        servidor en <i>Minecraft</i> es muy, muy sencillo. Si haces clic en este botón, mágicamente te abrirá Minecraft y ya lo tendrás en el menú de servidores:<a
+            href="minecraft://?addExternalServer=§b§lTheBroland|play.hidaxo.xyz:19132"
+            class="btn radius medium green">A&ntilde;adir Server</a></p>
     <ol>
         <span>
             <h3>Reglas para unirse al server</h3>
         </span>
-        <li><span>Debes tener la versi&oacute;n m&aacute;s actual de minecraft (ya sea la oficial o beta).</span></li>
-        <li><span>Debes tener cuenta XboxLive o Gamertag</span></li>
+        <li><span>Debes tener la versi&oacute;n m&aacute;s reciente de minecraft (la versión oficial, osea no beta).</span></li>
+        <li><span>Debes tener cuenta XboxLive o algún email.</span></li>
         <li><span>Si eres nuevo conéctate por lo menos dos o tres días a la semana al server.</span></li>
         <li><span>Qué edad tienes? Para entrar al server debes tener más de 12 años.</span></li>
     </ol>
     <!--Hacer una pagina sobre como entrar al server-->
+</section><br>
+<section class="content">
+    <h2>Addons:</h2>
+    <div class="frames">
+        <div>
+            <hr align="center" width="90%">
+            <h2 id="Furniture">Furniture</h2>
+            <iframe src="https://mcpedl.com/bzf-furniture-s-addon/" allowtransparency="true" frameborder="0">
+            </iframe>
+        </div>
+
+        <div>
+            <hr align="center" width="90%">
+            <h2 id="SecurityBE">Security BE Craft</h2>
+            <iframe src="https://belytra.com/securitybecraft/" allowtransparency="true" frameborder="0">
+            </iframe>
+        </div>
+
+        <div>
+            <hr align="center" width="90%">
+            <h2 id="BotTopia">Bot Topia</h2>
+            <iframe src="https://mcpedl.com/bot-topia/" allowtransparency="true" frameborder="0">
+            </iframe>
+        </div>
+
+        <div>
+            <hr align="center" width="90%">
+            <h2 id="MoreStr">More Structures</h2>
+            <iframe src="https://mcpedl.com/more-simple-structures-addon/" allowtransparency="true" frameborder="0">
+            </iframe>
+        </div>
+    </div>
+</section>

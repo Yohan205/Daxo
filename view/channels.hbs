@@ -1,18 +1,19 @@
-<div class="header-dash" aria-owns="true">
-    {{> headerDash}}
-</div>
-<hr>
-<div class="cards-content">
-    {{#each canalesTxt}}
-    <div class="cards">
-        <div>
-            <h3>{{this.name}}</h3>
-            <h4>ID: {{this.id}}</h4>
-            <h4>Posición: {{this.position}}</h4>
-        </div>
+<section class="content">
+    <div class="header-dash" aria-owns="true">
+        {{> headerDash}}
     </div>
-    {{/each}}
-</div>
+    <hr>
+    <div class="cards-content">
+        {{#each canalesTxt}}
+        <div class="cards">
+            <div>
+                <h3>{{this.name}}</h3>
+                <h4>ID: {{this.id}}</h4>
+                <h4>Posición: {{this.position}}</h4>
+            </div>
+        </div>
+        {{/each}}
+    </div>
 </section>
 <br>
 <section class="content">
@@ -31,3 +32,4 @@
         </div>
         {{/each}}
     </div>
+</section>

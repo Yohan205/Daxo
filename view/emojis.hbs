@@ -1,16 +1,18 @@
-<div class="header-dash" aria-owns="true">
-    {{> headerDash}}
-</div>
-<hr>
-<div class="cards-content">
-    {{#each emojis}}
-    <div class="cards">
-        <div>
-            <img src="{{this.url}}" alt="{{this.name}}">
-        </div>
-        <div>
-            <h2>{{this.name}}</h2>
-        </div>
+<section class="content">
+    <div class="header-dash" aria-owns="true">
+        {{> headerDash}}
     </div>
-    {{/each}}
-</div>
+    <hr>
+    <div class="cards-content">
+        {{#each emojis}}
+        <div class="cards">
+            <div>
+                <img src="{{this.url}}" alt="{{this.name}}">
+            </div>
+            <div>
+                <h2>{{this.name}}</h2>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</section>

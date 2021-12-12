@@ -1,33 +1,18 @@
-{{!>clock-widget}}
-    <h2>
-        <script type="application/javascript">
-            function getIP(json) {
-                document.write("Tu ip es: ", json.ip);
-            }
-        </script>
-        <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
-    </h2>
-</section>
-<br>
 <section class="content">
-    <form id="recargas" action="/">
-        <input type="text" name="usuario" placeholder="usuario">
-        <input type="password" name="clave" placeholder="Contraseña">
-        <input type="text" name="consulta" placeholder="consulta">
-        <button type="submit" class="btn medium blue">Enviar</button>
-    </form>
-    <hr>
-    <button type="button" class="btn large orange" onclick="tarer()">Ver Usuario GD</button>
-    <h2 id="mostrarGD"></h2>
-        <script>        
-            var parf = document.getElementById("mostrarGD");
-            function tarer() {
-                fetch("https://gdbrowser.com/api/profile/CollaGamerYT")
-                .then( res => res.json())
-                .then( data => {
-                    parf.innerHTML = "el usuario es: " + data.username + " con la id: " + data.playerID;
-                });
-            }
-        </script>
+    <h2>Daxo (Discord Bot)</h2>
+    <p>Desde ésta página podrás administrar todas las opciones que tiene Daxo para tu servidor desde la Dashboard!</p>
     <br>
-    <div id="rec"></div>
+    <h3>Sobre Daxo</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis alias saepe possimus quidem voluptatibus, nostrum molestias aliquid qui. Dolore pariatur assumenda aperiam delectus, porro, qui nulla repellat deserunt nihil labore corrupti sit eius neque provident quasi aut adipisci dolorem architecto, voluptas ea enim. Ducimus quasi, eos doloribus aut reprehenderit quaerat impedit? Sit impedit aspernatur incidunt molestias modi libero eum! Saepe, harum dolores? Ullam nulla nihil dolorem, quod corporis odio vero ab! Amet debitis accusamus alias veritatis ea blanditiis officiis quo vel nostrum voluptatum inventore totam, nisi laboriosam tenetur aspernatur maiores eum? Aliquid corrupti saepe quas incidunt pariatur magni, nisi voluptate!</p>
+</section><br>
+<section class="content">
+    <h2>The Broland</h2>
+    <p>
+        ¡Este es un servidor de Minecraft Bedrock en el que queremos que tanto tú como todos los integrantes puedan pasarla bien jugando, charlando y haciendo nuevos amigos!
+    </p>
+    <p>
+        El servidor tiene una asombrosa semilla con varios biomas, donde podrás construir lo que quieras, eso sí, has de conseguir los materiales ya que el servidor es 100% Supervivencia. Tenemos en el mundo varios mods que nos ayudarán como un robot que vaya a minar por ti, también hay mods para aumentar la dificultad del juego, además de todo lo nuevo de la actualización de la <i>Caves and Cliffs</i>. Espero que quieras unirte y disfrutemos de vivir grandes experiencias en <strong>Minecraft!</strong>
+    </p>
+    <h3>¿Quieres saber cómo unirte?</h3>
+    <span>Ve a la sección de <i><b>The Broland</b></i> para saber más sobre el servidor.</span>
+</section>

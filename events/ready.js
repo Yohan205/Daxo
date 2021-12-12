@@ -5,7 +5,7 @@ module.exports = {
     name: "ready",
     once: true,
     run: (botxi) => {
-        const cmdsN = countFiles("E:/Daxo/commands/cmd/", ".js");
+        // const cmdsN = countFiles("E:/Daxo/commands/cmd/", ".js");
         const estados = [
             {
                 name: "Daxo help",
@@ -35,7 +35,7 @@ module.exports = {
             presence();
         }, 20000);
         
-        console.log(chalk.green.bold(`[${botxi.user.username}] `) + `Conectado en ${botxi.guilds.cache.size} servidores y ${botxi.users.cache.size} usuarios con ${cmdsN} comandos.`);
+        console.log(chalk.green.bold(`[${botxi.user.username}] `) + `Conectado en ${botxi.guilds.cache.size} servidores y ${botxi.users.cache.size} usuarios`);
 
         const slashCommands = botxi.slashCommands.map(x => x);
         // console.log(slashCommands);

@@ -224,10 +224,10 @@ app.get('/TheBroland', (req, res) => {
     })
 })
 
-app.get('/imagesTheBroland', (req, res) => {
+app.get('/TheBroland/images', (req, res) => {
     res.render('gallery_images', {
         title: "Galería de imágenes",
-        descPag: "Fotos del primer server de The Broland"
+        descPag: "Fotos de The Broland"
     })
 })
 
