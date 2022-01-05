@@ -4,6 +4,7 @@ const Zeew = require("zeew");
 
 module.exports = {
     name: "guildMemberAdd", //typingStart
+    type: "on",
     /**
      * 
      * @param {Discord.Client} botxi 

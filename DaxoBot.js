@@ -1,5 +1,6 @@
-const { Client, Collection } = require("discord.js"); // Extract the required classes from the discord.js module
+const { Client, Collection, MessageAttachment, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
 const fs = require('fs');
+const chalk = require('chalk');
 const path = require('path');
 const botxi = new Client({intents: 32719}); // Create an instance of a Discord client [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.GUILD_VOICE_STATES (no funciona)]
 const zeew = require("zeew");
@@ -21,13 +22,19 @@ const eventFiles = fs.readdirSync(path.join(__dirname, "events"));
 for (const file of eventFiles) {
 	const event = require(path.join(__dirname, "events", file));
     //require(`./events/${file}`);
-    // si se ejecuta una sola vez:
-	if (event.once) {
-        // Con (...args) pasa los argumentos para cada evento/archivo
-		botxi.once(event.name, (...arg) => event.run(botxi, ...arg, BOT)); 
-	} else {
-		botxi.on(event.name, (...arg) => event.run(botxi, ...arg, BOT));
-	}
+    // Ejecuta cada evento segun su tipo:
+    switch (event.type) {
+        case "once":
+            botxi.once(event.name, (...arg) => event.run(botxi, ...arg, BOT));
+            break;
+    
+        case "on":
+            botxi.on(event.name, (...arg) => event.run(botxi, ...arg, BOT));
+            break;
+
+        default:
+            break;
+    }
 }
 
 const commands = fs.readdirSync(path.join(__dirname, "commands/cmd"));
@@ -47,6 +54,8 @@ for (const folders of slashCommands){
         botxi.slashCommands.set(slashCmd.name, slashCmd)
     }
 }
+
+//botxi.emit("logsBot", botxi, 'Warn', 'El error que se escribirá dentro del archivo error.log', 'Esto, déjalo así, no tocar.');
 
 botxi.once("error", e => console.error(e));
 botxi.once("warn", e => console.warn(e));

@@ -1,6 +1,7 @@
 // const Zeew = require('zeew');
-const Discord = require('discord.js');
+const { Client, MessageEmbed, MessageAttachment } = require('discord.js');
 const chalk = require('chalk');
+const fs = require('fs');
 
 module.exports = {
     name: "test",
@@ -56,7 +57,7 @@ module.exports = {
 
         // const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
 
-        message.channel.send({content: "Recibido!"})
+        message.channel.send({content: "Recibido!"});
 
         message.delete({ timeout: 10000 });      
     },

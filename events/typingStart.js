@@ -3,6 +3,7 @@ const { Client, Typing } = require('discord.js');
 
 module.exports = {
     name: "typingStart",
+    type: "on",
     /**
      * @param {Client} botxi 
      * @param {Typing} typing

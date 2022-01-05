@@ -3,7 +3,7 @@ const countFiles = require("../functions/countFiles")
 
 module.exports = {
     name: "ready",
-    once: true,
+    type: "once",
     run: (botxi) => {
         // const cmdsN = countFiles("E:/Daxo/commands/cmd/", ".js");
         const estados = [

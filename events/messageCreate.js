@@ -5,6 +5,7 @@ const coolDown = new Set();
 
 module.exports = {
     name: "messageCreate",
+    type: "on",
     /**
      * 
      * @param {Client} botxi 

@@ -2,6 +2,7 @@ const { Client, Interaction } = require('discord.js');
 
 module.exports = {
     name: "interactionCreate",
+    type: "on",
     /**
      * 
      * @param {Client} botxi 
