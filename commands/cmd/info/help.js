@@ -1,5 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
+// function cmd(nameCmd) {return botxi.commands.get(nameCmd)}
+
 module.exports = {
     name: "help",
     desc: "Para ver todos los comandos de Daxo",
@@ -11,21 +13,22 @@ module.exports = {
     cooldown: 0,
     status: true,
     run: (botxi, message, args) => {
-        function cmd(nameCmd) {return botxi.commands.get(nameCmd)}
         const prefix = botxi.configs.get("prefix");
+        let usuario = message.guild.roles.cache.find((r) => r.name === "Usuario");
+        let admin = message.guild.roles.cache.find((r) => r.name === "⟨⟨ElAdmin⟩⟩");
 
-        const embed = new MessageEmbed()
-            .setColor("RANDOM")
-            .setAuthor("Bot Multiproposito", botxi.user.avatarURL())
-            .setTitle(".::|Comandos de Daxo|::.")
-            .setURL("http://hidaxo.xyz")
-            .setDescription('Prefixes: "Daxo, daxo, d!, D!" \n \u200B')
-            .setTimestamp()
-            .setFooter("Unete al servidor de soporte para conocer más sobre el bot", botxi.user.avatarURL());
+        const embed = new MessageEmbed().setColor("RANDOM")
+        .setAuthor("Bot Multiproposito", botxi.user.avatarURL())
+        .setTitle(".::|Comandos de Daxo|::.")
+        .setURL("http://hidaxo.xyz")
+        .setDescription('Prefixes: "Daxo, daxo, d!, D!" \n \u200B')
+        .setTimestamp()
+        .setFooter("Unete al servidor de soporte para conocer más sobre el bot", botxi.user.avatarURL());
 
-        function eFields(nameCate) {
-            return botxi.commands.map(c => {
-                if (c.category === nameCate){
+        function searchCommands(nameCategory) {
+            return botxi.commands.map(c => { //Hace una busqueda por cada comando
+                if (c.category === nameCategory){   //Si la categoria del comando es igual a la recibida
+                    //Añade al embed cada comando que tenga esa categoria
                     embed.addField("-> `" + prefix + c.usage +"`", ":: "+ c.desc + "\n \u200B")
                 }
             });
@@ -34,22 +37,22 @@ module.exports = {
         switch (args[0]) {
             case "info":
                 embed.addField("Comandos de Información", '▔▔▔▔▔▔▔▔▔▔▔▔', true);
-                eFields("info");
+                searchCommands("info");
                 message.channel.send({embeds:[embed]});
                 break;
             case "fun":
                 embed.addField("Comandos de Diversión", '▔▔▔▔▔▔▔▔▔▔▔', true);
-                eFields("fun");
+                searchCommands("fun");
                 message.channel.send({embeds:[embed]});
                 break;
             case "misc":
                 embed.addField("Misceláneos", '▔▔▔▔▔▔▔▔▔▔▔▔', true);
-                eFields("misc");
+                searchCommands("misc");
                 message.channel.send({embeds:[embed]});
                 break;
             case "actions":
                 embed.addField("Comandos de Acción", '▔▔▔▔▔▔▔▔▔▔▔▔', true);
-                eFields("actions");
+                searchCommands("actions");
                 message.channel.send({embeds:[embed]});
                 break;
             case "mod":
@@ -60,20 +63,40 @@ module.exports = {
                 .addField("-> `" + prefix + cmd("rol").usage + " remove <rol> <@user>`", ":: Quita un rol del usuario mencionado. \n \u200B")
                 message.channel.send({embeds:[embed]});
                 break;
+            case "music":
+                embed.addField("Comandos de Música", '▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔', true);
+                searchCommands("music");
+                message.channel.send({embeds:[embed]});
+                break;
 
             default:
-                embed.addField("Categorías de los comandos", '\n \u200B')
-                .addField("\u200B\u200B\u200B Información", '▔▔▔▔▔▔▔▔▔▔▔', true)
-                .addField("-> `" + prefix + "help info`",":: Muestra comandos de info. \n \u200B")
-                .addField("\u200B\u200B\u200B Diversión", '▔▔▔▔▔▔▔▔▔▔▔', true)
-                .addField("-> `" + prefix + "help fun`", ":: Muestra comandos de diversión. \n \u200B")
-                .addField("\u200B\u200B\u200B Acción", '▔▔▔▔▔▔▔▔▔▔▔', true)
-                .addField("-> `" + prefix + "help actions`", ":: Muestra comandos de acción. \n \u200B")
-                .addField("\u200B\u200B\u200B Admin/Moderadores", '▔▔▔▔▔▔▔▔▔▔▔', true)
-                .addField("-> `" + prefix + "help mod`", ":: Muestra comandos de moderación. \n \u200B")
-                .addField("\u200B\u200B\u200B Misceláneo", '▔▔▔▔▔▔▔▔▔▔▔', true)
-                .addField("-> `" + prefix + "help misc`", ":: Muestra comandos de interacción. \n \u200B");
-                message.channel.send({embeds:[embed]});
+                if (message.member.roles.cache.has(admin.id)) {
+                    embed.addField("Categorías de los comandos", '\n \u200B')
+                    .addField("\u200B\u200B\u200B Información", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help info`",":: Muestra comandos de info. \n \u200B")
+                    .addField("\u200B\u200B\u200B Diversión", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help fun`", ":: Muestra comandos de diversión. \n \u200B")
+                    .addField("\u200B\u200B\u200B Acción", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help actions`", ":: Muestra comandos de acción. \n \u200B")
+                    .addField("\u200B\u200B\u200B Admin/Moderadores", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help mod`", ":: Muestra comandos de moderación. \n \u200B")
+                    .addField("\u200B\u200B\u200B Misceláneo", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help misc`", ":: Muestra comandos de interacción. \n \u200B")
+                    .addField("\u200B\u200B\u200B Música", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help music`", ":: Muestra comandos para el reproductor. \n \u200B");
+                    message.channel.send({embeds:[embed]});
+                } else {
+                    embed.addField("Categorías de los comandos", '\n \u200B')
+                    .addField("\u200B\u200B\u200B Información", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help info`",":: Muestra comandos de info. \n \u200B")
+                    .addField("\u200B\u200B\u200B Diversión", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help fun`", ":: Muestra comandos de diversión. \n \u200B")
+                    .addField("\u200B\u200B\u200B Acción", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help actions`", ":: Muestra comandos de acción. \n \u200B")
+                    .addField("\u200B\u200B\u200B Misceláneo", '▔▔▔▔▔▔▔▔▔▔▔', true)
+                    .addField("-> `" + prefix + "help misc`", ":: Muestra comandos de interacción. \n \u200B");
+                    message.channel.send({embeds:[embed]});
+                }
                 break;
         }
         

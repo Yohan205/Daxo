@@ -1,18 +1,25 @@
 $(document).ready(main);
+var hoy = new Date();
+var codFecha = 'D'+ hoy.getDate() +'M'+ ( hoy.getMonth() + 1 ) +'A'+ hoy.getFullYear() +'H'+ hoy.getHours() +'M'+ hoy.getMinutes()+'S'+ hoy.getSeconds();
+console.log(codFecha);
 
-var contador = 1;
+/*=============================================
+=            Menu Toggle            =
+=============================================*/
+
+var botonToggle = 1;
 
 function main (){
     $('.menu_bar').click(function(){
         //$('nav').toggle();
        
-        if(contador == 1){
+        if(botonToggle == 1){
             $('nav').animate({
                 left:'0'
             });
-            contador = 0;
+            botonToggle = 0;
         }else{
-            contador = 1;
+            botonToggle = 1;
             $('nav').animate({
                 left:'-100%'
             });
@@ -22,13 +29,13 @@ function main (){
     $('#li-pub').click(function(){
         $('#li-ul-pub').toggle();
        
-        if(contador == 1){
+        if(botonToggle == 1){
             $('nav').animate({
                 left:'0'
             });
-            contador = 0;
+            botonToggle = 0;
         }else{
-            contador = 1;
+            botonToggle = 1;
             $('nav').animate({
                 left:'-100%'
             });
@@ -37,28 +44,64 @@ function main (){
     });
 }
 
-var form = document.getElementById('recargas');
+/*=====  End of Menu Toggle  ======*/
 
-form.addEventListener('submit', function(e){
+var recargar = document.getElementById('recargar');
+var saldo = document.getElementById('saldo');
+var res = document.getElementById("respuesta");
+var resSaldo = document.getElementById("verSaldo");
+
+
+/*=============================================
+=            Recargar            =
+=============================================*/
+
+recargar.addEventListener('submit', function(e){
     e.preventDefault();
-    // console.log('hiciste click');
 
-    var datos = new FormData(form);
-    var rec = document.getElementById("rec");
-    console.log(datos.get('usuario'));
+    var datos = new FormData(recargar);
+    datos.append("usuario", "yoalco11");
+    datos.append("tk", codFecha);
+    console.log(datos);
 
     fetch("https://mipago.co/set/api.php", { method: 'POST', body: datos})
-    .then( res => res.json())
+    .then( ans => ans.json())
     .then( data => {
         console.log(data);
-        // if (data.Estado == "true"){
+        if (data.Estado == "false"){
             console.log(data.Estado);
-            rec.innerHTML = `
-                <h3>${data.Detalle}</h3>
-                <ol>
-                    <li><p id="saldo">Saldo: ${data.Saldo}</p></li>
-                    <li><p id="ganancia">Ganancia: ${data.Ganancia}</p></li>
-                </ol>`
-        // }
+            res.innerHTML = `
+                <h3>${data.Detalle}</h3>`
+        }
+        res.innerHTML = `
+        <h3>${data.Detalle}</h3>
+        <p>Ref. ${data.Ref}</p>`
     });
 })
+
+/*=====  End of Recargar  ======*/
+/*=============================================
+=            Consultar Saldo            =
+=============================================*/
+
+window.onload = function(){
+    var datos = new FormData();
+    datos.append("usuario", "yoalco11");
+    datos.append("clave", "Alejo2021");
+    datos.append("consulta", "saldo");
+
+    fetch("https://mipago.co/set/api.php", { method: 'POST', body: datos})
+    .then( ans => ans.json())
+    .then( data => {
+        console.log(data);
+        if (data.Estado == "false"){
+            console.log(data.Estado);
+            res.innerHTML = `
+                <h3>${data.Detalle}</h3>`
+        }
+        resSaldo.innerHTML = `
+        <p id="resultSaldo">Saldo: ${data.Saldo} Ganancia: ${data.Ganancia}</p>`
+    });
+}
+
+/*=====  End of Consultar Saldo  ======*/

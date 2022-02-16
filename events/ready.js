@@ -1,11 +1,16 @@
 const chalk = require('chalk');
-const countFiles = require("../functions/countFiles")
+const { countFiles } = require("../functions/utilities");
+const RAM = require("../functions/usedRAM");
 
 module.exports = {
     name: "ready",
     type: "once",
-    run: (botxi) => {
-        // const cmdsN = countFiles("E:/Daxo/commands/cmd/", ".js");
+    run: (botxi, args, BOT) => {
+        const cantidadComandos = countFiles("./commands/cmd/", ".js");
+        const slashCommands = botxi.slashCommands.map(x => x); //Mapeo de todos los comandos
+        // console.log(slashCommands);
+        // botxi.application.commands.set(slashCommands); //Slash Commands Global
+        botxi.guilds.cache.get("855869897539584061").commands.set(slashCommands);
         const estados = [
             {
                 name: "Daxo help",
@@ -35,10 +40,7 @@ module.exports = {
             presence();
         }, 20000);
         
-        console.log(chalk.green.bold(`[${botxi.user.username}] `) + `Conectado en ${botxi.guilds.cache.size} servidores y ${botxi.users.cache.size} usuarios`);
-
-        const slashCommands = botxi.slashCommands.map(x => x);
-        // console.log(slashCommands);
-        botxi.application.commands.set(slashCommands);
+        console.info(BOT.console.info + `Memoria RAM usada ${RAM.usedByProcess} y la memoria libre es ${RAM.free}`);
+        console.log(BOT.console.info + `Conectado en ${botxi.guilds.cache.size} servidores y ${botxi.users.cache.size} usuarios con ${cantidadComandos} comandos`);
     }
 }

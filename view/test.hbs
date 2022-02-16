@@ -1,5 +1,6 @@
 <section class="content">
 {{!>clock-widget}}
+    <img src="{{ foto_perfil }}">
     <h2>
         <script type="application/javascript">
             function getIP(json) {
@@ -11,12 +12,28 @@
 </section>
 <br>
 <section class="content">
-    <form id="recargas" action="/">
-        <input type="text" name="usuario" placeholder="usuario">
+    <div id="verSaldo"></div>
+    <h2>Recargar</h2>
+    <form id="recargar" action="/">
         <input type="password" name="clave" placeholder="Contraseña">
-        <input type="text" name="consulta" placeholder="consulta">
+        {{!-- <input type="text" name="consulta" placeholder="consulta"> --}}
+        <select name="o">
+            <option value="100">Claro</option>
+            <option value="101">Movistar</option>
+            <option value="102">Tigo</option>
+            <option value="103">Avantel</option>
+        </select>
+        <input type="number" name="n" placeholder="número celular">
+        <input type="number" name="v" placeholder="Valor">
+        <select name="t">
+            <option value="0">Saldo</option>
+            <option value="1">Ganancia</option>
+        </select>
         <button type="submit" class="btn medium blue">Enviar</button>
     </form>
+    <br>
+    <div id="respuesta"></div>
+    <br>
     <hr>
     <button type="button" class="btn large orange" onclick="tarer()">Ver Usuario GD</button>
     <h2 id="mostrarGD"></h2>
@@ -30,6 +47,4 @@
                 });
             }
         </script>
-    <br>
-    <div id="rec"></div>
 </section>

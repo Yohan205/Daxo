@@ -1,7 +1,7 @@
 // const Zeew = require('zeew');
-const { Client, MessageEmbed, MessageAttachment } = require('discord.js');
 const chalk = require('chalk');
-const fs = require('fs');
+// const { BOT } = require("./settings/config.js");
+const { Client, MessageEmbed, MessageAttachment } = require('discord.js');
 
 module.exports = {
     name: "test",
@@ -58,7 +58,8 @@ module.exports = {
         // const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
 
         message.channel.send({content: "Recibido!"});
-
+        let res = await botxi.distube.search("overthinker");
+        console.log(res[0].name + res[0].url);
         message.delete({ timeout: 10000 });      
     },
     btn: [

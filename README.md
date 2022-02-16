@@ -15,7 +15,7 @@ The Project
 
 This project contains:
 
-Install node.js for use this bot!
+Install node.js for edit this bot!
 
 On the Webpage,
 - Here contains a demonstration and images about server.

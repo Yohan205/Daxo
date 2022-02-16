@@ -11,16 +11,18 @@ Use NPM
   para usar libreria nodemon: npx nodemon --help
 
 Use Git
-  git status => ver si los archivos estan en verde
-  git add . => cargar archivos si estan en rojo
-  git branch [name new branch] => muestra, crea y borra versiones del proyecto
+  git help => ayuda de Git
   git checkout [name branch] => cambiar version del proyecto
   git log => ver logs
+  git init => Crea un nuevo poryecto
+  git status => ver si los archivos estan en verde
+  git add . => cargar archivos si estan en rojo
   git commit -m "name" => guardar carga de archivos y nombrar actualizacion
-  git push (BranchDestino) (BranchOrigen) => subir archivos al repositorio
-  git remote add (name repository remote) (direccion de internet)
-  git help => ayuda de Git  
+  git branch [name new branch] => muestra, crea y borra versiones del proyecto
+  git branch -M master
+  git remote add (name repository remote) (direccion de internet) 
   git remote add DaxoGit https://github.com/Yohan205/Daxo.git
+  git push (BranchDestino) (BranchOrigen) => subir archivos al repositorio
 
 Usando zeew devuelve un link de una imagen gif:
   para enviar por send():
@@ -36,11 +38,15 @@ npx eslint --init
     O node
     O JSON
 
-snippets:
-    cmdBot: crea un nuevo comando
+Snippets:
+    newCommandDiscord: crea un nuevo comando
 
 Relative path:
   ctrl+shift+H
+
+Use NCU
+  npm i -g npm-check-updates
+  ncu -u
 
 ////////////////////////////////// Cantidad de comandos ////////////////////////////////////////////////////////
 Agregar a un array los nombres de los comandos y luego contar la longitud del array + 1, que dará la cantidad de comandos

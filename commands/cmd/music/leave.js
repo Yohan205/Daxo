@@ -6,7 +6,7 @@ module.exports = {
     aliases: [],
     isPrivate: false,
     guildOnly: false,
-    category: "voice",
+    category: "music",
     cooldown: 0,
     status: true,
     run: (botxi, message) => {

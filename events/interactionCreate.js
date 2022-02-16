@@ -14,7 +14,6 @@ module.exports = {
         if (interaction.isCommand()){
             const cmd = botxi.slashCommands.get(interaction.commandName);
             // console.log(interaction.webhook);
-            console.log();
             if(!cmd) return;
             cmd.run(botxi, interaction);
         }

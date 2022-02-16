@@ -13,7 +13,7 @@ passport.deserializeUser((obj, done) => {
 passport.use(new Strategy({
     clientID: BOT.botID,
     clientSecret: BOT.secretBot,
-    callbackURL: BOT.calbURL,
+    callbackURL: BOT.callbackURL,
     scope: BOT.scopes
 }, (accesstoken, refreshtoken, profile, cb) => {
     process.nextTick(() => {

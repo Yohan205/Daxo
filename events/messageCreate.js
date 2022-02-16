@@ -12,8 +12,8 @@ module.exports = {
      * @param {Message} message 
      * @returns Parametros xd
      */
-    run (botxi, message, BOT) {
-        const prefixes = ['d!', 'daxo ', 'Daxo ', 'D!']; //Array of prefixes
+    run: async (botxi, message, BOT) => {
+        const prefixes = ['d/', 'daxo ', 'Daxo ', 'D/']; //Array of prefixes
         let prefix = ""; // Save prefix used
         // Este bucle verifica si el prefix esta en la lista de prefixes
         for (const thisPrefix of prefixes) {if (message.content.startsWith(thisPrefix)) prefix = thisPrefix;}
@@ -27,7 +27,7 @@ module.exports = {
         // botxi.configs.set("BOT", BOT)
 
         const cmd = botxi.commands.get(command) || botxi.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
-        if(!cmd) return;
+        if(!cmd) return console.log(command);
         if(!cmd.status) return message.reply(`Sorry, el comando **${cmd.name}** no está activo :c`).then((m)=>{console.warn(chalk.bold.yellow("[Daxo] ")+"El comando " + chalk.yellow(cmd.name)+ " no está activo!")}); // si estatus es true mandar mensaje que el comando esta desactivado
 
         if (cmd.cooldown > 0){

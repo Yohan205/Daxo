@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const { BOT } = require('./config.js');
 const { promisify } = require('util');
+const chalk = require('chalk');
 
 // Prepara la coneccion a la Base de Datos
 const pool = mysql.createPool(BOT.uriDB || {
@@ -14,16 +15,16 @@ const pool = mysql.createPool(BOT.uriDB || {
 pool.getConnection((err, conect) => {
     // Si hay errores muestre un mensaje del error en consola
     if (err) {
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') console.error('SE CERRO LA CONECCION A LA DATABASE')
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') console.error(chalk.bold.red('[Database] ')+'La conexión ha finalizado')
 
-        if (err.code === 'ER_CON_COUNT_ERROR') console.error('HAY MUCHAS CONECCIONES')
+        if (err.code === 'ER_CON_COUNT_ERROR') console.error(chalk.bold.red('[Database] ')+'Demasiadas conexiones abiertas')
         
-        if (err.code === 'ECONNREFUSED') console.error('CLAVE ERRONEA')
+        if (err.code === 'ECONNREFUSED') console.error(chalk.bold.red('[Database] ')+'Clave errada')
     }
 
     // Al conectarse lo muestra en consola
     if (conect) conect.release();
-    console.log('Conectado a la database');
+    console.log(chalk.bold.green('[Database] ')+'Conexión establecida');
     return;
 })
 
