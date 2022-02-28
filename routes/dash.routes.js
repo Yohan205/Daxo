@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const authDiscord = require('../settings/authDiscord');
+const Prefix = require("../server/models/prefix")
 
 const router = Router();
 
@@ -42,7 +43,7 @@ router.get('/dashjs', authDiscord, (req, res) => {
         user: req.user,
         email: req.user.email
     })
-    console.log(req.user)
+    // console.log(req.user)
 });
 
 router.get('/dash/:id', authDiscord, (req, res) => {
@@ -75,10 +76,11 @@ router.get('/dashjs/:id', authDiscord, (req, res) => {
     })
 });
 
-router.get('/dash/:id/commands', authDiscord, (req, res) => {
-
-    let id = req.params.id;
-    let servers = req.botxi.guilds.cache.get(id);
+router.get('/dash/:id/commands', authDiscord, async (req, res) => {
+    let guildId = req.params.id;
+    let prefix = await Prefix.findOne({guildId: guildId});
+    console.log(prefix.guildId);
+    let servers = req.botxi.guilds.cache.get(guildId);
     let canales = servers.channels.cache.filter(c => c.type === "GUILD_TEXT").map(ch => ({ name: ch.name, id: ch.id }));
     let emoji = JSON.stringify(servers.emojis.cache);
 
@@ -90,10 +92,24 @@ router.get('/dash/:id/commands', authDiscord, (req, res) => {
         user: req.user,
         servers,
         canales,
-        //msg: result,
+        prefix: prefix.prefix,
         emojis: JSON.parse(emoji)
     });
     //})
+});
+
+router.post('/dash/:id/send-prefix', (req, res) => {
+    let id = req.params.id;
+    const { setPrefix } = req.body;
+    let newPrefix = new Prefix({
+        guildId: id,
+        prefix: setPrefix
+    });
+
+    newPrefix.save((err, data)=>{
+        console.error(err)
+    });
+    res.redirect('/dash/' + id);
 });
 
 router.post('/dash/:id/send-cmd', (req, res) => {

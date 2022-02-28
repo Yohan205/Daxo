@@ -33,6 +33,7 @@
         "gravatar": "^1.8.2",
         "install": "^0.13.0",
         "libsodium-wrappers": "^0.7.9",
+        "mongoose": "^6.2.3",
         "mysql": "^2.18.1",
         "npm": "^8.5.0",
         "passport": "^0.5.2",

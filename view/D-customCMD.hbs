@@ -14,8 +14,12 @@
             </select>
             <input type="submit" id="btnEnviar" value="Enviar">
         </form>
+        <br>
+        <form action="/dash/{{servers.id}}/send-prefix" method="POST">
+            <input type="text" name="setPrefix" id="setPrefix" autocomplete="on" required placeholder="Escribe tu prefix">
+            <input type="submit" id="btnEnviar" value="Enviar">
+        </form>
     </section>
-    {{#each msg}}
-    <!--h2->{{this.id}} - {{this.contenido}}</h2-->
-    {{/each}}
+    
+    <h2>El prefix del servidor con id {{servers.id}} es: {{prefix}}</h2>
 </section>
