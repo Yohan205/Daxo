@@ -1,18 +1,20 @@
-/*const express = require('express');
+// import fetchApi from 'node-fetch';
+// const axios = require('axios');
+
+const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
 const passport = require('../settings/passport');
-const { BOT } = require("../settings/config.js");
+const { BOT } = require("../settings/config");
 const botxi = require('../DaxoBot');
 const app = express();
 
-app.set('port', BOT.PORT || 5040);
-
+app.set('port', BOT.PORT || 5050)
 //Engine
-app.set('views', path.join(__dirname, '/view'))
+    .set('views', path.join(__dirname, '../view'))
     .set('view engine', '.hbs')
     .engine('.hbs', engine({
         extname: ".hbs",
@@ -38,4 +40,8 @@ app.use(express.static("public"))
         req.botxi = botxi;
         next();
     });
-    */
+
+//Routers
+app.use("/", require("../routes/routes"))
+
+module.exports = app;

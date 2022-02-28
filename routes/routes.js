@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const passport = require("../settings/passport");
+const gravatar = require('gravatar');
 
 const router = Router();
 
