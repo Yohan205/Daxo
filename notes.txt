@@ -48,6 +48,9 @@ Use NCU
   npm i -g npm-check-updates
   ncu -u
 
+DataBase
+mongodb+srv://dbDaxo:<password>@cluster0.kl1zz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
 ////////////////////////////////// Cantidad de comandos ////////////////////////////////////////////////////////
 Agregar a un array los nombres de los comandos y luego contar la longitud del array + 1, que dará la cantidad de comandos
 

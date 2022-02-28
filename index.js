@@ -9,8 +9,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const gravatar = require('gravatar');
 
-const authDiscord = require('./settings/middlewares');
 const passport = require('./settings/passport');
+const authDiscord = require('./settings/authDiscord');
 const conectDB = require('./settings/conectMySQL')
 const { BOT } = require("./settings/config.js");
 const botxi = require('./DaxoBot');
@@ -29,34 +29,35 @@ app.engine('.hbs', engine({
 }))
 
 //Middlewares
-app.use(express.json())
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
     secret: "loginDiscord",
     resave: false,
     saveUninitialized: false
-}))
-
-app.use(passport.initialize())
-app.use(passport.session())
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //Static files
-app.use(express.static("public"))
+app.use(express.static("public"));
 app.use((req, res, next) => {
     req.botxi = botxi;
     next();
-})
+});
 
-//Routers
+//Routes
+// app.use("/", require("./routes/routes"));
+
 app.get('/', (req, res) => {
     res.render('home', {
         title: "Inicio",
         descPag: "En HiDaxo tenemos una gran variedad de contenido, todo depende de ti lo que quieras encontrar.",
         keywordsPag: "HiDaxo, Daxo, TheBroland, The Broland"
     })
-})
+});
 
 app.get('/test', (req, res) => {
     var email_yohan = "cyohanalejandro@gmail.com";
@@ -69,11 +70,69 @@ app.get('/test', (req, res) => {
         keywordsPag: "test",
         foto_perfil: photo_gravatar
     })
-})
+});
 
 app.get('/loginDiscord', passport.authenticate("discord", { failureRedirect: '/' }), (req, res) => {
     res.redirect('/dash')
-})
+});
+app.use("/", require("./dash.routes"));
+
+app.post('/apiGD', (req, res) => {
+    // let id = req.params.id;
+    console.log(req.body);
+    const { userGD } = req.body;
+    if (userGD === "") return res.redirect('/');
+    
+    /* res.json({
+        userGD,
+    }); */
+    res.render('geometry_dash', {
+        title: "Geometry Dash Api",
+        descPag: "API de GeometryDash",
+        keywordsPag: "",
+        userGD,
+    });
+});
+
+app.get('/login', (req, res) => {
+    res.render('login', {
+        title: "Iniciar sesión",
+        descPag: "Inicia sesión con tu cuenta de Discord",
+        keywordsPag: ""
+    })
+});
+
+app.get('/TheBroland', (req, res) => {
+    res.render('TheBroland', {
+        title: "The Broland",
+        descPag: "Mira más informacion sobre The Broland",
+        keywordsPag: "The Broland, TheBroland, Brolandia, Server, Servidor"
+    })
+});
+
+app.get('/TheBroland/images', (req, res) => {
+    res.render('gallery_images', {
+        title: "Galería de imágenes",
+        descPag: "Fotos de The Broland",
+        keywordsPag: ""
+    })
+});
+
+app.get('/music', (req, res) => {
+    res.render('music', {
+        title: "Música",
+        descPag: "Escucha algunas canciones",
+        keywordsPag: ""
+    })
+});
+
+app.get('/otros/comandos-de-voz-google', (req, res) => {
+    res.render('CmdsGoogle', {
+        title: "Comandos de voz para el asistente de google",
+        descPag: "Aquí podrás ver los comandos de voz más comunes para que uses al asistente de google",
+        keywordsPag: "comandos de voz, google assistant, asistente de google, google, hablar con google"
+    })
+});
 
 app.get('/dash', authDiscord, (req, res) => {
 
@@ -113,9 +172,9 @@ app.get('/dashjs', authDiscord, (req, res) => {
     res.json({
         user: req.user,
         email: req.user.email
-    })
-    console.log(req.user)
-})
+    });
+    console.log(req.user);
+});
 
 app.get('/dash/:id', authDiscord, (req, res) => {
 
@@ -144,8 +203,8 @@ app.get('/dashjs/:id', authDiscord, (req, res) => {
         emoji: JSON.parse(emoji),
         roles: servers.roles.cache,
         personas: servers.members
-    })
-})
+    });
+});
 
 app.get('/dash/:id/commands', authDiscord, (req, res) => {
 
@@ -179,24 +238,7 @@ app.post('/dash/:id/send-cmd', (req, res) => {
     //     contenido: msgText
     // }, (err, result) => {})
     res.redirect('/dash/' + id)
-})
-
-app.post('/apiGD', (req, res) => {
-    // let id = req.params.id;
-    console.log(req.body);
-    const { userGD } = req.body;
-    if (userGD === "") return res.redirect('/');
-    
-    /* res.json({
-        userGD,
-    }); */
-    res.render('geometry_dash', {
-        title: "Geometry Dash Api",
-        descPag: "API de GeometryDash",
-        keywordsPag: "",
-        userGD,
-    });
-})
+});
 
 app.get('/dash/:id/emojis', authDiscord, (req, res) => {
 
@@ -232,47 +274,7 @@ app.get('/dash/:id/canales', authDiscord, (req, res) => {
     });
 });
 
-app.get('/login', (req, res) => {
-    res.render('login', {
-        title: "Iniciar sesión",
-        descPag: "Inicia sesión con tu cuenta de Discord",
-        keywordsPag: ""
-    })
-})
-
-app.get('/TheBroland', (req, res) => {
-    res.render('TheBroland', {
-        title: "The Broland",
-        descPag: "Mira más informacion sobre The Broland",
-        keywordsPag: "The Broland, TheBroland, Brolandia, Server, Servidor"
-    })
-})
-
-app.get('/TheBroland/images', (req, res) => {
-    res.render('gallery_images', {
-        title: "Galería de imágenes",
-        descPag: "Fotos de The Broland",
-        keywordsPag: ""
-    })
-})
-
-app.get('/music', (req, res) => {
-    res.render('music', {
-        title: "Música",
-        descPag: "Escucha algunas canciones",
-        keywordsPag: ""
-    })
-})
-
-app.get('/otros/comandos-de-voz-google', (req, res) => {
-    res.render('CmdsGoogle', {
-        title: "Comandos de voz para el asistente de google",
-        descPag: "Aquí podrás ver los comandos de voz más comunes para que uses al asistente de google",
-        keywordsPag: "comandos de voz, google assistant, asistente de google, google, hablar con google"
-    })
-})
-
-require('./DaxoBot')
+require('./DaxoBot');
 
 app.listen(app.get('port'), () => {
     console.log(BOT.console.info+'Server in port' , app.get('port'))
