@@ -20,6 +20,9 @@
             <input type="submit" id="btnEnviar" value="Enviar">
         </form>
     </section>
-    
-    <h2>El prefix del servidor con id {{servers.id}} es: {{prefix}}</h2>
+    {{#if prefix}}
+    <h2>El prefix de este servidor es: {{prefix}}</h2>
+    {{else}}
+     <h2>No hay prefix personalizado para este servidor</h2>
+    {{/if }}
 </section>

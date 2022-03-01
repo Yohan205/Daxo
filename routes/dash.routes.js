@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const authDiscord = require('../settings/authDiscord');
-const Prefix = require("../server/models/prefix")
+const GuildConfig = require("../settings/models/guildConfig");
 
 const router = Router();
 
@@ -78,8 +78,8 @@ router.get('/dashjs/:id', authDiscord, (req, res) => {
 
 router.get('/dash/:id/commands', authDiscord, async (req, res) => {
     let guildId = req.params.id;
-    let prefix = await Prefix.findOne({guildId: guildId});
-    console.log(prefix.guildId);
+    let guildConfig = await GuildConfig.findOne({ID: guildId});
+    if (guildConfig) console.log(guildConfig.ID);
     let servers = req.botxi.guilds.cache.get(guildId);
     let canales = servers.channels.cache.filter(c => c.type === "GUILD_TEXT").map(ch => ({ name: ch.name, id: ch.id }));
     let emoji = JSON.stringify(servers.emojis.cache);
@@ -92,24 +92,31 @@ router.get('/dash/:id/commands', authDiscord, async (req, res) => {
         user: req.user,
         servers,
         canales,
-        prefix: prefix.prefix,
+        prefix: guildConfig ? guildConfig.prefix : false,
         emojis: JSON.parse(emoji)
     });
     //})
 });
 
-router.post('/dash/:id/send-prefix', (req, res) => {
-    let id = req.params.id;
+router.post('/dash/:id/send-prefix', async (req, res) => {
+    let ID = req.params.id;
     const { setPrefix } = req.body;
-    let newPrefix = new Prefix({
-        guildId: id,
-        prefix: setPrefix
-    });
+    let guildConfig = await GuildConfig.findOne({ID});
 
-    newPrefix.save((err, data)=>{
-        console.error(err)
-    });
-    res.redirect('/dash/' + id);
+    if (!guildConfig) {
+        let newGuildConfig = new GuildConfig({
+            ID,
+            prefix: setPrefix
+        });
+    
+        newGuildConfig.save((err, data)=>{
+            console.error(err)
+        });
+    } else {
+        await GuildConfig.updateOne({ ID }, { prefix: setPrefix });
+    }
+    
+    res.redirect('/dash/' + ID);
 });
 
 router.post('/dash/:id/send-cmd', (req, res) => {

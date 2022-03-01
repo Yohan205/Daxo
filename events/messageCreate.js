@@ -1,5 +1,6 @@
 const chalk = require('chalk');
-const timeUnd = require("../functions/timeUnd.js");
+const timeUnd = require("../functions/timeUnd");
+const GuildConfig = require("../settings/models/guildConfig");
 const { Client, Message, Collection } = require('discord.js');
 const coolDown = new Set();
 

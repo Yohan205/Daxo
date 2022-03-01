@@ -21,7 +21,8 @@ module.exports = {
         console: {
             info: chalk.green.bold(`[Daxo] `),
             alert: chalk.red.bold(`[Daxo] `),
-            warn: chalk.yellow(`[Daxo] `)
+            warn: chalk.yellow(`[Daxo] `),
+            db: chalk.bold.green('[Database] ')
         }
     }
 }
