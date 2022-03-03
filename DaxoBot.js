@@ -6,14 +6,15 @@ const { Client, Collection, MessageAttachment, MessageEmbed } = require("discord
 const botxi = new Client({intents: 32719}); // Create an instance of a Discord client [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.GUILD_VOICE_STATES (no funciona)]
 const zeew = require("zeew");
 
-const { BOT } = require("./settings/config.js");
+const { BOT } = require("./settings/config");
 const actions = require("./functions/actions");
+const GuildConfig = require("./settings/models/guildConfig");
 botxi.commands = new Collection();
 botxi.slashCommands = new Collection();
 botxi.configs = new Collection();
 botxi.configs.set("actions", actions);
 // const cldwn = require("./settings/functions");
-botxi.configs.set("Zeew", zeew);
+botxi.configs.set("GuildConfig", GuildConfig);
 // botxi.configs.set("chalk", chalk);
 botxi.distube = new DisTube(botxi, {
     youtubeDL: false,

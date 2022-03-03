@@ -77,12 +77,22 @@ router.get('/dashjs/:id', authDiscord, (req, res) => {
 });
 
 router.get('/dash/:id/commands', authDiscord, async (req, res) => {
-    let guildId = req.params.id;
-    let guildConfig = await GuildConfig.findOne({ID: guildId});
-    if (guildConfig) console.log(guildConfig.ID);
-    let servers = req.botxi.guilds.cache.get(guildId);
-    let canales = servers.channels.cache.filter(c => c.type === "GUILD_TEXT").map(ch => ({ name: ch.name, id: ch.id }));
-    let emoji = JSON.stringify(servers.emojis.cache);
+    let guildId = req.params.id,
+        gConfig = await GuildConfig.findOne({ID: guildId}),
+        guildConfig = new Object();
+    if (gConfig) {
+        guildConfig = {
+            hasRol: true,
+            prefix: gConfig.prefix ? gConfig.prefix : "",
+            adminRol: gConfig.adminRol ? gConfig.adminRol : ""
+        }
+    }
+    let servers = req.botxi.guilds.cache.get(guildId),
+        roles = servers.roles.cache.filter(r => r.name !== "@everyone" && r.tags == null).map(rol => ({ name: rol.name, id: rol.id })),
+        canales = servers.channels.cache.filter(c => c.type === "GUILD_TEXT").map(ch => ({ name: ch.name, id: ch.id })),
+        emoji = JSON.stringify(servers.emojis.cache);
+
+    if (guildConfig.adminRol === "@everyone") guildConfig.hasRol = false;
 
     //cn.query('SELECT * FROM daxoMjs', (err, result) => {
     res.render('D-customCMD', {
@@ -92,18 +102,42 @@ router.get('/dash/:id/commands', authDiscord, async (req, res) => {
         user: req.user,
         servers,
         canales,
-        prefix: guildConfig ? guildConfig.prefix : false,
+        roles,
+        guild: gConfig ? guildConfig : false,
         emojis: JSON.parse(emoji)
     });
     //})
 });
 
-router.post('/dash/:id/send-prefix', async (req, res) => {
+// Guarda el rol Admin del servidor
+router.post('/dash/:id/saveRol', async (req, res) => {
+    let ID = req.params.id;
+    const { adminRol } = req.body;
+    let guildConfig = await GuildConfig.findOne({ID}); // Encuentra la configuración de un servidor por ID
+
+    if (!guildConfig) { // Si no existe en la base de datos, lo crea
+        let newGuildConfig = new GuildConfig({
+            ID,
+            adminRol
+        });
+    
+        newGuildConfig.save((err, data)=>{
+            console.error(err)
+        });
+    } else {
+        await GuildConfig.updateOne({ ID }, { adminRol });
+    }
+    
+    res.redirect('/dash/' + ID + '/commands');
+});
+
+// Guarda el prefix del servidor
+router.post('/dash/:id/set-prefix', async (req, res) => {
     let ID = req.params.id;
     const { setPrefix } = req.body;
-    let guildConfig = await GuildConfig.findOne({ID});
+    let guildConfig = await GuildConfig.findOne({ID}); // Encuentra la configuración de un servidor por ID
 
-    if (!guildConfig) {
+    if (!guildConfig) { // Si no existe en la base de datos, lo crea
         let newGuildConfig = new GuildConfig({
             ID,
             prefix: setPrefix

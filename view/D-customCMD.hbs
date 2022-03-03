@@ -15,13 +15,28 @@
             <input type="submit" id="btnEnviar" value="Enviar">
         </form>
         <br>
-        <form action="/dash/{{servers.id}}/send-prefix" method="POST">
+        <form action="/dash/{{servers.id}}/set-prefix" method="POST">
             <input type="text" name="setPrefix" id="setPrefix" autocomplete="on" required placeholder="Escribe tu prefix">
-            <input type="submit" id="btnEnviar" value="Enviar">
+            <input type="submit" id="sendPrefix" value="Enviar">
+        </form>
+        <br>
+        <form action="/dash/{{servers.id}}/saveRol" method="POST">
+            <select name="adminRol" id="adminRol">
+                <option value="@everyone">Predeterminado</option>
+                {{#each roles}}
+                <option value="{{this.name}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" id="sendPrefix" value="Actualizar">
         </form>
     </section>
-    {{#if prefix}}
-    <h2>El prefix de este servidor es: {{prefix}}</h2>
+    {{#if guild}}
+    <h2>El prefix de este servidor es: {{guild.prefix}}</h2>
+        {{#if guild.hasRol}}
+        <h3>El rol de los admin. es: {{guild.adminRol}}</h3>
+        {{else}}
+        <h3>No hay rol de moderación asignado.</h3>
+        {{/if}}
     {{else}}
      <h2>No hay prefix personalizado para este servidor</h2>
     {{/if }}

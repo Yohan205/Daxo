@@ -8,13 +8,15 @@ module.exports = {
     name: "messageCreate",
     type: "on",
     /**
-     * 
      * @param {Client} botxi 
      * @param {Message} message 
      * @returns Parametros xd
      */
     run: async (botxi, message, BOT) => {
-        const prefixes = ['d/', 'daxo ', 'Daxo ', 'D/']; //Array of prefixes
+        let guildConfig = await GuildConfig.findOne({ID: message.guildId});
+        // console.log(guildConfig);
+        let prefixes = ['daxo ', 'Daxo ']; //Array of prefixes
+        if (guildConfig) prefixes.push(guildConfig.prefix);
         let prefix = ""; // Save prefix used
         // Este bucle verifica si el prefix esta en la lista de prefixes
         for (const thisPrefix of prefixes) {if (message.content.startsWith(thisPrefix)) prefix = thisPrefix;}
@@ -25,11 +27,13 @@ module.exports = {
         // const command = args.shift().toLowerCase();
         botxi.configs.set("prefix", prefix);
         botxi.buttons = new Collection();
-        // botxi.configs.set("BOT", BOT)
 
         const cmd = botxi.commands.get(command) || botxi.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
         if(!cmd) return console.log(command);
-        if(!cmd.status) return message.reply(`Sorry, el comando **${cmd.name}** no está activo :c`).then((m)=>{console.warn(chalk.bold.yellow("[Daxo] ")+"El comando " + chalk.yellow(cmd.name)+ " no está activo!")}); // si estatus es true mandar mensaje que el comando esta desactivado
+        if(!cmd.status) return message.reply(`Sorry, el comando **${cmd.name}** no está activo :c`).then((m)=>{
+            console.warn(BOT.console.warn + "El comando " + chalk.yellow(cmd.name)+ " no está activo!");
+            botxi.emit("errorLog", "El comando " + cmd.name + " no está activo", BOT, 'CommandInactive');
+        }); // si estatus es true mandar mensaje que el comando esta desactivado
 
         if (cmd.cooldown > 0){
             const tiempo = timeUnd.timeOUT(cmd.cooldown);

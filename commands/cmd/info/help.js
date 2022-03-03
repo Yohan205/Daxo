@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+// const GConfig = require("../../../settings/models/guildConfig");
 
 // function cmd(nameCmd) {return botxi.commands.get(nameCmd)}
 
@@ -12,22 +13,42 @@ module.exports = {
     category: "info",
     cooldown: 0,
     status: true,
-    run: (botxi, message, args) => {
+    run: async (botxi, message, args) => {
         const prefix = botxi.configs.get("prefix");
-        let usuario = message.guild.roles.cache.find((r) => r.name === "Usuario");
-        let admin = message.guild.roles.cache.find((r) => r.name === "⟨⟨ElAdmin⟩⟩");
+        const GuildConfig = botxi.configs.get("GuildConfig");
+        let guildConfig = await GuildConfig.findOne({ID: message.guildId}),
+            roles = {
+                all: "@everyone",
+                own: "⟨⟨ElAdmin⟩⟩"
+            },
+        admin, 
+        ifAdmin = true,
+        everyone = message.guild.roles.cache.find((r) => r.name === roles.all);
+
+        if (guildConfig) {
+            if (!guildConfig.adminRol) {
+                ifAdmin = false;
+                admin = everyone;
+            } else {
+                roles.admin = guildConfig.adminRol;
+                admin = message.guild.roles.cache.find((r) => r.name === roles.admin);
+            }
+        } else {
+            admin = everyone;
+            ifAdmin = false;
+        }
 
         const embed = new MessageEmbed().setColor("RANDOM")
         .setAuthor("Bot Multiproposito", botxi.user.avatarURL())
         .setTitle(".::|Comandos de Daxo|::.")
         .setURL("http://hidaxo.xyz")
-        .setDescription('Prefixes: "Daxo, daxo, d!, D!" \n \u200B')
+        .setDescription('Prefix usado: ' + prefix + ' \n \u200B')
         .setTimestamp()
         .setFooter("Unete al servidor de soporte para conocer más sobre el bot", botxi.user.avatarURL());
 
         function searchCommands(nameCategory) {
             return botxi.commands.map(c => { //Hace una busqueda por cada comando
-                if (c.category === nameCategory){   //Si la categoria del comando es igual a la recibida
+                if (c.category === nameCategory){   //Si la categoria del comando es igual a nameCategory
                     //Añade al embed cada comando que tenga esa categoria
                     embed.addField("-> `" + prefix + c.usage +"`", ":: "+ c.desc + "\n \u200B")
                 }
@@ -70,7 +91,7 @@ module.exports = {
                 break;
 
             default:
-                if (message.member.roles.cache.has(admin.id)) {
+                if ( ifAdmin === true && message.member.roles.cache.has(admin.id)) {
                     embed.addField("Categorías de los comandos", '\n \u200B')
                     .addField("\u200B\u200B\u200B Información", '▔▔▔▔▔▔▔▔▔▔▔', true)
                     .addField("-> `" + prefix + "help info`",":: Muestra comandos de info. \n \u200B")
@@ -85,7 +106,7 @@ module.exports = {
                     .addField("\u200B\u200B\u200B Música", '▔▔▔▔▔▔▔▔▔▔▔', true)
                     .addField("-> `" + prefix + "help music`", ":: Muestra comandos para el reproductor. \n \u200B");
                     message.channel.send({embeds:[embed]});
-                } else {
+                } else if (message.member.roles.cache.has(everyone.id)) {
                     embed.addField("Categorías de los comandos", '\n \u200B')
                     .addField("\u200B\u200B\u200B Información", '▔▔▔▔▔▔▔▔▔▔▔', true)
                     .addField("-> `" + prefix + "help info`",":: Muestra comandos de info. \n \u200B")

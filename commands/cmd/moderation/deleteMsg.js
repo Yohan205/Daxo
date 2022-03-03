@@ -36,9 +36,15 @@ module.exports = {
         message.channel
             .bulkDelete(mensajes.filter((m) => !m.pinned))
             .then(() => {
-            canalInfo.send(`Listo, borre ${cantidad} mensajes :ok_hand:`).then((m) => {
-                setTimeout(() => m.delete(), 15000);
-            });
+                if (canalInfo){
+                    canalInfo.send(`Listo, borre ${cantidad} mensajes :ok_hand:`).then((m) => {
+                        setTimeout(() => m.delete(), 15000);
+                    });
+                } else {
+                    message.channel.send(`Listo, borre ${cantidad} mensajes :ok_hand:`).then((m) => {
+                        setTimeout(() => m.delete(), 15000);
+                    });
+                }
             })
             .catch((e) => {
             message.channel.send('Ocurrio un error y no pude borrar los mensajes');

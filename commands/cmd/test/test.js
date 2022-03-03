@@ -15,7 +15,7 @@ module.exports = {
     status: true,
     run: async (botxi, message, args, BOT) => {
         // console.log(botxi.users)
-        // console.log(args[1]) 
+        // console.log(args) 
 
         // let infoRol = []; 
         
@@ -58,8 +58,8 @@ module.exports = {
         // const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
 
         message.channel.send({content: "Recibido!"});
-        let res = await botxi.distube.search("overthinker");
-        console.log(res[0].name + res[0].url);
+        // let res = await botxi.distube.search("overthinker");
+        // console.log(res[0].name + res[0].url);
         message.delete({ timeout: 10000 });      
     },
     btn: [
