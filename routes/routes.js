@@ -84,7 +84,11 @@ router.get('/otros/comandos-de-voz-google', (req, res) => {
         title: "Comandos de voz para el asistente de google",
         descPag: "Aquí podrás ver los comandos de voz más comunes para que uses al asistente de google",
         keywordsPag: "comandos de voz, google assistant, asistente de google, google, hablar con google"
-    })
-})
+    });
+});
+
+router.get('/unirseAlServer', (req, res) => {
+    res.redirect('/TheBroland#addServer');
+});
 
 module.exports = router;
