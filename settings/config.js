@@ -3,7 +3,8 @@ const chalk = require('chalk');
 
 module.exports = {
     BOT:{
-        PORT: 80,
+        PORT: 443,
+        WEB: process.env.WEB,
         TOKEN: process.env.TOKEN,
         TOKEN_ZEEW: process.env.TOKEN_ZEEW,
         TOKEN_CHATBOT: process.env.TOKEN_ESPCHATBOT,

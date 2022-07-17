@@ -7,13 +7,13 @@ const botxi = new Client({intents: 32719}); // Create an instance of a Discord c
 const zeew = require("zeew");
 
 const { BOT } = require("./settings/config");
-const actions = require("./functions/actions");
+const actions = require("./controllers/actions");
 const GuildConfig = require("./settings/models/guildConfig");
 botxi.commands = new Collection();
 botxi.slashCommands = new Collection();
 botxi.configs = new Collection();
 botxi.configs.set("actions", actions);
-// const cldwn = require("./settings/functions");
+// const cldwn = require("./settings/controllers");
 botxi.configs.set("GuildConfig", GuildConfig);
 // botxi.configs.set("chalk", chalk);
 botxi.distube = new DisTube(botxi, {

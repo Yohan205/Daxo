@@ -86,9 +86,9 @@ recargar.addEventListener('submit', function(e){
 
 window.onload = function(){
     var datos = new FormData();
-    datos.append("usuario", "yoalco11");
-    datos.append("clave", "Alejo2021");
-    datos.append("consulta", "saldo");
+	datos.append("usuario", "yoalco11");
+	datos.append("clave", "Alejo2021");
+	datos.append("consulta", "saldo");
 
     fetch("https://mipago.co/set/api.php", { method: 'POST', body: datos})
     .then( ans => ans.json())

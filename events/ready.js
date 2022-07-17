@@ -1,6 +1,6 @@
 const chalk = require('chalk');
-const { countFiles } = require("../functions/utilities");
-const RAM = require("../functions/usedRAM");
+const { countFiles } = require("../controllers/utilities");
+const RAM = require("../controllers/usedRAM");
 
 module.exports = {
     name: "ready",
