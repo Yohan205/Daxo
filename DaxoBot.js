@@ -1,5 +1,5 @@
 const fs = require('fs');
-const chalk = require('chalk');
+// const chalk = require('chalk');
 const path = require('path');
 const { DisTube } = require('distube');
 const { Client, Collection, MessageAttachment, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
@@ -49,11 +49,11 @@ for (const file of eventFiles) {
 }
 
 // Pasa por cada carpeta dentro de cmd
-const commands = fs.readdirSync(path.join(__dirname, "commands/cmd"));
+const commands = fs.readdirSync(path.join(__dirname, "commands/text"));
 for (const folders of commands){
-    const folder = fs.readdirSync(path.join(__dirname, "commands/cmd", folders));
+    const folder = fs.readdirSync(path.join(__dirname, "commands/text", folders));
     for (const file of folder){ // Ejecuta cada comando
-        const cmd = require(path.join(__dirname, "commands/cmd", folders, file));
+        const cmd = require(path.join(__dirname, "commands/text", folders, file));
         botxi.commands.set(cmd.name, cmd)
     }
 }

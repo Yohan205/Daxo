@@ -1,4 +1,3 @@
-const chalk = require("chalk");
 const { Client, Typing } = require('discord.js');
 
 module.exports = {

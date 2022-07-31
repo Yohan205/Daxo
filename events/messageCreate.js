@@ -1,4 +1,3 @@
-const chalk = require('chalk');
 const timeUnd = require("../controllers/timeUnd");
 const GuildConfig = require("../settings/models/guildConfig");
 const { Client, Message, Collection } = require('discord.js');

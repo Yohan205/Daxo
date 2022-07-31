@@ -1,5 +1,4 @@
 // const Zeew = require('zeew');
-const chalk = require('chalk');
 // const { BOT } = require("./settings/config.js");
 const { Client, MessageEmbed, MessageAttachment } = require('discord.js');
 

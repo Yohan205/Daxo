@@ -8,7 +8,8 @@ Use NPM
   npm update => actualizar dependencias
   para crear una carpeta npm: npm init
   Para instalar una libreria npm: npm install(i) [--save, -D (como dependenciaDesarrollo)] (nombre libreria)
-  para usar libreria nodemon: npx nodemon --help
+  nodemon: npx nodemon --help
+  npm-check-update: ncu -u
 
 Use Git
   git help => ayuda de Git

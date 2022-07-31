@@ -1,5 +1,5 @@
 require('dotenv').config(); //Use env variables
-const chalk = require('chalk');
+// const chalk = require(chalk
 
 module.exports = {
     BOT:{
@@ -20,10 +20,10 @@ module.exports = {
         ownerID: "591833087139119104",
         scopes: ["identify", "guilds", "email"],
         console: {
-            info: chalk.green.bold(`[Daxo] `),
-            alert: chalk.red.bold(`[Daxo] `),
-            warn: chalk.yellow(`[Daxo] `),
-            db: chalk.bold.green('[Database] ')
+            info: `[Daxo] `,
+            alert: `[Daxo] `,
+            warn: `[Daxo] `,
+            db: '[Database] '
         }
     }
 }
