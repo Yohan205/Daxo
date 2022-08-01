@@ -1,14 +1,24 @@
+/* Requerimos del modulo fs para manipular los archivos (leer y escribir) */
 const fs = require('fs');
-// const chalk = require('chalk');
+// const chalk = require('chalk'); lo usaba para dar un toque de color a la terminal
 const path = require('path');
+/* Con DisTube hace que bot pueda reproducir canciones */
 const { DisTube } = require('distube');
-const { Client, Collection, MessageAttachment, MessageEmbed } = require("discord.js"); // Extract the required classes from the discord.js module
-const botxi = new Client({intents: 32719}); // Create an instance of a Discord client [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.GUILD_VOICE_STATES (no funciona)]
-const zeew = require("zeew");
 
+/* Extrae las clases requeridas del modulo discord.js */
+const { Client, Collection, GatewayIntentBits, MessageAttachment, MessageEmbed } = require("discord.js"); 
+/* Create an instance of a Discord client */
+const botxi = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildInvites, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildVoiceStates] });  //new Client({intents: 32719});
+
+const zeew = require('zeew');
+
+/* Obtiene los datos de configuración del BOT */
 const { BOT } = require("./settings/config");
+/* Obtiene los comandos de acciones que puede hacer un usuario (run, greet) */
 const actions = require("./controllers/actions");
+/* Obtiene los models de configuración de los Guilds */
 const GuildConfig = require("./settings/models/guildConfig");
+/* Guarda los commandos en una colleccion de datos */
 botxi.commands = new Collection();
 botxi.slashCommands = new Collection();
 botxi.configs = new Collection();
@@ -16,6 +26,8 @@ botxi.configs.set("actions", actions);
 // const cldwn = require("./settings/controllers");
 botxi.configs.set("GuildConfig", GuildConfig);
 // botxi.configs.set("chalk", chalk);
+
+/* Configuracion del modulo DisTube */
 botxi.distube = new DisTube(botxi, {
     youtubeDL: false,
     leaveOnStop: true,
@@ -23,13 +35,14 @@ botxi.distube = new DisTube(botxi, {
     emitAddListWhenCreatingQueue: false
 });
 
-// Busca los eventos
+/* Usando el modulo fs busca en la carpeta los eventos, almacenando la ruta en la constante eventFiles */
 const eventFiles = fs.readdirSync(path.join(__dirname, "events"));
 //fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-// Ejecuta cada evento/archivo
+/* Teniendo la ruta de la carpeta y mediante un bucle for, ejecuta cada evento/archivo dentro de ésta */
 for (const file of eventFiles) {
+    // Guarda la ruta del evento/archivo
 	const event = require(path.join(__dirname, "events", file));
-    //require(`./events/${file}`);
+        //require(`./events/${file}`);
     // Ejecuta cada evento segun su tipo:
     switch (event.type) {
         case "once": // Se ejecuta una vez
