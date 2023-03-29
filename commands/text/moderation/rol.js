@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 
 module.exports = {
     name: "rol",
@@ -103,7 +103,7 @@ module.exports = {
             .then(() => message.channel.send(`Listo! le quité el rol **${rol.name}** a **${persona.user.username}**`));
                 //message.channel.send(`Listo, le saque el rol **${rol.name}** a **${persona.user.username}** con la razon de: _${reason}`)
         } else if (args[0] == "list" || args[0] === "l"){
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
             .setColor(0x00AE86)
             .setDescription(
                 server.roles.cache.map(role => `O <@&${role.id}>`)

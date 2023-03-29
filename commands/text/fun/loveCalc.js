@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "ship",
@@ -20,7 +20,7 @@ module.exports = {
         } else if (random < 101) {
             heard = ':heartpulse: :revolving_hearts:';
         }
-        const embed = new MessageEmbed()
+        const embed = new (EmbedBuilder)
             .setDescription(heard + ' **' + random + ' %**' + ' ' + heard)
             .setColor("RANDOM");
 

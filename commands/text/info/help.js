@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 // const GConfig = require("../../../settings/models/guildConfig");
 
 // function cmd(nameCmd) {return botxi.commands.get(nameCmd)}
@@ -7,7 +7,7 @@ module.exports = {
     name: "help",
     desc: "Para ver todos los comandos de Daxo",
     usage: "help [comando]",
-    aliases: ["help"],
+    aliases: ["help", "info"],
     isPrivate: false,
     guildOnly: false,
     category: "info",
@@ -38,7 +38,7 @@ module.exports = {
             ifAdmin = false;
         }
 
-        const embed = new MessageEmbed().setColor("RANDOM")
+        const embed = new EmbedBuilder()
         .setAuthor("Bot Multiproposito", botxi.user.avatarURL())
         .setTitle(".::|Comandos de Daxo|::.")
         .setURL("http://hidaxo.xyz")

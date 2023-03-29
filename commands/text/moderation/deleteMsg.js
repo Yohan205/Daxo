@@ -3,12 +3,12 @@ const Discord = require('discord.js');
 module.exports = {
     name: "deleteMsg",
     desc: "Borra hasta 100 mensajes de un canal.",
-    usage: "deleteMsg",
-    aliases: ["deleteMsg","bulkDelete", "borrar"],
+    usage: "deleteMsg (# de mensajes)",
+    aliases: ["deleteMsg","bulkDelete", "borrarMsj"],
     isPrivate: false,
     guildOnly: false,
     category: "mod",
-    cooldown: 20,
+    cooldown: 30,
     status: true,
     run: (botxi, message, args) => {
         let canalInfo = message.guild.channels.cache.get(message.guild.systemChannelId);

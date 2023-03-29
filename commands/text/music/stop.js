@@ -2,14 +2,14 @@ const { Client, Message } = require('discord.js');
 
 
 module.exports = {
-    name: "resume",
+    name: "stop",
     desc: "Continua con lo que esté en cola",
-    usage: "resume",
-    aliases: ["resume",],
+    usage: "stop",
+    aliases: ["stop",],
     isPrivate: false,
     guildOnly: false,
     category: "music",
-    cooldown: 2,
+    cooldown: 60,
     status: true,
     /**
     * @param {Client} botxi

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "galleta",
@@ -21,7 +21,7 @@ module.exports = {
         if (!user) return message.channel.send("Menciona a un usuario para darle una galleta >.<");
 
         if (!razon) razon = "Sin razón alguna :grin:";
-        const embed = new MessageEmbed()
+        const embed = new (EmbedBuilder)
             .setColor("0xF49F0A")
             .setAuthor(message.author.username, message.author.avatarURL())
             .setFooter("Gif proporcionado por Zeew", botxi.user.avatarURL())

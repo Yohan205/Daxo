@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "User",
@@ -21,7 +21,7 @@ module.exports = {
             pres = false;
         }
 
-        const userEmbed = new MessageEmbed()
+        const userEmbed = new (EmbedBuilder)
             .setThumbnail(user.displayAvatarURL({ format: 'png', size: 1024, dynamic: true }))
             .addFields(
                 {

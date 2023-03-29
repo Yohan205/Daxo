@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Client, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Client, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: "errorLog",
@@ -13,19 +13,24 @@ module.exports = {
         const staff = [BOT.ownerID];
 
         let failureDate = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
-        const Embed = new MessageEmbed()
+        const Embed = new EmbedBuilder()
         // .setAuthor('Your Favorite Bot', botxi.user.displayAvatarURL({format: 'png'}))
         .setColor('#cc3f37')
         .setDescription('He obtenido un fallo de tipo **'+type+'**\nFecha: **'+failureDate+'**\n\nPor favor, arreglarlo.');
         for(var i=0;i < staff.length;i++){ // Aquí creamos un bucle for, para que vaya enviando nuestro embed y archivo, usuario por usuario.
             let user = botxi.users.cache.get(staff[i]); // Obtiene el usuario mediante ID
             try { // Intenta escribir el error dentro del archivo error.log (El cual no existe)
-                fs.writeFileSync('error.log', failure);
+                fs.writeFileSync('/error.log', failure);
             } catch (e) { // Si ocurre un error, saldrá en la consola lo siguiente
                 console.log(e)
                 console.error('Error intentando crear archivo error.log');
             }
-            let Attachment = new MessageAttachment('error.log'); // Creamos un attachment el cual sería nuestro archivo error.log
+            // Creamos un attachment el cual sería nuestro archivo error.log
+            let Attachment = {
+                attachment: '/error.log',
+                name: 'error.log',
+                description: 'LogsBot'
+              }
             user.send({embeds:[Embed], files:[Attachment],}) // Enviamos el Embed
              // Enviamos el archivo
             .then(() => {// Al enviar el archivo, hará lo sigueinte

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "user",
@@ -37,7 +37,7 @@ module.exports = {
             arr = arr.map((r) => `<@&${r}>`).join(', ');
         } else {arr = "Sin Roles"}
 
-        const userEmbed = new MessageEmbed()
+        const userEmbed = new (EmbedBuilder)
             .setThumbnail(user.displayAvatarURL({ format: 'png', size: 1024, dynamic: true }))
             .addFields(
                 {

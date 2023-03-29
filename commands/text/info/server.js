@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
     name: "server",
@@ -12,7 +12,7 @@ module.exports = {
     status: true,
     run: (botxi, message, args) => {
         const server = message.guild
-        const embed = new MessageEmbed()
+        const embed = new (EmbedBuilder)
             .setAuthor(server.name, server.iconURL())
             .setColor(0xe9f10a)
             .setFooter("Daxo | Shard:" + server.shardId, botxi.user.avatarURL())

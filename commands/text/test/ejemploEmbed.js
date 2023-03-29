@@ -12,7 +12,7 @@ module.exports = {
     status: true,
     run: async (botxi, message, args) => {
         
-        const embed = new Discord.MessageEmbed()
+        const embed = new Discord.EmbedBuilder()
                 .setTitle("Este es su título, puede contener 256 caracteres")
                 .setAuthor(message.author.username, message.author.avatarURL())
                 .setColor(0x00AE86)

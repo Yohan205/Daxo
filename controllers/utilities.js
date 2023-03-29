@@ -19,6 +19,28 @@ function totalArchivos(ruta, extension) {
     return n
 }
 
+/**
+ * | separarString |
+ * @param {String} str chain of text
+ * @param {Number} maxLength maximum length of the string
+ * @return Array of separar strings
+ */
+function separarString(str, maxLength) {
+    const result = [];
+  
+    while (str.length > maxLength) {
+      result.push(str.substr(0, maxLength));
+      str = str.substr(maxLength);
+    }
+  
+    if (str.length > 0) {
+      result.push(str);
+    }
+  
+    return result;
+  }
+
 module.exports = {
-    "countFiles": totalArchivos
+    "countFiles": totalArchivos,
+    separarString
 }

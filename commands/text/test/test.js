@@ -1,24 +1,50 @@
 // const Zeew = require('zeew');
 // const { BOT } = require("./settings/config.js");
-const { Client, MessageEmbed, MessageAttachment } = require('discord.js');
+//const { Client, EmbedBuilder, MessageAttachment } = require("discord.js");
+const Genius = require("genius-lyrics");
 
 module.exports = {
-    name: "test",
-    desc: "Comando de pruebas",
-    usage: "test",
-    aliases: [],
-    isPrivate: false,
-    guildOnly: false,
-    category: "test",
-    cooldown: 0,
-    status: true,
-    run: async (botxi, message, args, BOT) => {
-        // console.log(botxi.users)
-        // console.log(args) 
+  name: "test",
+  desc: "Comando de pruebas",
+  usage: "test",
+  aliases: [],
+  isPrivate: false,
+  guildOnly: false,
+  category: "test",
+  cooldown: 0,
+  status: true,
+  run: async (botxi, message, args, BOT) => {
+    // console.log(botxi.users)
+    let aBuscar = "";
 
-        // let infoRol = []; 
-        
-        /* for (let ro of message.guild.members.resolve(message.author.id).roles.cache){
+    for (let a = 0; a < args.length; a++) {
+      aBuscar += " "+args [a];
+    }
+    console.log(aBuscar);
+    const Client = new Genius.Client(BOT.TOKEN_GENIUS);
+    
+    const searches = await Client.songs.search(aBuscar);
+    
+    let busquedas = "";
+
+    for (let b = 0; b < searches.length; b++) {
+      busquedas += searches[b].fullTitle +"\n"+ searches[b].thumbnail+"\n";
+      
+    }
+
+    console.log(searches);
+
+    const mensaje = busquedas;
+
+    // Pick first one
+    // const firstSong = searches[0];
+    //console.log("About the Song:\n", firstSong, "\n");
+    
+    
+
+    // let infoRol = [];
+
+    /* for (let ro of message.guild.members.resolve(message.author.id).roles.cache){
             const r = ro[1];
             const RO = message.guild.roles.resolve(r.id);
             if (r.name !== "@everyone"){
@@ -40,8 +66,8 @@ module.exports = {
             }
         } */
 
-        // BOTONES
-        /* const row = new Discord.MessageActionRow()
+    // BOTONES
+    /* const row = new Discord.MessageActionRow()
             .addComponents(
                 new Discord.MessageButton()
                 .setCustomId("b1")
@@ -52,22 +78,22 @@ module.exports = {
 
         message.channel.send({content: "Este es un botón", components: [row]}); */
 
-        // const ifilter = i => i.user.id === message.author.id;
+    // const ifilter = i => i.user.id === message.author.id;
 
-        // const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
+    // const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
 
-        message.channel.send({content: "Recibido!"});
-        // let res = await botxi.distube.search("overthinker");
-        // console.log(res[0].name + res[0].url);
-        message.delete({ timeout: 10000 });      
+    message.channel.send({ content: mensaje});
+    // let res = await botxi.distube.search("overthinker");
+    // console.log(res[0].name + res[0].url);
+    message.delete({ timeout: 10000 });
+  },
+  btn: [
+    {
+      id: "b1",
+      execute: async (botxi, int) => {
+        await int.deferUpdate();
+        int.editReply({ content: "Respuesta al botón", components: [] });
+      },
     },
-    btn: [
-        {
-            id: "b1",
-            execute: async (botxi, int) => {
-                await int.deferUpdate();
-                int.editReply({ content: "Respuesta al botón", components: []});
-            }
-        }
-    ]
-}
+  ],
+};
