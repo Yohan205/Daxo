@@ -1,16 +1,23 @@
-const chalk = require('chalk');
 const { countFiles } = require("../controllers/utilities");
 const RAM = require("../controllers/usedRAM");
+// const { BOT } = require("../settings/config");
 
 module.exports = {
     name: "ready",
     type: "once",
+    /**
+     * 
+     * @param {Client} botxi 
+     * @param {BOT} Bot configs 
+     * @return
+     */
     run: (botxi, args, BOT) => {
-        const cantidadComandos = countFiles("./commands/cmd/", ".js");
+        const cantidadComandos = countFiles("./commands/text/", ".js");
         const slashCommands = botxi.slashCommands.map(x => x); //Mapeo de todos los comandos
         // console.log(slashCommands);
-        // botxi.application.commands.set(slashCommands); //Slash Commands Global
-        botxi.guilds.cache.get("855869897539584061").commands.set(slashCommands);
+        //Para actualizar los comandos slash activar la siguietne linea
+        //botxi.application.commands.set(slashCommands); //Slash Commands Global
+        botxi.guilds.cache.get(BOT.serverID).commands.set(slashCommands);
         const estados = [
             {
                 name: "Daxo help",

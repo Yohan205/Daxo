@@ -1,8 +1,8 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = (url, action, message) => {
     if (!message.mentions.members.first()) {
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setFooter("Gif proporcionado por Zeew")
             .setImage(url)
             .setColor("RANDOM");
@@ -16,13 +16,13 @@ module.exports = (url, action, message) => {
                 embed.setDescription("**"+message.member.displayName+"** está "+ action);
                 return embed;
             default:
-                const embedError = new MessageEmbed()
+                const embedError = new EmbedBuilder()
                     .setTitle("**"+message.member.displayName+"** Necesitas mencionar a alguien para ejecutar la acción")
                     .setColor("#FF0000");
                 return embedError;
         }
     } else {
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setFooter("Gif proporcionado por Zeew")
             .setDescription("**"+message.member.displayName+"** ha "+action+" a **"+message.mentions.members.first().displayName+"**")
             .setImage(url)
