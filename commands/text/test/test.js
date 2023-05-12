@@ -32,9 +32,9 @@ module.exports = {
       
     }
 
-    console.log(searches);
+    // console.log(searches);
 
-    const mensaje = busquedas;
+    const mensaje = "busquedas";
 
     // Pick first one
     // const firstSong = searches[0];

@@ -3,13 +3,13 @@ const { Client, Message } = require('discord.js');
 
 module.exports = {
     name: "resume",
-    desc: "Continua con lo que esté en cola",
+    desc: "Continua reproduciendo lo que hay en lista",
     usage: "resume",
     aliases: ["resume",],
     isPrivate: false,
     guildOnly: false,
     category: "music",
-    cooldown: 2,
+    cooldown: 10,
     status: true,
     /**
     * @param {Client} botxi
@@ -19,7 +19,7 @@ module.exports = {
     */
     run: async(botxi, message) => {
         const queue = botxi.distube.getQueue(message.guild.id);
-        if (!queue) return message.reply("La cola está vacía...\nPuedes agregar algo con el comando \`play\`");
-        botxi.distube.resume(queue)
+        if (!queue) return message.reply("La cola está vacía...😶‍🌫️ \nPor qué no agregar algo de música 🎵 a éste momento? \nUsa el comando \`play\`");
+        botxi.distube.resume(queue);
     }
 }

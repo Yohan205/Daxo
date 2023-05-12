@@ -5,12 +5,12 @@ module.exports = {
     name: "search",
     desc: "Buscar una canción o video en youtube",
     usage: "search <Video o canción a buscar>",
-    aliases: ["search", "find"],
+    aliases: ["search", "buscar",  "sh"],
     isPrivate: false,
     guildOnly: false,
     category: "music",
     cooldown: 5,
-    status: false,
+    status: true,
     /**
     * @param {Client} botxi
     * @param {Message} message
@@ -19,7 +19,10 @@ module.exports = {
     */
     run: async(botxi, message, args) => {
         if (!args) return message.reply("Olvidaste decirme qué video o canción buscar.");
-        console.log(botxi.distube.search(args.join(" ")));
-        
+        let results = await botxi.distube.search(args.join(" "));
+
+        const searches = results.map(song =>`\t**=>>** ${song.name} - \`${song.formattedDuration}\` `).slice(0, 10).join('\n');
+
+        message.channel.send({content: `Según lo que me dijiste \`${args}\` \n **Encontré éstas canciones**:\n ${searches}\` `});
     }
 }

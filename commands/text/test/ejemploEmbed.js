@@ -14,18 +14,18 @@ module.exports = {
         
         const embed = new Discord.EmbedBuilder()
                 .setTitle("Este es su título, puede contener 256 caracteres")
-                .setAuthor(message.author.username, message.author.avatarURL())
+                .setAuthor({name: message.author.username, iconURL: message.author.avatarURL()})
                 .setColor(0x00AE86)
                 .setDescription("Este es el cuerpo principal del texto, puede contener 2048 caracteres.")
-                .setFooter("Pie de página, puede contener 2048 caracteres", botxi.user.avatarURL())
+                .setFooter({text:"Pie de página, puede contener 2048 caracteres", iconURL: botxi.user.avatarURL()})
                 .setTimestamp()
                 .setImage(message.author.avatarURL())
                 .setThumbnail(message.author.avatarURL())
                 .setURL("http://hidaxo.xyz")
-                .addField("Este es un título de campo, puede contener 256 caracteres",
-                    "Este es un valor de campo, puede contener 2048 caracteres.")
-                .addField("Campo en línea", "Debajo del campo en línea", true)
-                .addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true);
+                .addFields({name: "Este es un título de campo, puede contener 256 caracteres",
+                    value:"Este es un valor de campo, puede contener 2048 caracteres."},
+                    {name:"Campo en línea", value:"Debajo del campo en línea", inline: true},
+                    {name:"Campo en línea 3", value:"Puede tener un máximo de 25 campos.", inline: true});
             
             const row2 = new Discord.MessageActionRow()
             .addComponents(
@@ -46,9 +46,9 @@ module.exports = {
                         value: "Hi!"
                     }
                 ])
-            )
+            );
     
-            const m = await message.channel.send({embeds: [embed], components: [row2]})
+             const m = await message.channel.send({embeds: [embed], components: [row2]});
     
             const filter = i => i.user.id === message.author.id;
     
@@ -62,6 +62,6 @@ module.exports = {
                     await i.deferUpdate();
                     i.editReply({ content: "Has dado a la opcion 2", components: [], embeds: []})
                 }
-            })
+            });
     }
 }

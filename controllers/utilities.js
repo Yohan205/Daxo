@@ -40,7 +40,49 @@ function separarString(str, maxLength) {
     return result;
   }
 
+/**
+   *  | Compare two arrays |
+   * @param {Array} arr1 
+   * @param {Array} arr2 
+   * @return Boolean
+   */
+function arraysEqual(arr1, arr2) {
+  if (arr1.length !== arr2.length) return false;
+
+  for (let i = 0; i < arr1.length; i++) {
+    const obj1 = arr1[i];
+    const obj2 = arr2[i];
+
+    const values1 = Object.values(obj1);
+    const values2 = Object.values(obj2);
+
+	if (values1[0] !== values2[0]) {
+		return false;
+	}
+
+    /*for (let j = 0; j < values1.length; j++) {
+      const key = values1[j];
+      const val1 = obj1[key];
+      const val2 = obj2[key];
+
+      if (Array.isArray(val1) && Array.isArray(val2)) {
+        if (!arraysEqual(val1, val2)) {
+          return false;
+        }
+      } else if (typeof val1 === 'object' && typeof val2 === 'object') {
+        if (!arraysEqual([val1], [val2])) {
+          return false;
+        }
+      } else if (val1 !== val2) {
+        return false;
+      }
+    }*/
+  }
+
+  return true;
+}
+
 module.exports = {
     "countFiles": totalArchivos,
-    separarString
+    separarString, arraysEqual
 }

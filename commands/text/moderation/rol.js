@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js')
 module.exports = {
     name: "rol",
     desc: "Moderación de roles",
-    usage: "rol",
+    usage: {name: "rol", options: ["list", "find <rol> <@user>","add <rol> <@user>", "remove <rol> <@user>"]},
     aliases: ["rol", "r"],
     isPrivate: false,
     guildOnly: false,
@@ -102,7 +102,7 @@ module.exports = {
             .catch(e => message.reply("Ocurrio un **error**"))
             .then(() => message.channel.send(`Listo! le quité el rol **${rol.name}** a **${persona.user.username}**`));
                 //message.channel.send(`Listo, le saque el rol **${rol.name}** a **${persona.user.username}** con la razon de: _${reason}`)
-        } else if (args[0] == "list" || args[0] === "l"){
+        } else if (args[0] == "list" || args[0] === "lt"){
             const embed = new EmbedBuilder()
             .setColor(0x00AE86)
             .setDescription(
@@ -112,7 +112,7 @@ module.exports = {
             .setFooter(`Lista de roles de: ${server.name}`, server.iconURL());
             message.channel.send({embeds:[embed]});
         } else {
-            message.reply("Revisa help, para ver los comandos.")
+            message.reply("Revisa help mod, para ver los comandos.")
         }
     }
 }

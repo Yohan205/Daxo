@@ -20,6 +20,6 @@ module.exports = {
     run: async(botxi, message, args) => {
         const queue = botxi.distube.getQueue(message.guild.id);
         if (!queue) return message.reply("La cola está vacía...\nPuedes agregar algo con el comando \`play\`");
-        botxi.distube.pause(queue)
+        botxi.distube.pause(queue);
     }
 }

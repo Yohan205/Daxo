@@ -20,12 +20,14 @@ module.exports = {
     callbackURL: `http://${process.env.WEB}/loginDiscord`,
     botID: "668118265779716106",
     ownerID: "591833087139119104",
+    serverID: '654830450920914955', // Server TheBroland
+    // serverID: "855869897539584061", // Server Test
     scopes: ["identify", "guilds", "email"],
     console: {
       info: `[Daxo] `,
       alert: `[Daxo] `,
       warn: `[Daxo] `,
       db: "[Database] ",
-    },
-  },
+    }
+  }
 };
