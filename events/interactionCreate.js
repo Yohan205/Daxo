@@ -1,6 +1,20 @@
 const { Client, Interaction } = require('discord.js');
 const { arraysEqual } = require("../controllers/utilities");
 
+function arrayFind(Array1, Array2, Array3) {
+    Array1.find(e => {
+        // Si hay subcomandos, guarda el objeto subcommand
+        if (e.name === Array2){
+            return  e;
+            
+        } // Else if it isn't there a subcommand and cmdOpt, it will return error
+        else if (!Array3.some(i => i.name === e.name) && !Array.isArray(Array1)) {
+             console.error("El comando no existe o no tiene opciones"); 
+            return false;
+        }
+    });
+}
+
 module.exports = {
     name: "interactionCreate",
     type: "on",
@@ -24,11 +38,12 @@ module.exports = {
 
             let subCmdInt = false, isCmdRun, cmdRun;
 
-            console.log(cmdOpt, cmdOptInt);
+            // console.log(cmdOpt, cmdOptInt);
             // Result expected true
-            console.log(cmdOpt.some(e => e.name === isSubCmdInt || cmdOptInt.some(i => i.name === e.name)));
+            // console.log(cmdOpt.some(e => e.name === isSubCmdInt || cmdOptInt.some(i => i.name === e.name)));
 
             // It find the command used in the interaction, else it will show an error
+            // subCmdInt = arrayFind(cmdOpt, isSubCmdInt, cmdOptInt);
             cmdOpt.find(e => {
                 // Si hay subcomandos, guarda el objeto subcommand
                 if (e.name === isSubCmdInt){
@@ -41,17 +56,17 @@ module.exports = {
                 }
             });
             // Result expected, Array with the options
-            console.log(cmdOpt);
+            // console.log(cmdOpt);
             // Result expected Object with the command
-            console.log(subCmdInt); 
+            // console.log(subCmdInt); 
 
             // isCmdRun = arraysEqual(subCmdInt.options, cmdOptInt); 
 
             if (subCmdInt.options && subCmdInt.options.find(e => e.run)) {
-                console.log("----------Sub Cmd Int-----------");
+                // console.log("----------Sub Cmd Int-----------");
 
                 cmdRun = subCmdInt.options.find(e => e.run)             
-                console.log(cmdRun);
+                // console.log(cmdRun);
                 cmdRun.run(botxi, interaction);
 
                 // indexCmd = cmdOptInt.find(e => e.name === namesCmd[0]);

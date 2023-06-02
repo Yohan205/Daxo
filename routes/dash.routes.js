@@ -143,9 +143,7 @@ router.post('/dash/:id/set-prefix', async (req, res) => {
             prefix: setPrefix
         });
     
-        newGuildConfig.save((err, data)=>{
-            console.error(err)
-        });
+        newGuildConfig.save();
     } else {
         await GuildConfig.updateOne({ ID }, { prefix: setPrefix });
     }

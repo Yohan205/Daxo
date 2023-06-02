@@ -3,9 +3,9 @@ const { Client, Message } = require('discord.js');
 
 module.exports = {
     name: "stop",
-    desc: "Continua con lo que esté en cola",
+    desc: "Detiene el reproductor",
     usage: "stop",
-    aliases: ["stop",],
+    aliases: ["stop"],
     isPrivate: false,
     guildOnly: false,
     category: "music",

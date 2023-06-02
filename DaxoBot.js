@@ -6,14 +6,16 @@ const path = require('path');
 const { DisTube } = require('distube');
 
 /* Extrae las clases requeridas del modulo discord.js */
-const { Client, Collection, GatewayIntentBits, MessageAttachment, } = require("discord.js");
-/* Creates an instance of a Discord client */
-const botxi = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildInvites, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.DirectMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildVoiceStates] });  //new Client({intents: 32719});
-
-const zeew = require('zeew');
+const { Client, Collection, MessageAttachment } = require("discord.js");
 
 /* Obtiene los datos de configuración del BOT */
 const { BOT } = require("./settings/config");
+
+/* Creates an instance of a Discord client */
+const botxi = new Client({ intents: BOT.intents});  //new Client({intents: 32719});
+
+const zeew = require('zeew');
+
 /* Obtiene los comandos de acciones que puede hacer un usuario como run */
 const actions = require("./controllers/actions");
 /* Obtiene los models de configuración de los Guilds */
@@ -27,7 +29,7 @@ botxi.configs = new Collection();
 botxi.configs.set("actions", actions);
 // const cldwn = require("./settings/controllers");
 botxi.configs.set("GuildConfig", GuildConfig);
-// botxi.configs.set("chalk", chalk);
+botxi.configs.set('records', new Map());
 
 /* Configuracion del modulo DisTube */
 botxi.distube = new DisTube(botxi, {
@@ -87,6 +89,6 @@ botxi.distube.on("error", (eCanal, e) => botxi.emit("errorLog", e, BOT, 'ErrorDi
 botxi.once("error", e => { console.error(e); botxi.emit("errorLog", e, BOT, 'Error'); });
 botxi.once("warn", e => botxi.emit("errorLog", e, BOT, 'Warn'));
 // botxi.once("debug", (e) => console.info(e));
-botxi.login(BOT.TOKEN); //Login to Discord Client
+botxi.login(BOT.TOKEN.DISCORD); //Login to Discord Client
 
 module.exports = botxi

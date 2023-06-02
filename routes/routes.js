@@ -25,11 +25,7 @@ router.get('/test', (req, res) => {
     })
 })
 
-router.get('/loginDiscord', passport.authenticate("discord", { failureRedirect: '/' }), (req, res) => {
-    res.redirect('/dash')
-});
-router.use("/", require("./dash.routes"));
-
+//Using the API of Geometry Dash
 router.post('/apiGD', (req, res) => {
     // let id = req.params.id;
     console.log(req.body);
@@ -46,6 +42,12 @@ router.post('/apiGD', (req, res) => {
         userGD,
     });
 });
+
+// URI for the login Discord
+router.get('/loginDiscord', passport.authenticate("discord", { failureRedirect: '/' }), (req, res) => {
+    res.redirect('/dash')
+});
+router.use("/", require("./dash.routes"));
 
 router.get('/login', (req, res) => {
     res.render('login', {

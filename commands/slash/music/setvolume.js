@@ -8,7 +8,7 @@ module.exports = {
             name: 'percent',
             description: "Escribe un número de 1 a 200",
             type: 4,
-            requiere: true,
+            require: true,
             min_value: 1,
             max_value: 200
         }

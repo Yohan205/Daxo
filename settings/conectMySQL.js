@@ -4,11 +4,11 @@ const { promisify } = require('util');
 const chalk = require('chalk');
 
 // Prepara la coneccion a la Base de Datos
-const pool = mysql.createPool(BOT.uriDB || {
-    host: BOT.hostDB,
-    user: BOT.userDB,
-    password: BOT.passDB,
-    database: BOT.nameDB
+const pool = mysql.createPool(BOT.DB.URI_SQL || {
+    host: BOT.DB.HOST,
+    user: BOT.DB.USER,
+    password: BOT.DB.KEY_SQL,
+    database: BOT.DB.NAME_SQL
 });
 
 // Conectandose a la DB

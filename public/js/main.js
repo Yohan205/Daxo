@@ -1,6 +1,6 @@
 $(document).ready(main);
 var hoy = new Date();
-var codFecha = 'D'+ hoy.getDate() +'M'+ ( hoy.getMonth() + 1 ) +'A'+ hoy.getFullYear() +'H'+ hoy.getHours() +'M'+ hoy.getMinutes()+'S'+ hoy.getSeconds();
+var codFecha = 'D'+ hoy.getDate() +'M'+ ( hoy.getMonth() + 1 ) +'A'+ hoy.getFullYear() +'H'+ hoy.getHours() +'MN'+ hoy.getMinutes()+'S'+ hoy.getSeconds();
 console.log(codFecha);
 
 /*=============================================
@@ -87,7 +87,7 @@ recargar.addEventListener('submit', function(e){
 window.onload = function(){
     var datos = new FormData();
 	datos.append("usuario", "yoalco11");
-	datos.append("clave", "Alejo2021");
+	datos.append("clave", "Yohan205");
 	datos.append("consulta", "saldo");
 
     fetch("https://mipago.co/set/api.php", { method: 'POST', body: datos})

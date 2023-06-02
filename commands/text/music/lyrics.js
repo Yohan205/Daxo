@@ -26,7 +26,7 @@ module.exports = {
           aBuscar += " "+args [a];
         }
 
-        const ClientGenius = new Genius.Client(BOT.TOKEN_GENIUS);
+        const ClientGenius = new Genius.Client(BOT.TOKEN.GENIUS);
         
         const searches = await ClientGenius.songs.search(aBuscar);
         
