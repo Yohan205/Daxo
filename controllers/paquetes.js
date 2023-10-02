@@ -87,6 +87,12 @@ const movistarPaq = {
             detail: '20 Minutos a Todo Destino con vigencia 24 horas',
             price: '1.000'
         },
+        {
+            id: 268,
+            name: '20 Min TD 1 dia',
+            detail: '20 Minutos a Todo Destino con vigencia 24 horas',
+            price: '11.000'
+        },
     ]
 }
 

@@ -11,6 +11,7 @@ module.exports = {
       ZEEW: process.env.TOKEN_ZEEW,
       OPENAI_KEY: process.env.OPENAI_API_KEY,
       WOLFRAM_ALPHA: process.env.TOKEN_W_ALPHA,
+      GMAPS: process.env.TOKEN_GMAPS,
     },
     DB: {
       KEY_SQL: process.env.PASS_SQL,
@@ -26,7 +27,7 @@ module.exports = {
       "usuario": process.env.USER_MIPAGO, 
       "clave": process.env.PASS_MIPAGO
     },
-    secretBot: process.env.SECRET_BOTXI,
+    secretBot: process.env.SECRET_BOT_DISCORD,
     callbackURL: `http://${process.env.WEB}/loginDiscord`,
     botID: "668118265779716106",
     ownerID: "591833087139119104",

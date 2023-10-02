@@ -1,4 +1,4 @@
-const { Console } = require('console');
+//@ts-nocheck
 const fetch = require('node-fetch');
 const operadores = require("./operadores");
 const paquetes = require("./paquetes");
@@ -124,7 +124,7 @@ class miPay {
 	})
 	#results
 	#data
-  bill = new Map()
+	bill = new Map()
 
 	/**
 	 *  | MiPago - API |
@@ -137,6 +137,7 @@ class miPay {
 		this.tk = `D${date.getDate()}M${(date.getMonth()+1)}A${date.getFullYear()}.H${date.getHours()}MN${date.getMinutes()}S${date.getSeconds()}`;
 	}
 
+	// @ts-ignore
 	#cobroType(cobro){
 		// If cobro is saldo, the type is 0
 		switch (cobro.toLowerCase()) {
@@ -151,6 +152,7 @@ class miPay {
 		}
 	}
 
+	// @ts-ignore
 	#checkNumber(numero) {
 		const stringNumero = String(numero).replace(/\s/g, "");
 		
@@ -162,6 +164,7 @@ class miPay {
 		return numero10Caracteres;
 	}
 
+	// @ts-ignore
 	#cleanCost(valor) {
 		const string = valor.toString();
 		const numero = parseInt(string, 10);
@@ -175,6 +178,7 @@ class miPay {
 		return sinPuntuacion;
 	}
 
+	// @ts-ignore
 	#checkString(toCheck) {
 		if (typeof toCheck !== 'string') {
 		throw new Error('It\'s not string.');
@@ -183,7 +187,9 @@ class miPay {
 		return toCheck.toLowerCase();
 	}
 
+	// @ts-ignore
 	#fetchAPI(body) {
+		// @ts-ignore
 		return fetch(this.#API, body)
 		.then(ans => ans.json())
 		.catch(err => err);
@@ -195,6 +201,8 @@ class miPay {
 	 * @return {Object} Object with data or value String
 	 */
 	queryBalance(queryString) {
+		// Check the query string
+		queryString = this.#checkString(queryString);
     // Añade consulta al objeto data
     this.#data.consulta = "saldo";
 
@@ -229,19 +237,15 @@ class miPay {
 		// Añade consulta al objeto data
 		this.#data.consulta = "venta";
 		this.#data.tk = queryToken;
-		if (!queryToken) throw new Error("Token not found");
+		if (!queryToken) throw new Error("Token not found"); // Realizar vericacion del token para que sea con la estructura dada
 
 		// Complete the headers with the body data in json format
 		this.#dataBody.body = JSON.stringify(this.#data)
 
 		// Realiza el fetch a la API y da como resultado un objeto con la consulta
-		this.#results = fetchAPI(this.#dataBody)
-		.then( ans => ans).catch( err => err );
-
-		// res.tk = queryToken
-		// this.#results = Object.assign(res, resul);
-		this.#results.tk = queryToken
-		return this.#results
+		return this.#fetchAPI(this.#dataBody)
+		.then( ans => {ans.tk = queryToken; return ans;})
+		.catch( err => err );
 	}
 
 	/**
@@ -283,19 +287,19 @@ class miPay {
 		// Complete the headers with the body data in json format
 		this.#dataBody.body = JSON.stringify(this.#data);
 
-		this.#results = fetchAPI(this.#dataBody)
+		this.#fetchAPI(this.#dataBody)
 		.then( res => {
-      this.#results = res;
-      this.#results.tk = this.tk;
+      		this.#results = res;
+    		this.#results.tk = this.tk;
 		  
-      return this.#results
+      		return this.#results
 		})
 		.catch( err => {
-      this.#results = err;
-      this.#results.tk = this.tk;
+    		this.#results = err;
+    		this.#results.tk = this.tk;
 		  
-      return this.#results
-    });
+    		return this.#results
+    	});
 	}
 
 	/**
@@ -328,29 +332,29 @@ class miPay {
 		this.#data = Object.assign(this.#data, {
 			"o": operadorID,
 			"n": number,
-			"p": paq,
+			"p": paq.id,
 			"tk": this.tk,
 			"t": cobro
 		})
 	
-		this.bill.set(this.tk, {"number": number, "value": valor, "operator": operador});
+		this.bill.set(this.tk, {"number": number, "paqu": paq.price, "operator": operador});
 	
 		// Complete the headers with the body data in json format
 		this.#dataBody.body = JSON.stringify(this.#data);
 	
-		fetchAPI(this.#dataBody)
+		this.#fetchAPI(this.#dataBody)
 		.then( res => {
-      this.#results = res;
-      this.#results.tk = this.tk;
+      		this.#results = res;
+      		this.#results.tk = this.tk;
 		  
-      return this.#results;
+    		return this.#results;
 		})
 		.catch( err => {
-      this.#results = err;
-      this.#results.tk = this.tk;
+      		this.#results = err;
+      		this.#results.tk = this.tk;
 		  
-      return this.#results;
-    });
+      		return this.#results;
+    	});
 	}
 
   /**

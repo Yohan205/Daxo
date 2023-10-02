@@ -1,7 +1,8 @@
+// @ts-nocheck
 /* Requerimos del modulo fs para manipular los archivos (leer y escribir) */
 const fs = require('fs');
-// const chalk = require('chalk'); lo usaba para dar un toque de color a la terminal
 const path = require('path');
+// const chalk = require('chalk'); lo usaba para dar un toque de color a la terminal
 /* Con DisTube hace que bot pueda reproducir canciones */
 const { DisTube } = require('distube');
 

@@ -1,26 +1,26 @@
-<body>
-    <!--div id="user_icon">
+<!--div id="user_icon">
         <img id="image" src="IMG/user-icon1.png" alt="">
     </div-->
-    <section id="formulario">
-        <p class="prf_title">Bienvenido</p>
-        <form action="/TheBroland" method="POST" onsubmit="return valid();">
-            <input id="username" name="username" type="text" placeholder="Usuario" required autofocus /><br>
-            <!--input name="email" type="email" placeholder="email@example.com" required /><br-->
-            <input type="password" name="password" id="password" placeholder="Contraseña" required /><br>
-            <input class="btn" type="submit" value="Iniciar Sesión" id="boton" />
-        </form>
-        <table border="0" id="tb_lgn">
-            <tr>
-                <td align=""><a class="prf" href="register.html">Registrarse</a></td>
-                <td align=""><a class="prf" href="#ForgotPassword">Forgot password</a></td>
-            </tr>
-        </table>
-    </section>
+<section class="loginForm">
+    <h2>Bienvenido</h2>
+    <h3>Inicia sesi&oacute;n con los siguientes medios:</h3>
+    {{!-- <form action="/" method="POST" onsubmit="">
+        <input id="username" name="username" type="text" placeholder="Usuario" required autofocus /><br>
+        <!--input name="email" type="email" placeholder="email@example.com" required /><br-->
+        <input type="password" name="password" id="password" placeholder="Contraseña" required /><br>
+        <input class="btn" type="submit" value="Iniciar Sesión" id="boton" />
+    </form>
+    <table border="0" id="tb_lgn">
+        <tr>
+            <td align=""><a class="prf" href="register.html">Registrarse</a></td>
+            <td align=""><a class="prf" href="#ForgotPassword">Forgot password</a></td>
+        </tr>
+    </table> --}}
+    <a class="btn large purple" href="/loginDiscord">Discord</a>
+
     <script src="https://www.google.com/recaptcha/api.js?render=6LeBkHoUAAAAAKWKMuAgXSrrBZStu2Br0d7rFN6B"></script>
-  <script>grecaptcha.ready(function() {
-      grecaptcha.execute('6LeBkHoUAAAAAKWKMuAgXSrrBZStu2Br0d7rFN6B', {action: 'login'})
-      });
-  </script>
-</body>
-</html>
+    <script>grecaptcha.ready(function () {
+            grecaptcha.execute('6LeBkHoUAAAAAKWKMuAgXSrrBZStu2Br0d7rFN6B', { action: 'login' })
+        });
+    </script>
+</section>

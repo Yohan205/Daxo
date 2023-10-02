@@ -3,8 +3,8 @@
 //const { Client, EmbedBuilder, MessageAttachment } = require("discord.js");
 // const Genius = require("genius-lyrics");
 const fetch = require('node-fetch');
-const miPago = require('mi-pago');
-const { recargaQuery, miPay } = require('../../../controllers/utilities');
+const MiPago = require('mi-pago');
+const { miPay } = require('../../../controllers/utilities');
 
 module.exports = {
   name: "test",
@@ -18,29 +18,29 @@ module.exports = {
   status: true,
   run: async (botxi, message, args, BOT) => {
     let mensaje = "OK", data;
-    // const keyMP = BOT.keyMiPago; 
 
     const rec = new miPay(BOT.keyMiPago);
-    const rec1 = new miPago(BOT.keyMiPago);
+    const rec1 = new MiPago(BOT.keyMiPago);
 
-    //data = await rec.recargar(args[0],args[1],args[2],"Saldo");
-    // data = await rec.queryPaqs(args[0])
-    data = rec.queryPaqs(args[0]? args[0] : "", args[1]? args[1] : "")
+    // data = await rec.recargaPaq(args[0],args[1],args[2],"Saldo");
+    // data = await rec1.querySell(args[0])
+    // data = rec.queryPaqs(args[0]? args[0] : "", args[1]? args[1] : "")
 
-    // mensaje = `**Recarga ${data.Detalle}** por $${data.value? data.value : "Off"} al número \`${data.number ? data.number : "Off"}\` \n TokenID: \`${data.tk}\` - Ref: ${data.Ref}\nEl saldo actual es: ${await rec.saldo} `;
+    // mensaje = `**Recarga ${data.Detalle}** por $${data.value? data.value : "Off"} al número \`${data.number ? data.number : data.Datos.Des}\` \n TokenID: \`${data.tk}\` - Ref: ${data.Ref ? data.Ref : "Off"}\nEl saldo actual es: ${await rec1.saldo} `;
 
-    console.log(data);
+    // console.log(data);
     // console.log(await rec.queryPaqs("Claro", "ti"));
     
-    /*Usando el wolfram alpha
+    //* Usando el wolfram alpha
     const API_KEY = BOT.TOKEN.WOLFRAM_ALFA;
-    const API_URL = `http://api.wolframalpha.com/v1/result?appid=${API_KEY}&i=`;
+    const API_URL = `http://api.wolframalpha.com/v1/simple?appid=${API_KEY}&i=`;
 
     async function wolframAlphaQuery(query) {
       const encodedQuery = encodeURIComponent(query);
       const url = `${API_URL}${encodedQuery}`;
 
       try {
+        // @ts-ignore
         const response = await fetch(url);
         const result = await response.text();
         return result.trim();
@@ -54,8 +54,9 @@ module.exports = {
     const query = '2+2';
     wolframAlphaQuery(query)
       .then(result => {
+        console.log(result);
         console.log(`El resultado de "${query}" es: ${result}`);
-        mensaje = `El resultado de "${query}" es: ${result}`;
+        // mensaje = `El resultado de "${query}" es: ${result}`;
       })
       .catch(error => {
         console.error('Error:', error);
