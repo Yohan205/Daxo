@@ -15,6 +15,24 @@ body {
     padding: 0px;
 }
 
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(0, 128, 0, 0.4);
+}
+
+*::-webkit-scrollbar-thumb {
+    /* background-color: rgba(0, 128, 0, 0.4); */
+    border-radius: 10px;
+    border: 5px solid #ffcc23;
+}
+
+/* body::-webkit-scrollbar-button {
+    background-color: rgba(0, 128, 0);
+} */
+
 .btn-menu {
     display: block;
     text-decoration: none;
@@ -42,7 +60,6 @@ body {
     padding-top: 10px;
     line-height: 2em;
     text-align: justify;
-    /* z-index: 0; */
 }
 
 h1 {
@@ -61,7 +78,7 @@ h1 {
     align-content: center;
 }
 
-.frames > div{
+.frames>div {
     width: 50%;
     display: block;
 }
@@ -73,74 +90,95 @@ h1 {
     margin-left: 20px;
 }
 
-
 /*===============================
 =         PC - TABLETS         =
 ===============================*/
 
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 950px) {
     body {
         padding-top: 72px;
     }
+
     /*********** HEADER *************/
     .menu_bar {
         display: none;
     }
+
     header {
-        width: 95%;
+        width: 99%;
         height: 75px;
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(0, 128, 0, 0.4);
         border-radius: 2em;
         position: fixed;
         top: 4px;
         z-index: 10;
     }
+
     nav {
         float: left;
         line-height: 45px;
+        display: flex;
+        width: 100%;
+
     }
-    nav ul {
+
+    nav>li {
+        margin: 0 10px;
+    }
+
+    nav .menu_first {
         display: flex;
         overflow: hidden;
         list-style: none;
     }
+
+    nav .menu_first ul {
+        list-style: none;
+    }
+
     nav a {
         display: block;
         width: 120px;
         padding: 2px 8px;
         text-decoration: none;
-        background-color: #11fa00;
         color: white;
         transition: all 500ms ease;
         border-radius: 10px;
     }
-    nav img {
+
+    .menu img {
         width: 60px;
         height: 35px;
     }
-    nav a:hover {
+
+    .menu a:hover {
         background-color: #1a9f00;
     }
-    nav .subnav {
-        /* background-color: #11fa00; */
+
+    .subnav {
+        background-color: rgba(0, 128, 0, 0.4);
         display: none;
         padding: 0px;
         border-radius: 10px;
     }
-    nav .subnav li a {
+
+    .subnav li a {
+        list-style: none;
         line-height: 45px;
     }
-    nav ul li a:hover+ul,
-    nav .subnav:hover {
+
+    .menu li a:hover+ul,
+    .subnav:hover {
+        list-style: none;
         display: block;
     }
-    .wlc_u {
-        background-color: rgba(0, 0, 0, 0.4);
-        color: white;
-        font-size: 23px;
-        margin: 0;
-        top: 40px;
+
+    .menu_second {
+        position: absolute;
+        right: 10px;
+        list-style: none;
     }
+
     /******** HEADER END **********/
 
     /*********** BODY *************/
@@ -152,14 +190,13 @@ h1 {
     }
 
     #img-brolandia {
-        width: 300px; height: 200px; float: left; margin-right: 15px; border-radius: 5px;
+        width: 300px;
+        height: 200px;
+        float: left;
+        margin-right: 15px;
+        border-radius: 5px;
     }
 
-    .icon-1{
-        width: 100px;
-        height: 100px;
-        border-radius: 45%;
-    }
     /********* END BODY **********/
 
     /********* FOOTER ***********/
@@ -174,34 +211,43 @@ h1 {
         border-radius: 15px;
         color: #DDDDDD;
     }
+
     footer a {
         text-decoration: none;
         color: #DDD;
     }
+
     footer .copy {
         color: #DDD;
         font-size: 1.13em;
         display: inline;
     }
+
     footer img {
         float: left;
         width: 88px;
         height: 31px;
     }
+
     /*END FOOTER*/
 }
 
 /*===============================
 =          CELULARES           =
 ===============================*/
-@media screen and (max-width: 900px) {
+@media (width < 950px) {
     body {
         padding-top: 69px;
     }
-    header nav {
+
+    header {
+        background: none;
+    }
+
+    .menu {
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
-        background: -webkit-linear-gradient(top, green 50%, yellowGreen);
+        background: -webkit-linear-gradient(top, rgb(0, 128, 0) 50%, rgb(154, 205, 50));
         width: 60%;
         height: 100%;
         margin: 0;
@@ -211,74 +257,93 @@ h1 {
         top: 0;
         z-index: 10;
     }
-    nav a {
-        background-color: #11fa00;
+
+    .menu a {
+        font-size: 1.2em;
+        background-color: #11fa008f;
         color: white;
-        width: 140px;
+        width: 100%;
         text-decoration: none;
         border-radius: 10px;
         padding: 10px 15px;
         display: block;
     }
-    nav img {
+
+    .menu img {
         width: 70px;
         height: 55px;
     }
-    nav ul {
+
+    .menu .menu_first {
         padding-left: 5px;
     }
-    header nav ul li {
+
+    .menu .menu_first li {
         display: block;
         float: none;
         padding: 5px 10px;
         border-bottom: 1px rgba(255, 255, 255, 0.3);
         cursor: pointer;
     }
+
     .menu_bar {
         display: block;
         width: 100%;
     }
+
     .menu-icon {
         float: right;
         font-size: 25px;
     }
+
     #nav-ul {
         position: absolute;
         top: 100px;
     }
+
     nav li {
         width: 100%;
     }
-    nav ul li ul {
+
+    nav .menu_first li ul {
         display: block;
         position: relative;
     }
+
     .wlc_u {
         color: white;
         font-size: 19px;
         margin: 0;
     }
+
     .content {
         padding: 15px;
-        font-size:20px;
-        text-align:justify;
+        font-size: 20px;
+        text-align: justify;
     }
 
     #img-brolandia {
-        width: 100%; height: 200px; float: left; margin-right: 15px; border-radius: 5px;
+        width: 100%;
+        height: 200px;
+        float: left;
+        margin-right: 15px;
+        border-radius: 5px;
     }
 
-    .frames > div {
+    .frames>div {
         width: 100%;
     }
 
-    h1, h2 {
+    h1,
+    h2 {
         text-align: center;
     }
+
     .discordFrame {
         width: 100%;
         height: 385px;
     }
+
     footer {
         height: auto;
         color: #FFFFFF;
@@ -292,14 +357,17 @@ h1 {
         border-radius: 15px;
         color: #FFF;
     }
+
     footer .copy-t {
         display: none;
     }
+
     footer .copy {
         display: inline-block;
         font-size: 1.2em;
         color: #DDD;
     }
+
     footer img {
         width: 120px;
         height: 50px;

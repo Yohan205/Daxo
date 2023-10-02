@@ -1,1 +1,104 @@
-.btn{background:#95a5a6;color:#fff;display:inline-block;font-size:1em;margin:2px;width:97px;height:30px;border-radius:6px;text-align:center;text-decoration:none;padding:5px 0;box-shadow:0 4px 0 #7f8c8d;cursor:pointer}.icon{margin-right:10px}.green{background:#21E040;box-shadow:0 4px 0 #18CB35}.red{background:#e84118;box-shadow:0 4px 0 #c23616}.orange{background:#F37D1E;box-shadow:0 4px 0 #C56405}.blue{background:#3D89E8;box-shadow:0 4px 0 #3E6FEC}.cian{background:#29E5E7;box-shadow:0 4px 0 #1EBFC1}.grey{background-color:#95a5a6;box-shadow:#bdc3c7}.yellow{background-color:#f9de05;box-shadow:#dfde05}.medium{width:150px}.large{width:200px}.radius{border-radius:50px}.btn-n:hover{box-shadow:0 0 0;padding-top:7px}
+.btn {
+    background: #95a5a6;
+    color: #fff;
+    display: inline-block;
+    font-size: 1em;
+    line-height: normal;
+    margin: 2px;
+    width: 97px;
+    height: 30px;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px 0;
+    box-shadow: 0 0 5px #7f8c8d;
+    cursor: pointer
+}
+
+.btn:hover {
+    box-shadow: 0 0 10px #fff
+}
+
+.icon {
+    margin-right: 10px
+}
+
+.lime {
+    background: #21E040;
+    box-shadow: 0 4px 5px #18CB35
+}
+
+.lime:hover {
+    box-shadow: 0 0 10px #71ff89;
+}
+
+.red {
+    background: #e84118;
+    box-shadow: 0 4px 5px #c23616
+}
+
+.red:hover {
+    box-shadow: 0 0 10px #ff9881;
+}
+
+.orange {
+    background: #F37D1E;
+    box-shadow: 0 4px 5px #C56405
+}
+
+.orange:hover {
+    box-shadow: 0 0 10px #ffaf5f
+}
+
+.blue {
+    background: #3D89E8;
+    box-shadow: 0 4px 5px #3E6FEC
+}
+
+.blue:hover {
+    box-shadow: 0 0 10px #a0aeff;
+}
+
+.cian {
+    background: #29E5E7;
+    box-shadow: 0 4px 5px #1EBFC1
+}
+
+.cian:hover {
+    box-shadow: 0 0 10px #96fdff;
+}
+
+.yellow {
+    background-color: #ffd32a;
+    box-shadow: 0 4px 5px #ffdd59
+}
+
+.yellow:hover {
+    box-shadow: 0 0 10px #fff563
+}
+
+.grey {
+    background-color: #95a5a6;
+    box-shadow: 0 4px 5px #bdc3c7
+}
+
+.purple {
+    background-color: #7158e2;
+    box-shadow: 0 4px 5px #7d5fff
+}
+
+.purple:hover {
+    box-shadow: 0 0 10px #9881ff
+}
+
+.medium {
+    width: 150px
+}
+
+.large {
+    width: 200px
+}
+
+.radius {
+    border-radius: 50px
+}

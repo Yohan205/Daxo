@@ -8,7 +8,7 @@ module.exports = {
             name: 'text',
             description: "Escribe la canción a buscar",
             type: 3,
-            reqeuire: true
+            require: true
         }
     ],
     run: async (botxi, int) => {

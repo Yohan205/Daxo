@@ -2,43 +2,40 @@
     <div class="menu_bar">
         <a href="#" class="btn-menu"><span class="menu-icon fas fa-bars"></span>Men&uacute;</a>
     </div>
-    <nav>
-        <ul>
+    <nav class="menu">
+        <ul class="menu_first">
             <li><a href="/" class="btn_nav_right"><span class="icon fas fa-home"></span>Inicio</a></li>
-            <li><a href="/TheBroland"><strong>The Broland</strong></a>
+            <li><a href="/TheBroland"><b>The Broland</b></a>
                 <ul class="subnav">
                     <li><a href="/TheBroland/images"><span class="icon fas fa-images"></span>Im&aacute;genes</a></li>
                 </ul>
             </li>
+            {{#if statusAuth }}
             <li><a href="/dash" class="medium"><span class="icon fas fa-chalkboard"></span>Dashboard</a></li>
+            {{/if}}
             <li id="li-music">
-                <a onclick="alert('Música sin copyright')" href="/music"><span class="icon fas fa-music"></span>M&uacute;sica</a>
+                <a onclick="alert('Música sin copyright')" href="/music"><span
+                        class="icon fas fa-music"></span>M&uacute;sica</a>
             </li>
             <li id="li-pub"><a href="#"><span class="icon far fa-newspaper"></span>Otros</a>
                 <ul class="subnav">
                     <li><a href="/otros/comandos-de-voz-google">Comandos Google</a></li>
-                    <li><a href="/#" target="_blank"><span
-                                class="icon fas fa-download"></span>Descargas</a></li>
+                    <li><a href="/test" target="_blank"><span class="icon fas fa-download"></span>Descargas</a></li>
                 </ul>
             </li>
-            <!--?php
-                require "php/cn.php";
-                session_start(); 
-                    if(isset($_SESSION['User'])){
-                        $usuario = $_SESSION['User'];
-                        echo"<li class='ist-ssn-u btn_nav_left'><a href='php/check-perfil-user.php'>Perfil</a></li>";
-                        echo"<li class='ist-ssn-u'><a href='php/logout.php'>Cerrar Sesi&oacute;n</a></li><li><p class='wlc_u'>Bienvenid@ $usuario</p></li>";
-                        $bdp = mysqli_query($conexion,"select * from usuarios");
-                    while($res=mysqli_fetch_array($bdp)){
-		              if ($usuario == $res["user"]) {
-			             $photo = $res["photo"];
-                        echo "<li><img src='$photo' width='60' heigth='35'></li>";
-                      }
-                    }
-                    }else{
-                        echo"<li class='btn_nav_left'><a href='login.html'>Iniciar Sesi&oacute;n</a></li>";
-                    }
-                ?-->
+        </ul>
+        <ul class="menu_second">
+            {{#if statusAuth }}
+            <li><a href="#">Perfil</a>
+                <ul class="subnav">
+                    <li><a href="#">Ajustes</a></li>
+                    <li><a href="/logout">Cerrar sesi&oacute;n</a></li>
+                </ul>
+            </li>
+            {{else}}
+            <li><a href="/login"><span class="icon fa-solid fa-right-to-bracket"></span>Iniciar Sesi&oacute;n</a>
+            </li>
+            {{/if}}
         </ul>
     </nav>
 </header>

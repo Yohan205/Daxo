@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 
 const passport = require('../settings/passport');
 const { BOT } = require("../settings/config");
-const botxi = require('../DaxoBot');
+const botxi = require('../DiscordBot');
 const app = express();
 
 app.set('port', BOT.PORT || 5050)

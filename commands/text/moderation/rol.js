@@ -3,7 +3,8 @@ const { EmbedBuilder } = require('discord.js')
 module.exports = {
     name: "rol",
     desc: "Moderación de roles",
-    usage: {name: "rol", options: ["list", "find <rol> <@user>","add <rol> <@user>", "remove <rol> <@user>"]},
+    // usage: {name: "rol", options: ["list", "find <rol> <@user>","add <rol> <@user>", "remove <rol> <@user>"]},
+    usage: "list find <rol> <@user> add <rol> <@user> remove <rol> <@user>",
     aliases: ["rol", "r"],
     isPrivate: false,
     guildOnly: false,

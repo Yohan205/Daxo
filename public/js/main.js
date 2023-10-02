@@ -1,6 +1,7 @@
 $(document).ready(main);
+
 var hoy = new Date();
-var codFecha = 'D'+ hoy.getDate() +'M'+ ( hoy.getMonth() + 1 ) +'A'+ hoy.getFullYear() +'H'+ hoy.getHours() +'M'+ hoy.getMinutes()+'S'+ hoy.getSeconds();
+var codFecha = 'D'+ hoy.getDate() +'M'+ ( hoy.getMonth() + 1 ) +'A'+ hoy.getFullYear() +'H'+ hoy.getHours() +'MN'+ hoy.getMinutes()+'S'+ hoy.getSeconds();
 console.log(codFecha);
 
 /*=============================================
@@ -14,29 +15,30 @@ function main (){
         //$('nav').toggle();
        
         if(botonToggle == 1){
-            $('nav').animate({
+            $('.menu').animate({
                 left:'0'
             });
             botonToggle = 0;
         }else{
             botonToggle = 1;
-            $('nav').animate({
+            $('.menu').animate({
                 left:'-100%'
             });
         }
         
     });
+    
     $('#li-pub').click(function(){
         $('#li-ul-pub').toggle();
        
         if(botonToggle == 1){
-            $('nav').animate({
+            $('.menu').animate({
                 left:'0'
             });
             botonToggle = 0;
         }else{
             botonToggle = 1;
-            $('nav').animate({
+            $('.menu').animate({
                 left:'-100%'
             });
         }
@@ -87,7 +89,7 @@ recargar.addEventListener('submit', function(e){
 window.onload = function(){
     var datos = new FormData();
 	datos.append("usuario", "yoalco11");
-	datos.append("clave", "Alejo2021");
+	datos.append("clave", "Yohan205");
 	datos.append("consulta", "saldo");
 
     fetch("https://mipago.co/set/api.php", { method: 'POST', body: datos})

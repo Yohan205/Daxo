@@ -1,4 +1,4 @@
-<| Daxo Bot |>
+# <| Daxo Bot |>
 =================
 
 This a Bot created for fun and moderation for you Discord server, named **Daxo**.

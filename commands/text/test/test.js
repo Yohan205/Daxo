@@ -1,7 +1,10 @@
 // const Zeew = require('zeew');
 // const { BOT } = require("./settings/config.js");
 //const { Client, EmbedBuilder, MessageAttachment } = require("discord.js");
-const Genius = require("genius-lyrics");
+// const Genius = require("genius-lyrics");
+const fetch = require('node-fetch');
+const MiPago = require('mi-pago');
+const { miPay } = require('../../../controllers/utilities');
 
 module.exports = {
   name: "test",
@@ -14,33 +17,51 @@ module.exports = {
   cooldown: 0,
   status: true,
   run: async (botxi, message, args, BOT) => {
-    // console.log(botxi.users)
-    let aBuscar = "";
+    let mensaje = "OK", data;
 
-    for (let a = 0; a < args.length; a++) {
-      aBuscar += " "+args [a];
+    const rec = new miPay(BOT.keyMiPago);
+    const rec1 = new MiPago(BOT.keyMiPago);
+
+    // data = await rec.recargaPaq(args[0],args[1],args[2],"Saldo");
+    // data = await rec1.querySell(args[0])
+    // data = rec.queryPaqs(args[0]? args[0] : "", args[1]? args[1] : "")
+
+    // mensaje = `**Recarga ${data.Detalle}** por $${data.value? data.value : "Off"} al número \`${data.number ? data.number : data.Datos.Des}\` \n TokenID: \`${data.tk}\` - Ref: ${data.Ref ? data.Ref : "Off"}\nEl saldo actual es: ${await rec1.saldo} `;
+
+    // console.log(data);
+    // console.log(await rec.queryPaqs("Claro", "ti"));
+    
+    //* Usando el wolfram alpha
+    const API_KEY = BOT.TOKEN.WOLFRAM_ALFA;
+    const API_URL = `http://api.wolframalpha.com/v1/simple?appid=${API_KEY}&i=`;
+
+    async function wolframAlphaQuery(query) {
+      const encodedQuery = encodeURIComponent(query);
+      const url = `${API_URL}${encodedQuery}`;
+
+      try {
+        // @ts-ignore
+        const response = await fetch(url);
+        const result = await response.text();
+        return result.trim();
+      } catch (error) {
+        console.error('Error:', error);
+        throw error;
+      }
     }
-    console.log(aBuscar);
-    const Client = new Genius.Client(BOT.TOKEN_GENIUS);
-    
-    const searches = await Client.songs.search(aBuscar);
-    
-    let busquedas = "";
 
-    for (let b = 0; b < searches.length; b++) {
-      busquedas += searches[b].fullTitle +"\n"+ searches[b].thumbnail+"\n";
-      
-    }
-
-    // console.log(searches);
-
-    const mensaje = "busquedas";
-
-    // Pick first one
-    // const firstSong = searches[0];
-    //console.log("About the Song:\n", firstSong, "\n");
-    
-    
+    // Ejemplo de uso
+    const query = '2+2';
+    wolframAlphaQuery(query)
+      .then(result => {
+        console.log(result);
+        console.log(`El resultado de "${query}" es: ${result}`);
+        // mensaje = `El resultado de "${query}" es: ${result}`;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+//*/
 
     // let infoRol = [];
 
@@ -83,11 +104,11 @@ module.exports = {
     // const colector = m.createMessageComponentCollector({ filter: ifilter, time: 6000});
 
     message.channel.send({ content: mensaje});
-    // let res = await botxi.distube.search("overthinker");
+  
     // console.log(res[0].name + res[0].url);
     message.delete({ timeout: 10000 });
   },
-  btn: [
+  /*btn: [
     {
       id: "b1",
       execute: async (botxi, int) => {
@@ -95,5 +116,5 @@ module.exports = {
         int.editReply({ content: "Respuesta al botón", components: [] });
       },
     },
-  ],
+  ],*/
 };

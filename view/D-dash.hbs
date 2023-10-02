@@ -1,17 +1,18 @@
 <section class="content">
-    <div class="user-title">
-        <img class="icon-1" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.png" alt="icon{{user.id}}">
-        <h1>{{user.username}} #{{user.discriminator}}</h1>
+    <div class="user-title" style="background-color: {{user.banner_color}}93">
+        <img class="icon-profile-medium" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.png"
+            alt="icon{{user.id}}">
+        <h1>{{user.global_name}}</h1>
+        {{!-- <h3>{{user.username}}</h3> --}}
     </div>
     <hr>
     <div class="cards-content">
-        {{#each servidoresU}}
+        {{#each guildsUser}}
         <div class="cards">
             <div class="cards-icon">
                 {{#if this.icon}}
                 <img src="https://cdn.discordapp.com/icons/{{this.id}}/{{this.icon}}.png" alt="icon{{servers.id}}">
                 {{else}}
-                {{!-- <img src="https://cdn.hidaxo.ga/IMG/logo/icon-7.png" alt="Icon"> --}}
                 <p>{{this.acronym}}</p>
                 {{/if}}
             </div>
@@ -20,7 +21,8 @@
                 {{#if this.esta}}
                 <a href="/dash/{{this.id}}" class="btn radius yellow">Ver</a>
                 {{ else}}
-                <a href="https://discord.com/api/oauth2/authorize?client_id=668118265779716106&permissions=0&redirect_uri=http%3A%2F%2Fhidaxo.xyz%2FloginDiscord&scope=bot" target="_blank" class="btn radius cian">Invitar</a>
+                <a href="https://discord.com/api/oauth2/authorize?client_id=668118265779716106&permissions=0&redirect_uri=http%3A%2F%2Fhidaxo.xyz%2FloginDiscord&scope=bot"
+                    target="_blank" class="btn radius cian">Invitar</a>
                 {{/if}}
             </div>
         </div>

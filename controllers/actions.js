@@ -1,9 +1,14 @@
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = (url, action, message) => {
+    const footer = {
+        text:"Gif proporcionado por Zeew", 
+        iconURL: botxi.user.avatarURL()
+    }
+
     if (!message.mentions.members.first()) {
         const embed = new EmbedBuilder()
-            .setFooter("Gif proporcionado por Zeew")
+            .setFooter(footer)
             .setImage(url)
             .setColor("RANDOM");
 
@@ -23,7 +28,7 @@ module.exports = (url, action, message) => {
         }
     } else {
         const embed = new EmbedBuilder()
-            .setFooter("Gif proporcionado por Zeew")
+            .setFooter(footer)
             .setDescription("**"+message.member.displayName+"** ha "+action+" a **"+message.mentions.members.first().displayName+"**")
             .setImage(url)
             .setColor("RANDOM");

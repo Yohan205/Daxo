@@ -1,3 +1,4 @@
+//@ts-nocheck
 const timeUnd = require("../controllers/timeUnd");
 const GuildConfig = require("../settings/models/guildConfig");
 const { Client, Message, Collection } = require('discord.js');
@@ -12,10 +13,10 @@ module.exports = {
      * @returns Parametros xd
      */
     run: async (botxi, message, BOT) => {
-        //let guildConfig = await GuildConfig.findOne({'ID': message.guildId});
+        let guildConfig = await GuildConfig.findOne({'ID': message.guildId});
         //console.log(guildConfig);
         let prefixes = ['daxo ', 'Daxo ', 'd!']; //Array of prefixes
-        //if (guildConfig) prefixes.push(guildConfig.prefix);
+        if (guildConfig) prefixes.push(guildConfig.prefix);
         let prefix = ""; // Save prefix used
 
         // Este bucle verifica si el prefix esta en la lista de prefixes
@@ -24,6 +25,7 @@ module.exports = {
         }
         if (!prefix) return; // si el prefix no esta en la lista, no lo lee el bot
         if (message.author.bot) return; // si el autor del mensaje es un bot no lo lee
+        
         // agrega a una lista los argumentos y toma en otra variable el comando
         let [command, ...args] = message.content.slice(prefix.length).trim().split(/\s+/);
         //const command = args.shift().toLowerCase();
