@@ -16,7 +16,7 @@ body {
 }
 
 *::-webkit-scrollbar {
-    width: 6px;
+    width: 10px;
 }
 
 *::-webkit-scrollbar-track {
@@ -177,6 +177,13 @@ h1 {
         position: absolute;
         right: 10px;
         list-style: none;
+    }
+
+    #avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        /*bottom: 20px;*/
     }
 
     /******** HEADER END **********/

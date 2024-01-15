@@ -1,6 +1,6 @@
 <section class="content">
-{{!>clock-widget}}
-    <img src="{{ foto_perfil }}">
+    {{!>clock-widget}}
+    <img src="{{ user.picture }}">
     <h2>
         <script type="application/javascript">
             function getIP(json) {
@@ -9,6 +9,8 @@
         </script>
         <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
     </h2>
+    <iframe src="https://assets.pinterest.com/ext/embed.html?id=294563631895437900" height="445" width="345"
+        frameborder="0" scrolling="no"></iframe>
 </section>
 <br>
 <section class="content">
@@ -38,14 +40,14 @@
     <hr>
     <button type="button" class="btn large orange" onclick="tarer()">Ver Usuario GD</button>
     <h2 id="mostrarGD"></h2>
-        <script>        
-            var parf = document.getElementById("mostrarGD");
-            function tarer() {
-                fetch("https://gdbrowser.com/api/profile/CollaGamerYT")
-                .then( res => res.json())
-                .then( data => {
+    <script>
+        var parf = document.getElementById("mostrarGD");
+        function tarer() {
+            fetch("https://gdbrowser.com/api/profile/CollaGamerYT")
+                .then(res => res.json())
+                .then(data => {
                     parf.innerHTML = "el usuario es: " + data.username + " con la id: " + data.playerID;
                 });
-            }
-        </script>
+        }
+    </script>
 </section>

@@ -1,12 +1,13 @@
 //@ts-nocheck
 const { Router } = require('express');
-const {checkAuth, statusAuth} = require('../settings/checkAuth');
+const {checkAuth, checkAuthDiscord, statusAuth} = require('../settings/checkAuth');
+const { dataUser } = require("../controllers/utilities");
 const GuildConfig = require("../settings/models/guildConfig");
 
 const router = Router();
 
 //Discord dashboard
-router.get('/dash', checkAuth, (req, res) => {
+router.get('/dash', checkAuthDiscord, async (req, res) => {
 
     let guildsUser = [];
     // Get the list of guild where user is owner or have permission of administrator
@@ -39,11 +40,12 @@ router.get('/dash', checkAuth, (req, res) => {
         user: req.user,
         email: req.user.email,
         guildsUser,
-        statusAuth: statusAuth(req)
+        statusAuth: statusAuth(req),
+        user: statusAuth(req) ? await dataUser(req) : null,
     });
 });
 
-router.get('/dashjs', checkAuth, (req, res) => {
+router.get('/dashjs', checkAuthDiscord, (req, res) => {
     res.json({
         user: req.user,
         email: req.user.email,
@@ -52,7 +54,7 @@ router.get('/dashjs', checkAuth, (req, res) => {
 });
 
 // Discord guild dash
-router.get('/dash/:id', checkAuth, (req, res) => {
+router.get('/dash/:id', checkAuthDiscord, async (req, res) => {
 
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
@@ -63,7 +65,8 @@ router.get('/dash/:id', checkAuth, (req, res) => {
         keywordsPag: "Dashboard, Discord, Bot, Daxo",
         user: req.user,
         servers,
-        statusAuth: statusAuth(req)
+        statusAuth: statusAuth(req),
+        user: statusAuth(req) ? await dataUser(req) : null,
     });
 });
 
@@ -112,7 +115,9 @@ router.get('/dash/:id/commands', checkAuth, async (req, res) => {
         canales,
         roles,
         guild: gConfig ? guildConfig : false,
-        emojis: JSON.parse(emoji)
+        emojis: JSON.parse(emoji),
+        statusAuth: statusAuth(req),
+        user: statusAuth(req) ? await dataUser(req) : null,
     });
     //})
 });

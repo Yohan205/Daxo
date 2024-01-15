@@ -1,30 +1,59 @@
 const { Router } = require('express');
+const fetch = require('node-fetch').default;
 const {checkAuth, statusAuth} = require('../settings/checkAuth');
+const { dataUser } = require("../controllers/utilities");
 const passport = require("../settings/passport");
+const { BOT } = require("../settings/config");
 const gravatar = require('gravatar');
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     res.render('home', {
         title: "Inicio",
         descPag: "En HiDaxo tenemos una gran variedad de contenido, todo depende de ti lo que quieras encontrar.",
         keywordsPag: "HiDaxo, Daxo, TheBroland, The Broland",
-        statusAuth: statusAuth(req)
+        statusAuth: statusAuth(req),
+        user: statusAuth(req) ? await dataUser(req) : null,
     })
 })
 
-router.get('/test', (req, res) => {
-    var email_yohan = "cyohanalejandro@gmail.com";
+router.get('/testjs', checkAuth, async (req, res) => {
+    var user = await dataUser(req);
+    //console.log(user);
+    console.log("-------------------------------");
+    const URI = `https://tasks.googleapis.com/tasks/v1/users/@me/lists`
+    const response = await fetch(URI, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${user.accessToken}`
+        }
+    });
+    //console.log(response);
+    let result = await response.text();
+    result = JSON.parse(result);
+    console.log(result);
+    res.json({
+        status: response.status,
+        res: result
+    })
+   
+});
 
-    var photo_gravatar = gravatar.url(email_yohan, {s: '80', d: '404'})
+router.get('/test', checkAuth, async (req, res) => {
+    
+    var user = await dataUser(req);
+    
+    console.log(user);
+    //user.picture = gravatar.url(user.email, {s: '80', d: '404'});
 
     res.render('test', {
         statusAuth: statusAuth(req),
         title: "PRUEBAS",
         descPag: "Página de pruebas",
         keywordsPag: "test",
-        foto_perfil: photo_gravatar
+        user,
     })
 })
 
@@ -46,11 +75,10 @@ router.post('/apiGD', (req, res) => {
     });
 });
 
-// URI for the login Discord
-router.get('/loginDiscord', passport.authenticate("discord", { failureRedirect: '/' }), (req, res) => {
-    res.redirect('/dash')
-});
+// Include routes from dashboard
+router.use("/", require("./dash.routes"));
 
+// Page to logout
 router.get('/logout', (req, res) => {
     if (req.session.id) {
         //@ts-ignore
@@ -58,9 +86,6 @@ router.get('/logout', (req, res) => {
     }
     res.redirect('/');
 });
-
-// Include routes from dashboard
-router.use("/", require("./dash.routes"));
 
 // Create a new page with login
 router.get('/login', (req, res) => {
@@ -71,28 +96,34 @@ router.get('/login', (req, res) => {
     })
 })
 
+//Routes to authenticate users with service provider
+router.use("/", require("./auth.routes"));
+
 // The Broland Page
-router.get('/TheBroland', (req, res) => {
+router.get('/TheBroland', async (req, res) => {
     res.render('TheBroland', {
         statusAuth: statusAuth(req),
+        user: statusAuth(req) ? await dataUser(req) : null,
         title: "The Broland",
         descPag: "Mira más informacion sobre The Broland",
         keywordsPag: "The Broland, TheBroland, Brolandia, Server, Servidor"
     })
 })
 
-router.get('/TheBroland/images', (req, res) => {
+router.get('/TheBroland/images', async (req, res) => {
     res.render('gallery_images', {
         statusAuth: statusAuth(req),
+        user: statusAuth(req) ? await dataUser(req) : null,
         title: "Galería de imágenes",
         descPag: "Fotos de The Broland",
         keywordsPag: ""
     })
 })
 
-router.get('/music', (req, res) => {
+router.get('/music', async (req, res) => {
     res.render('music', {
         statusAuth: statusAuth(req),
+        user: statusAuth(req) ? await dataUser(req) : null,
         title: "Música",
         descPag: "Escucha algunas canciones",
         keywordsPag: ""
@@ -108,13 +139,17 @@ router.get('/otros/comandos-de-voz-google', (req, res) => {
     });
 });
 
-router.get('/Privacy-Policy', (req, res) => {
+router.get('/Privacy-Policy', async (req, res) => {
     res.render('PrivacyPolicy', {
         statusAuth: statusAuth(req),
+        user: statusAuth(req) ? await dataUser(req) : null,
         title: 'Privacy Policy',
         desPag: 'Privacy Policy\'s Daxo',
     });
 });
+
+// Include routes from API
+router.use("/api", require("./api.routes"));
 
 router.get('/unirseAlServer', (req, res) => {
     res.redirect('/TheBroland#addServer');

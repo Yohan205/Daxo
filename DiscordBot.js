@@ -51,11 +51,11 @@ for (const file of eventFiles) {
     /* Ejecuta cada evento segun su tipo: */
     switch (event.type) {
         case "once": // Evento que se ejecuta una vez
-            botxi.once(event.name, (...arg) => event.run(botxi, ...arg, BOT));
+            botxi.once(event.name, (arg) => event.run(botxi, arg, BOT));
             break;
 
         case "on": // Mientras está encendido el bot
-            botxi.on(event.name, (...arg) => event.run(botxi, ...arg, BOT));
+            botxi.on(event.name, (arg) => event.run(botxi, arg, BOT));
             break;
         case "distube.on": // Cuando se inicia distube
             botxi.distube.on(event.name, (q, s) => event.run(q, s));
@@ -86,8 +86,8 @@ for (const folders of slashCommands) {
     }
 }
 
-botxi.distube.on("error", (eCanal, e) => botxi.emit("errorLog", e, BOT, 'ErrorDistube'))
-botxi.once("error", e => { console.error(e); botxi.emit("errorLog", e, BOT, 'Error'); });
+botxi.distube.on("error", (eCanal, e) => {console.log(e); /*botxi.emit("errorLog", e, BOT, 'ErrorDistube');*/});
+botxi.once("error", e => { console.error(e); /*botxi.emit("errorLog", e, BOT, 'Error');*/ });
 botxi.once("warn", e => botxi.emit("errorLog", e, BOT, 'Warn'));
 // botxi.once("debug", (e) => console.info(e));
 botxi.login(BOT.TOKEN.DISCORD); //Login to Discord Client

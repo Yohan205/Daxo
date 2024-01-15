@@ -26,7 +26,7 @@ app.use(express.json())
     .use(express.urlencoded({ extended: false }))
     .use(bodyParser.urlencoded({ extended: false }))
     .use(session({
-        secret: "loginDiscord",
+        secret: "loginYoKo",
         resave: false,
         saveUninitialized: false
     }))

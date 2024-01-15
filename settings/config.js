@@ -3,6 +3,20 @@ require("dotenv").config(); //Use env variables
 const { Client, GatewayIntentBits } = require("discord.js");
 
 module.exports = {
+  DISCORD: {
+    secretBot: process.env.SECRET_BOT_DISCORD,
+    TOKEN: process.env.TOKEN_DISCORD,
+    CallbackURL: `http://${process.env.WEB}/loginDiscord`,
+    botID: "668118265779716106",
+    ownerID: "591833087139119104",
+    scopes: ["identify", "guilds", "email"]
+  },
+  GOOGLE: {
+    ClientID: process.env.GOOGLE_CLIENT_ID,
+    Secret: process.env.GOOGLE_SECRET,
+    CallbackURL: `http://${process.env.WEB}/auth/google/callback`,
+    Scopes: [ 'email', 'profile', 'https://www.googleapis.com/auth/tasks.readonly', 'https://www.googleapis.com/auth/tasks' ],
+  },
   BOT: {
     TOKEN: {
       DISCORD: process.env.TOKEN_DISCORD,
@@ -11,7 +25,7 @@ module.exports = {
       ZEEW: process.env.TOKEN_ZEEW,
       OPENAI_KEY: process.env.OPENAI_API_KEY,
       WOLFRAM_ALPHA: process.env.TOKEN_W_ALPHA,
-      GMAPS: process.env.TOKEN_GMAPS,
+      GAPIS: process.env.TOKEN_GSERVICES,
     },
     DB: {
       KEY_SQL: process.env.PASS_SQL,
@@ -27,13 +41,8 @@ module.exports = {
       "usuario": process.env.USER_MIPAGO, 
       "clave": process.env.PASS_MIPAGO
     },
-    secretBot: process.env.SECRET_BOT_DISCORD,
-    callbackURL: `http://${process.env.WEB}/loginDiscord`,
-    botID: "668118265779716106",
-    ownerID: "591833087139119104",
     // serverID: '654830450920914955', // Server TheBroland
     serverID: "855869897539584061", // Server Test
-    scopes: ["identify", "guilds", "email"],
     console: {
       info: `[Daxo] `,
       alert: `[Daxo] `,
