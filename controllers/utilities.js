@@ -2,6 +2,7 @@
 const fetch = require('node-fetch');
 const operadores = require("./operadores");
 const paquetes = require("./paquetes");
+const Users = require("../settings/models/Users");
 
 /**
  * | countFiles |
@@ -22,6 +23,14 @@ function totalArchivos(ruta, extension) {
         n += contenido.length; //Declaracion del contador que acumula la suma de los archivos de la carpeta
        }
     return n
+}
+
+async function dataUser(req) {
+    var user = (req.user);
+    var users = await Users.findOne({email: user.email});
+    user.picture = await users.photo;
+
+    return user;
 }
 
 /**
@@ -417,6 +426,6 @@ class miPay {
 }
 
 module.exports = {
-    "countFiles": totalArchivos,
+    "countFiles": totalArchivos, dataUser,
     separarString, distubeStatus, arraysEqual, miPay
 }

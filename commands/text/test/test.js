@@ -5,6 +5,7 @@
 const fetch = require('node-fetch');
 const MiPago = require('mi-pago');
 const { miPay } = require('../../../controllers/utilities');
+const { Message } = require('discord.js');
 
 module.exports = {
   name: "test",
@@ -16,6 +17,13 @@ module.exports = {
   category: "test",
   cooldown: 0,
   status: true,
+  /**
+   * 
+   * @param {data} botxi client info
+   * @param {Message} message message to send
+   * @param {array} args 
+   * @param {BOT} BOT configs
+   */
   run: async (botxi, message, args, BOT) => {
     let mensaje = "OK", data;
 
@@ -30,18 +38,22 @@ module.exports = {
 
     // console.log(data);
     // console.log(await rec.queryPaqs("Claro", "ti"));
-    
-    //* Usando el wolfram alpha
-    const API_KEY = BOT.TOKEN.WOLFRAM_ALFA;
-    const API_URL = `http://api.wolframalpha.com/v1/simple?appid=${API_KEY}&i=`;
 
-    async function wolframAlphaQuery(query) {
-      const encodedQuery = encodeURIComponent(query);
-      const url = `${API_URL}${encodedQuery}`;
+    async function saldoTarjeta(cardID) {
+      // const encodedQuery = encodeURIComponent(query);
+      // const url = `${API_URL}${encodedQuery}`;
+      const url = `http://localhost:2023/api`;
+      const data = { cardID, name: 'YohanColla' }
 
       try {
         // @ts-ignore
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
         const result = await response.text();
         return result.trim();
       } catch (error) {
@@ -50,18 +62,11 @@ module.exports = {
       }
     }
 
-    // Ejemplo de uso
-    const query = '2+2';
-    wolframAlphaQuery(query)
-      .then(result => {
-        console.log(result);
-        console.log(`El resultado de "${query}" es: ${result}`);
-        // mensaje = `El resultado de "${query}" es: ${result}`;
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-//*/
+    message.channel.sendTyping(args[0]);
+    mensaje = await saldoTarjeta(710489695);
+
+    
+//*
 
     // let infoRol = [];
 
