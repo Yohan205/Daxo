@@ -76,7 +76,7 @@ router.post('/apiGD', (req, res) => {
 });
 
 // Include routes from dashboard
-router.use("/", require("./dash.routes"));
+router.use("/dash", require("./dash.routes"));
 
 // Page to logout
 router.get('/logout', (req, res) => {
@@ -97,7 +97,7 @@ router.get('/login', (req, res) => {
 })
 
 //Routes to authenticate users with service provider
-router.use("/", require("./auth.routes"));
+router.use("/auth", require("./auth.routes"));
 
 // The Broland Page
 router.get('/TheBroland', async (req, res) => {

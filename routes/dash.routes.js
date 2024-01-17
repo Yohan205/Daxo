@@ -7,7 +7,7 @@ const GuildConfig = require("../settings/models/guildConfig");
 const router = Router();
 
 //Discord dashboard
-router.get('/dash', checkAuthDiscord, async (req, res) => {
+router.get('/', checkAuthDiscord, async (req, res) => {
 
     let guildsUser = [];
     // Get the list of guild where user is owner or have permission of administrator
@@ -45,7 +45,7 @@ router.get('/dash', checkAuthDiscord, async (req, res) => {
     });
 });
 
-router.get('/dashjs', checkAuthDiscord, (req, res) => {
+router.get('/js', checkAuthDiscord, (req, res) => {
     res.json({
         user: req.user,
         email: req.user.email,
@@ -54,7 +54,7 @@ router.get('/dashjs', checkAuthDiscord, (req, res) => {
 });
 
 // Discord guild dash
-router.get('/dash/:id', checkAuthDiscord, async (req, res) => {
+router.get('/:id', checkAuthDiscord, async (req, res) => {
 
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
@@ -70,7 +70,7 @@ router.get('/dash/:id', checkAuthDiscord, async (req, res) => {
     });
 });
 
-router.get('/dashjs/:id', checkAuth, (req, res) => {
+router.get('/js/:id', checkAuth, (req, res) => {
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
     let canales = servers.channels.cache.filter(c => c.type === "GUILD_TEXT" || c.type === "GUILD_VOICE" || c.type === "GUILD_CATEGORY" || c.type === "GUILD_PUBLIC_THREAD").map(ch => ({ type: ch.type, name: ch.name, id: ch.id, rawpstn: ch.rawPosition }));
@@ -87,7 +87,7 @@ router.get('/dashjs/:id', checkAuth, (req, res) => {
 });
 
 // Disord guild commands dash
-router.get('/dash/:id/commands', checkAuth, async (req, res) => {
+router.get('/:id/commands', checkAuth, async (req, res) => {
     let guildId = req.params.id,
         gConfig = await GuildConfig.findOne({ID: guildId}),
         guildConfig = new Object();
@@ -123,7 +123,7 @@ router.get('/dash/:id/commands', checkAuth, async (req, res) => {
 });
 
 // Guarda el rol Admin del servidor
-router.post('/dash/:id/saveRol', async (req, res) => {
+router.post('/:id/saveRol', async (req, res) => {
     let ID = req.params.id;
     const { adminRol } = req.body;
     let guildConfig = await GuildConfig.findOne({ID}); // Encuentra la configuración de un servidor por ID
@@ -145,7 +145,7 @@ router.post('/dash/:id/saveRol', async (req, res) => {
 });
 
 // Guarda el prefix del servidor
-router.post('/dash/:id/set-prefix', async (req, res) => {
+router.post('/:id/set-prefix', async (req, res) => {
     let ID = req.params.id;
     const { setPrefix } = req.body;
     let guildConfig = await GuildConfig.findOne({ID}); // Encuentra la configuración de un servidor por ID
@@ -165,7 +165,7 @@ router.post('/dash/:id/set-prefix', async (req, res) => {
 });
 
 // Send a command to Discord guild
-router.post('/dash/:id/send-cmd', (req, res) => {
+router.post('/:id/send-cmd', (req, res) => {
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
     const { msgText, canalID } = req.body;
@@ -179,7 +179,7 @@ router.post('/dash/:id/send-cmd', (req, res) => {
 });
 
 // Show emojis guild dashboard
-router.get('/dash/:id/emojis', checkAuth, (req, res) => {
+router.get('/:id/emojis', checkAuth, (req, res) => {
 
     let id = req.params.id;
     let servers = req.botxi.guilds.cache.get(id);
@@ -196,7 +196,7 @@ router.get('/dash/:id/emojis', checkAuth, (req, res) => {
 });
 
 // Show channers guild dashboard
-router.get('/dash/:id/canales', checkAuth, (req, res) => {
+router.get('/:id/canales', checkAuth, (req, res) => {
 
     // Save the ID of current guild
     let id = req.params.id;
@@ -218,7 +218,7 @@ router.get('/dash/:id/canales', checkAuth, (req, res) => {
     });
 });
 
-router.get('/dashjs/:id/canales', checkAuth, (req, res) => {
+router.get('/js/:id/canales', checkAuth, (req, res) => {
 
     // Save the ID of current guild
     let id = req.params.id;

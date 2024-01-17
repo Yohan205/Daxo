@@ -2,6 +2,8 @@ require("dotenv").config(); //Use env variables
 // const chalk = require(chalk
 const { Client, GatewayIntentBits } = require("discord.js");
 
+const gcburl = (process.env.WEB == 'hidaxo.xyz') ? `https://${process.env.WEB}` : `http://${process.env.WEB}`;
+
 module.exports = {
   DISCORD: {
     secretBot: process.env.SECRET_BOT_DISCORD,
@@ -16,7 +18,7 @@ module.exports = {
       GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, 
       GatewayIntentBits.GuildVoiceStates
     ],
-    CallbackURL: `http://${process.env.WEB}/loginDiscord`,
+    CallbackURL: `http://${process.env.WEB}/auth/discord`,
     botID: "668118265779716106",
     ownerID: "591833087139119104",
     scopes: ["identify", "guilds", "email"]
@@ -24,7 +26,7 @@ module.exports = {
   GOOGLE: {
     ClientID: process.env.GOOGLE_CLIENT_ID,
     Secret: process.env.GOOGLE_SECRET,
-    CallbackURL: `http://${process.env.WEB}/auth/google/callback`,
+    CallbackURL: `${gcburl}/auth/google/callback`,
     Scopes: [ 'email', 'profile', 'https://www.googleapis.com/auth/tasks.readonly', 'https://www.googleapis.com/auth/tasks' ],
   },
   BOT: {
