@@ -10,4 +10,9 @@ router.get('/', (req, res) => {
     res.send('Hi there, your application is awesome!')
 });
 
+router.post('/', (req, res) => {
+    console.log(req.body);
+    res.send(BOT.BOT.DB);
+});
+
 module.exports = router;

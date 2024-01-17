@@ -10,10 +10,10 @@ const { DisTube } = require('distube');
 const { Client, Collection, MessageAttachment } = require("discord.js");
 
 /* Obtiene los datos de configuración del BOT */
-const { BOT } = require("./settings/config");
+const { BOT, DISCORD } = require("./settings/config");
 
 /* Creates an instance of a Discord client */
-const botxi = new Client({ intents: BOT.intents});  //new Client({intents: 32719});
+const botxi = new Client({ intents: DISCORD.intents});  //new Client({intents: 32719});
 
 const zeew = require('zeew');
 
@@ -90,6 +90,6 @@ botxi.distube.on("error", (eCanal, e) => {console.log(e); /*botxi.emit("errorLog
 botxi.once("error", e => { console.error(e); /*botxi.emit("errorLog", e, BOT, 'Error');*/ });
 botxi.once("warn", e => botxi.emit("errorLog", e, BOT, 'Warn'));
 // botxi.once("debug", (e) => console.info(e));
-botxi.login(BOT.TOKEN.DISCORD); //Login to Discord Client
+botxi.login(DISCORD.TOKEN); //Login to Discord Client
 
 module.exports = botxi

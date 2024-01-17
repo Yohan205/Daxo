@@ -6,6 +6,16 @@ module.exports = {
   DISCORD: {
     secretBot: process.env.SECRET_BOT_DISCORD,
     TOKEN: process.env.TOKEN_DISCORD,
+    intents: [
+      GatewayIntentBits.Guilds, 
+      GatewayIntentBits.GuildInvites, 
+      GatewayIntentBits.GuildMessages, 
+      GatewayIntentBits.GuildMessageTyping, 
+      GatewayIntentBits.DirectMessages, 
+      GatewayIntentBits.MessageContent, 
+      GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, 
+      GatewayIntentBits.GuildVoiceStates
+    ],
     CallbackURL: `http://${process.env.WEB}/loginDiscord`,
     botID: "668118265779716106",
     ownerID: "591833087139119104",
@@ -49,15 +59,5 @@ module.exports = {
       warn: `[Daxo] `,
       db: "[Database] ",
     },
-    intents: [
-      GatewayIntentBits.Guilds, 
-      GatewayIntentBits.GuildInvites, 
-      GatewayIntentBits.GuildMessages, 
-      GatewayIntentBits.GuildMessageTyping, 
-      GatewayIntentBits.DirectMessages, 
-      GatewayIntentBits.MessageContent, 
-      GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, 
-      GatewayIntentBits.GuildVoiceStates
-    ]
   }
 };

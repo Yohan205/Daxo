@@ -4,7 +4,7 @@ const GoogleStrategy = require( 'passport-google-oauth20' ).Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 
 const Users = require("../settings/models/Users");
-const BOT = require("./config.js");
+const {DISCORD, GOOGLE} = require("./config.js");
 
 passport.use(Users.createStrategy());
 
@@ -17,9 +17,9 @@ passport.deserializeUser((obj, done) => {
 });
 
 passport.use(new GoogleStrategy({
-    clientID:     BOT.GOOGLE.ClientID,
-    clientSecret: BOT.GOOGLE.Secret,
-    callbackURL: BOT.GOOGLE.CallbackURL,
+    clientID:     GOOGLE.ClientID,
+    clientSecret: GOOGLE.Secret,
+    callbackURL: GOOGLE.CallbackURL,
     //passReqToCallback   : true
   },
   function(accessToken, refreshToken, profile, done) {
@@ -38,12 +38,12 @@ passport.use(new GoogleStrategy({
 
 ///// PASSPORT - DISCORD //////////////////////////////////
 passport.use(new Strategy({
-    clientID: BOT.DISCORD.botID,
-    clientSecret: BOT.DISCORD.secretBot,
-    callbackURL: BOT.DISCORD.CallbackURL,
-    scope: BOT.DISCORD.scopes
+    clientID: DISCORD.botID,
+    clientSecret: DISCORD.secretBot,
+    callbackURL: DISCORD.CallbackURL,
+    scope: DISCORD.scopes
 }, (accesstoken, refreshtoken, profile, cb) => {
-  console.log(profile.email);
+  //console.log(profile.email);
   //@ts-ignore
   Users.findOrCreate({ email: profile.email }, {photo: profile.avatar}, (err, user) => {
       //console.log(user);
