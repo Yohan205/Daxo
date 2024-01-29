@@ -148,6 +148,15 @@ router.get('/Privacy-Policy', async (req, res) => {
     });
 });
 
+router.get('/Terms-Conditions', async (req, res) => {
+    res.render('TermsAndConditions', {
+        statusAuth: statusAuth(req),
+        user: statusAuth(req) ? await dataUser(req) : null,
+        title: 'Terms and Conditions',
+        desPag: 'Terms\'s Daxo',
+    });
+});
+
 // Include routes from API
 router.use("/api", require("./api.routes"));
 

@@ -34,6 +34,29 @@ async function dataUser(req) {
 }
 
 /**
+   * Expand pinterest shortenURL
+   * @param { string | string[] | ParsedQs | ParsedQs[] } shortenURL Pinterest URL
+   * @returns string
+   */
+async function expandPinURL(shortenURL) {
+    const uri = new URL(shortenURL);
+    const path = uri.pathname;
+    const finalUrl = `https://api.pinterest.com/url_shortener${path}/redirect/`;
+    
+    try {
+      let response = await fetch(finalUrl, {
+        method: "HEAD",
+        redirect: "manual",
+      });
+      let location = response.headers.get("location");
+      return location;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+/**
  * | separarString |
  * @param {String} str chain of text
  * @param {Number} maxLength maximum length of the string
@@ -426,6 +449,6 @@ class miPay {
 }
 
 module.exports = {
-    "countFiles": totalArchivos, dataUser,
+    "countFiles": totalArchivos, dataUser, expandPinURL,
     separarString, distubeStatus, arraysEqual, miPay
 }

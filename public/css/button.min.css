@@ -16,11 +16,40 @@
 }
 
 .btn:hover {
-    box-shadow: 0 0 10px #fff
+    box-shadow: 0 0 10px #fff;
 }
 
 .icon {
     margin-right: 10px
+}
+
+.icon-r {
+    margin-left: 10px;
+    transform-origin: 0 100%;
+    transition: all 300ms;
+}
+
+@media screen and (min-width: 950px) {
+    .submenu:hover {
+        --rotation: -90deg;
+        --traslation-x: 13px;
+        --traslation-y: 4px;
+    }
+
+    .icon-rotate-down {
+        transform: rotate(var(--rotation)) translate(var(--traslation-y), var(--traslation-x));
+    }
+}
+
+@media (width < 950px) {
+    .icon-r {
+        margin-left: 10px;
+        float: right;
+    }
+
+    .icon-rotate {
+        transform: rotate(-90deg) translate(4px, 13px);
+    }
 }
 
 .lime {
@@ -75,6 +104,16 @@
 
 .yellow:hover {
     box-shadow: 0 0 10px #fff563
+}
+
+.white {
+    background-color: #ffffff;
+    box-shadow: 0 4px 5px #ecece4;
+    color: #000
+}
+
+.white:hover {
+    box-shadow: 0 0 10px #ffffff
 }
 
 .grey {

@@ -1,41 +1,53 @@
 <header>
-    <div class="menu_bar">
-        <a href="#" class="btn-menu"><span class="menu-icon fas fa-bars"></span>Men&uacute;</a>
+    <div id="navbar-btn"> <!-- menu bar -->
+        <a href="#" id="nb-toggle"><span class="menu-icon fa-solid fa-bars"></span>Men&uacute;</a>
     </div>
-    <nav class="menu">
-        <ul class="menu_first">
-            <li><a href="/" class="btn_nav_right"><span class="icon fas fa-home"></span>Inicio</a></li>
-            <li><a href="/TheBroland"><b>The Broland</b></a>
+
+    <nav class="navbar"> <!-- menu -->
+        <img class="logo" src="/IMG/logo/LogoYohanColla.png">
+        <ul class="nb-menu"> <!-- menu first -->
+            <!-- Home -->
+            <li><a href="/" class="btn_nav_right"><i class="icon fa-solid fa-house"></i>Inicio</a></li>
+            <!-- Server -->
+            <li class="submenu"><a href="#" class="ird"><b>The Broland</b><i
+                        class="icon-r icon-rotate-down fa-solid fa-chevron-left"></i></a>
                 <ul class="subnav">
+                    <li><a href="/TheBroland"><i class="icon fa-solid fa-circle-info"></i><b>Info</b></a></li>
                     <li><a href="/TheBroland/images"><span class="icon fas fa-images"></span>Im&aacute;genes</a></li>
                 </ul>
             </li>
+            <!-- Dashboard -->
             {{#if statusAuth }}
-            <li><a href="/dash" class="medium"><span class="icon fas fa-chalkboard"></span>Dashboard</a></li>
+            <li><a href="/dash" class="medium"><span class="icon fa-solid fa-chalkboard"></span>Dashboard</a></li>
             {{/if}}
+            <!-- Music -->
             <li id="li-music">
                 <a onclick="alert('Música sin copyright')" href="/music"><span
                         class="icon fas fa-music"></span>M&uacute;sica</a>
             </li>
-            <li id="li-pub"><a href="#"><span class="icon far fa-newspaper"></span>Otros</a>
+            <!-- More -->
+            <li class="submenu"><a href="#"><span class="icon far fa-newspaper"></span>M&aacute;s</a>
                 <ul class="subnav">
                     <li><a href="/otros/comandos-de-voz-google">Comandos Google</a></li>
-                    <li><a href="/test" target="_blank"><span class="icon fas fa-download"></span>Descargas</a></li>
+                    <li><a href="/test" target="_blank"><span class="icon fa-solid fa-download"></span>Descargas</a>
+                    </li>
                 </ul>
             </li>
         </ul>
-        <ul class="menu_second">
-            {{#if statusAuth }}
-            <li><a href="/test"><img src="{{ user.picture }}" id="avatar">Perfil</a>
-                <ul class="subnav">
-                    <li><a href="#">Ajustes</a></li>
-                    <li><a href="/logout">Cerrar sesi&oacute;n</a></li>
-                </ul>
-            </li>
-            {{else}}
-            <li><a href="/login"><span class="icon fa-solid fa-right-to-bracket"></span>Iniciar Sesi&oacute;n</a>
-            </li>
-            {{/if}}
-        </ul>
+
+    </nav>
+    <!-- navbar profile -->
+    <nav class="navbar-profile">
+        {{#if statusAuth }}
+        <a href="#" id="avatar"><img src="{{ user.picture }}"></a>
+        <a href="#">UserName</a>
+        <div class="nb-options">
+            <a href="/test"><i class="fa-solid fa-sliders"></i></a>
+            <a href="/logout"><span class="icon fa-solid fa-right-to-bracket"></span></a>
+        </div>
+        {{else}}
+        <a href="/login"><span class="icon fa-solid fa-right-to-bracket"></span>Iniciar Sesi&oacute;n</a>
+
+        {{/if}}
     </nav>
 </header>

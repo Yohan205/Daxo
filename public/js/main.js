@@ -1,4 +1,7 @@
+//@ts-nocheck
 $(document).ready(main);
+
+// $(document).ready(toggler);
 
 var hoy = new Date();
 var codFecha = 'D'+ hoy.getDate() +'M'+ ( hoy.getMonth() + 1 ) +'A'+ hoy.getFullYear() +'H'+ hoy.getHours() +'MN'+ hoy.getMinutes()+'S'+ hoy.getSeconds();
@@ -11,38 +14,40 @@ console.log(codFecha);
 var botonToggle = 1;
 
 function main (){
-    $('.menu_bar').click(function(){
+    $('#navbar-btn').click(function(){
         //$('nav').toggle();
        
         if(botonToggle == 1){
-            $('.menu').animate({
+            $('header').animate({
                 left:'0'
             });
             botonToggle = 0;
         }else{
             botonToggle = 1;
-            $('.menu').animate({
+            $('header').animate({
                 left:'-100%'
             });
         }
-        
     });
-    
-    $('#li-pub').click(function(){
-        $('#li-ul-pub').toggle();
-       
-        if(botonToggle == 1){
-            $('.menu').animate({
-                left:'0'
-            });
-            botonToggle = 0;
-        }else{
-            botonToggle = 1;
-            $('.menu').animate({
-                left:'-100%'
-            });
-        }
+
+    var btnToggle = 1;
+
+    $('.submenu').click(function(){
+        $(this).children('.subnav').slideToggle();
+        $('.ird').children('.icon-r').toggleClass('icon-rotate');
         
+        /* if ( btnToggle == 1) {
+            $(this).children('.icon-rotate-down').animate({
+                transform: 'rotate(-90deg) translate(4px, 13px)',
+            });
+            btnToggle = 0;
+        } else {
+            $(this).children('.icon-rotate-down').animate({
+                transform: 'rotate(90deg) translate(-4px, -13px)',
+            });
+        } */
+        
+
     });
 }
 

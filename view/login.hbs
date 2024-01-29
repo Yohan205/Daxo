@@ -16,13 +16,19 @@
             <td align=""><a class="prf" href="#ForgotPassword">Forgot password</a></td>
         </tr>
     </table> --}}
-    <a class="btn large purple" href="/auth/discord">Discord</a>
+    <a class="btn large purple" href="/auth/discord"><span class="icon fa-brands fa-discord"></span>Discord</a>
     <br><br>
-    <a class="btn large" href="/auth/google">Google</a>
+    <a class="btn large white" href="/auth/google"><i class="icon fa-brands fa-google"></i>Google</a>
 
-    <script src="https://www.google.com/recaptcha/api.js?render=6LeBkHoUAAAAAKWKMuAgXSrrBZStu2Br0d7rFN6B"></script>
-    <script>grecaptcha.ready(function () {
-            grecaptcha.execute('6LeBkHoUAAAAAKWKMuAgXSrrBZStu2Br0d7rFN6B', { action: 'login' })
-        });
-    </script>
+    {{!--
+    <script
+        src="https://www.google.com/recaptcha/enterprise.js?render=6Leui1wpAAAAAJNhYYRs1vdKLqZggos70zct6MHZ"></script>
+    <script>
+        function onClick(e) {
+            e.preventDefault();
+            grecaptcha.enterprise.ready(async () => {
+                const token = await grecaptcha.enterprise.execute('6Leui1wpAAAAAJNhYYRs1vdKLqZggos70zct6MHZ', { action: 'LOGIN' });
+            });
+        }
+    </script> --}}
 </section>
