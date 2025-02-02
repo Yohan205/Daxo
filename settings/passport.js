@@ -24,6 +24,7 @@ passport.use(new GoogleStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     var data = profile._json;
+    // console.log(data);
     //@ts-ignore
     data.provider = (profile.provider); data.accessToken = accessToken;
     //console.log(accessToken);

@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const fetch = require('node-fetch').default;
 const {checkAuth, statusAuth} = require('../settings/checkAuth');
-const { dataUser } = require("../controllers/utilities");
-const passport = require("../settings/passport");
+const { dataUser, getYTPlaylistID, getAllPlaylistItems } = require("../controllers/utilities");
+// const passport = require("../settings/passport");
 const { BOT } = require("../settings/config");
 const gravatar = require('gravatar');
 
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     })
 })
 
-router.get('/testjs', checkAuth, async (req, res) => {
+router.get('/testjs-task', checkAuth, async (req, res) => {
     var user = await dataUser(req);
     //console.log(user);
     console.log("-------------------------------");
@@ -37,8 +37,42 @@ router.get('/testjs', checkAuth, async (req, res) => {
     res.json({
         status: response.status,
         res: result
+    });   
+});
+
+router.get('/testjs', checkAuth, async (req, res) => {
+    var user = await dataUser(req);
+    //console.log(user);
+    console.log("-------------------------------");
+    
+    /* var params = `?part=snippet%2CcontentDetails&maxResults=30&key=${user.accessToken}`
+    const paramListID = params+'&mine=true'
+    
+    const URI1 = `https://youtube.googleapis.com/youtube/v3/playlists${paramListID}`
+    const response1 = await fetch(URI1, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${user.accessToken}`
+        }
+    });
+    //console.log(response);
+    /**
+     * @type {Object}
+     *
+    var result1 = await response1.text();
+    result1= JSON.parse(result1); */
+    const { items } = await getYTPlaylistID({accessToken: user.accessToken})
+    console.log(items[3]);
+
+    const result = await getAllPlaylistItems(items[3].id, user.accessToken);
+    console.log(result);
+
+
+    res.json({
+        // status: response.status,
+        res: result
     })
-   
 });
 
 router.get('/test', checkAuth, async (req, res) => {

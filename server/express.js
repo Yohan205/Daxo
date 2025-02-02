@@ -12,7 +12,7 @@ const { BOT } = require("../settings/config");
 const botxi = require('../DiscordBot');
 const app = express();
 
-app.set('port', BOT.PORT || 5050)
+app.set('port', BOT.PORT || 19205)
 //Engine
     .set('views', path.join(__dirname, '../view'))
     .set('view engine', '.hbs')
@@ -37,6 +37,7 @@ app.use(express.json())
 //Static files
 app.use(express.static("public"))
     .use((req, res, next) => {
+        //@ts-ignore
         req.botxi = botxi;
         next();
     });

@@ -1,6 +1,6 @@
 //@ts-nocheck
 const Discord = require('discord.js');
-const Canvas = require('canvas');
+//const Canvas = require('canvas');
 
 module.exports = {
     name: "mirrorMagic",
@@ -11,7 +11,7 @@ module.exports = {
     guildOnly: false,
     category: "fun",
     cooldown: 10,
-    status: true,
+    status: false,
     /**
     * @param {Discord.Client} botxi
     * @param {Discord.Message} message

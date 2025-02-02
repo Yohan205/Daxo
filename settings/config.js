@@ -1,8 +1,8 @@
 require("dotenv").config(); //Use env variables
 // const chalk = require(chalk
 const { Client, GatewayIntentBits } = require("discord.js");
-
-const gcburl = (process.env.WEB == 'hidaxo.xyz') ? `https://${process.env.WEB}` : `http://${process.env.WEB}`;
+// Google Callback URL
+const GCbUrl = (process.env.WEB == 'hidaxo.xyz') ? `https://${process.env.WEB}` : `http://${process.env.WEB}`;
 
 module.exports = {
   DISCORD: {
@@ -26,8 +26,8 @@ module.exports = {
   GOOGLE: {
     ClientID: process.env.GOOGLE_CLIENT_ID,
     Secret: process.env.GOOGLE_SECRET,
-    CallbackURL: `${gcburl}/auth/google/callback`,
-    Scopes: [ 'email', 'profile', 'https://www.googleapis.com/auth/tasks.readonly', 'https://www.googleapis.com/auth/tasks' ],
+    CallbackURL: `${GCbUrl}/auth/google/callback`,
+    Scopes: [ 'email', 'profile', 'https://www.googleapis.com/auth/tasks.readonly', 'https://www.googleapis.com/auth/tasks', 'https://www.googleapis.com/auth/youtube.readonly', 'https://www.googleapis.com/auth/youtube.force-ssl' ],
   },
   BOT: {
     TOKEN: {
@@ -47,7 +47,7 @@ module.exports = {
       NAME_SQL: "bkxad7etyo8ohsqcoaen",
       KEY_MONGO: process.env.PASS_MONGO,
     },
-    PORT: 443,
+    PORT: 19205,
     WEB: process.env.WEB,
     keyMiPago: { 
       "usuario": process.env.USER_MIPAGO, 
@@ -56,10 +56,10 @@ module.exports = {
     // serverID: '654830450920914955', // Server TheBroland
     serverID: "855869897539584061", // Server Test
     console: {
-      info: `[Daxo] `,
-      alert: `[Daxo] `,
-      warn: `[Daxo] `,
-      db: "[Database] ",
+      info: `|Daxo (i)| `,
+      alert: `|Daxo (!)| `,
+      warn: `|Daxo \-_-/| `,
+      db: "[Daxo DB |||| ] ",
     },
   }
 };

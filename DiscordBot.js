@@ -35,7 +35,7 @@ botxi.configs.set('records', new Map());
 /* Configuracion del modulo DisTube */
 botxi.distube = new DisTube(botxi, {
     // youtubeDL: false,
-    leaveOnStop: true,
+    //leaveOnStop: true,
     emitAddSongWhenCreatingQueue: true,
     emitAddListWhenCreatingQueue: false
 });

@@ -448,7 +448,66 @@ class miPay {
   }
 }
 
+/**
+ * Get the information about playlists that have the user specified.
+ * @param {Object} options A oject with next properties: accessToken and maxResults
+ * @returns {Object} Object with response
+ */
+async function getYTPlaylistID(options){
+	const maxResults = options.maxResults || 25;
+	const params = `?part=snippet%2CcontentDetails&mine=true&maxResults=${maxResults}`
+    
+    const URI = `https://youtube.googleapis.com/youtube/v3/playlists${params}`
+    const response = await fetch(URI, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${options.accessToken}`
+        }
+    });
+    var result = await response.text();
+    result= JSON.parse(result);
+	return result;
+}
+
+async function getPlaylistItems(playlistId, accessToken, pageToken = '') {
+	if (!playlistId) throw Error('You must provide a playlist identifier');
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&playlistId=${playlistId}&maxResults=20&pageToken=${pageToken}`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Accept': 'application/json'
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error al obtener los elementos de la lista de reproducción:', error);
+    }
+}
+
+async function getAllPlaylistItems(playlistId, accessToken) {
+	if (!playlistId) throw Error('You must provide a playlist identifier');
+    let items = [];
+    let pageToken = '';
+    do {
+        const data = await getPlaylistItems(playlistId, accessToken, pageToken);
+        if (data && data.items) {
+            items = items.concat({ snippet: data.items.snippet, contentDetails: data.items.contentDetails });
+            pageToken = data.nextPageToken || '';
+        }
+    } while (pageToken);
+    return items;
+}
+
 module.exports = {
     "countFiles": totalArchivos, dataUser, expandPinURL,
-    separarString, distubeStatus, arraysEqual, miPay
+    separarString, distubeStatus, arraysEqual, miPay, getYTPlaylistID, getAllPlaylistItems
 }

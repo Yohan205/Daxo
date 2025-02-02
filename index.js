@@ -23,8 +23,8 @@ require("./server/mongoDB");
 };*/
 
 // @ts-ignore
-http.Server(app).listen(80, () => {
-  console.log(BOT.console.info+'Server in port' , 80)
+http.Server(app).listen(BOT.PORT, () => {
+  console.log(BOT.console.info+'Server in port' , BOT.PORT)
 })
 
 /*https.createServer(options, app).listen(app.get('port'), () => {
