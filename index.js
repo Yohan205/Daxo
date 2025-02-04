@@ -4,7 +4,7 @@ const { BOT } = require("./settings/config");
 /**
  * For use it like a https server discomment next line and config it through the .pem files
  */
-// const https = require('https');
+const https = require('https');
 const http = require('http');
 // Use file sistem
 const fs = require('fs');
@@ -17,16 +17,29 @@ require('./DiscordBot');
 // Gets the mongoDB file for config conection to DB
 require("./server/mongoDB");
 
-/*const options = {
-  key: fs.readFileSync(BOT.WEB+'-key.pem'),
-  cert: fs.readFileSync(BOT.WEB+'.pem')
-};*/
+const keyPathFile = './server/cert/'+BOT.WEB+'-key.key';
+const crtPathFile = './server/cert/'+BOT.WEB+'.crt';
+
 
 // @ts-ignore
-http.Server(app).listen(BOT.PORT, () => {
-  console.log(BOT.console.info+'Server in port' , BOT.PORT)
+http.Server(app).listen(app.get('port'), () => {
+  console.log(BOT.console.info+'Server in port' , app.get('port'))
 })
 
-/*https.createServer(options, app).listen(app.get('port'), () => {
-    console.log(BOT.console.info+'Server SSL in port' , app.get('port'))
-});*/
+if (fs.existsSync(keyPathFile) && fs.existsSync(crtPathFile)){
+  const options = {
+    key: fs.readFileSync(keyPathFile),
+    cert: fs.readFileSync(crtPathFile)
+  };
+
+  const httpsServer = https.createServer(options, app);
+  httpsServer.listen(app.get('portSSL'), () => {
+    console.log(BOT.console.info+'Server SSL in port' , app.get('portSSL'))
+  });
+
+  httpsServer.on('error', (err) => {
+    console.error('Failed to start HTTPS server:', err);
+    process.exit(1);
+  });
+}
+
