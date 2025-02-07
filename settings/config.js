@@ -38,6 +38,7 @@ module.exports = {
       OPENAI_KEY: process.env.OPENAI_API_KEY,
       WOLFRAM_ALPHA: process.env.TOKEN_W_ALPHA,
       GAPIS: process.env.TOKEN_GSERVICES,
+      TELEGRAM: process.env.TOKEN_TLGM,
     },
     DB: {
       KEY_SQL: process.env.PASS_SQL,
@@ -56,11 +57,12 @@ module.exports = {
     },
     // serverID: '654830450920914955', // Server TheBroland
     serverID: "855869897539584061", // Server Test
+    tChatID: process.env.TELEGRAM_CHAT_ID,
     console: {
-      info: `|Daxo (i)| `,
-      alert: `|Daxo (!)| `,
-      warn: `|Daxo \-_-/| `,
-      db: "[Daxo DB |||| ] ",
+      info: `\x1b[32m|Daxo (i)|\x1b[0m`,
+      alert: `\x1b[31m|Daxo (!)| \x1b[0m`,
+      warn: `\x1b[33m|Daxo \-_-/| \x1b[0m`,
+      db: "\x1b[33m|Daxo DB | \x1b[0m",
     },
   }
 };
