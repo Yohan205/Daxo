@@ -11,6 +11,25 @@
     </h2>
     <iframe src="https://assets.pinterest.com/ext/embed.html?id=294563631895437900" height="445" width="345"
         frameborder="0" scrolling="no"></iframe>
+
+    <br>
+    <h1>Ejecutar Comando en Servidor</h1>
+    <button onclick="startCommand()">Iniciar Comando</button>
+    <button onclick="stopCommand()">Detener Comando</button>
+    <div id="output"></div>
+
+    <script>
+        const socket = io();
+        function startCommand() {
+            socket.emit("startCommand", "ping google.com");  // Puedes cambiar el comando aquí
+        }
+        function stopCommand() {
+            socket.emit("stopCommand");
+        }
+        socket.on("output", (data) => {
+            document.getElementById("output").innerHTML += data + "<br>";
+        });
+    </script>
 </section>
 <br>
 <section class="content">

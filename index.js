@@ -10,6 +10,7 @@ const http = require('http');
 const fs = require('fs');
 // Usen express server
 const app = require("./server/express");
+const serverToSocket = require("./controllers/socket");
 
 // Call to DiscordBot
 require('./DiscordBot');
@@ -22,7 +23,11 @@ const crtPathFile = './server/cert/'+BOT.WEB+'.crt';
 
 
 // @ts-ignore
-http.Server(app).listen(app.get('port'), () => {
+const httpServer = http.Server(app);
+
+serverToSocket(httpServer);
+
+httpServer.listen(app.get('port'), () => {
   console.log(BOT.console.info+'Server in port' , app.get('port'))
 })
 
@@ -33,6 +38,7 @@ if (fs.existsSync(keyPathFile) && fs.existsSync(crtPathFile)){
   };
 
   const httpsServer = https.createServer(options, app);
+  serverToSocket(httpsServer);
   httpsServer.listen(app.get('portSSL'), () => {
     console.log(BOT.console.info+'Server SSL in port' , app.get('portSSL'))
   });
