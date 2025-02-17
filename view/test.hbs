@@ -1,6 +1,6 @@
 <section class="content">
     {{!>clock-widget}}
-    <img src="{{ user.picture }}">
+    {{!-- <img src="{{ user.picture }}"> --}}
     <h2>
         <script type="application/javascript">
             function getIP(json) {
@@ -9,22 +9,23 @@
         </script>
         <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
     </h2>
-    <iframe src="https://assets.pinterest.com/ext/embed.html?id=294563631895437900" height="445" width="345"
-        frameborder="0" scrolling="no"></iframe>
 
     <br>
     <h1>Ejecutar Comando en Servidor</h1>
-    <button onclick="startCommand()">Iniciar Comando</button>
-    <button onclick="stopCommand()">Detener Comando</button>
-    <div id="output"></div>
+    <button onclick="startCommand()">Iniciar Server</button>
+    <input type="text" id="commandInput" placeholder="Escribe un comando">
+    <button onclick="sendCommand()">Enviar Comando</button>
+    <div id="output"
+        style="backgroud:black;color:lime;padding:10px; height:300px; overflow-y: auto; white-space:pre-wrap;"></div>
 
     <script>
         const socket = io();
         function startCommand() {
-            socket.emit("startCommand", "ping google.com");  // Puedes cambiar el comando aquí
+            socket.emit("startCommand", "cd /home/yoko/Escritorio/bedrock-server-1.21.50.10 && LD_LIBRARY_PATH=. ./bedrock_server");
         }
-        function stopCommand() {
-            socket.emit("stopCommand");
+        function sendCommand() {
+            const cmd = document.getElementById("commandInput").value;
+            socket.emit("sendCommand", cmd);
         }
         socket.on("output", (data) => {
             document.getElementById("output").innerHTML += data + "<br>";

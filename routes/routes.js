@@ -75,19 +75,19 @@ router.get('/testjs', checkAuth, async (req, res) => {
     })
 });
 
-router.get('/test', checkAuth, async (req, res) => {
+router.get('/test', async (req, res) => {
     
-    var user = await dataUser(req);
+    /* var user = await dataUser(req);
     
-    console.log(user);
+    console.log(user); */
     //user.picture = gravatar.url(user.email, {s: '80', d: '404'});
 
     res.render('test', {
-        statusAuth: statusAuth(req),
+        /* statusAuth: statusAuth(req), */
         title: "PRUEBAS",
         descPag: "Página de pruebas",
         keywordsPag: "test",
-        user,
+        // user,
     })
 })
 

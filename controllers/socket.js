@@ -2,12 +2,13 @@ const { spawn } = require("child_process");
 const socketIo = require("socket.io");
 
 const serverToSocket = (server) => {
+    //@ts-ignore
     const io = socketIo(server);
     // io.on("connection", handleSocketConnection);
     let processInstance = null;
 
     io.on("connection", (socket) => {
-        console.log("Usuario conectado");
+        // console.log("Usuario conectado");
 
         socket.on("startCommand", (command) => {
             if (processInstance) {
@@ -16,6 +17,7 @@ const serverToSocket = (server) => {
             }
 
             processInstance = spawn(command, { shell: true });
+            console.log(processInstance);
 
             processInstance.stdout.on("data", (data) => {
                 socket.emit("output", data.toString());
@@ -31,11 +33,12 @@ const serverToSocket = (server) => {
             });
         });
 
-        socket.on("stopCommand", () => {
+        socket.on("sendCommand", (cmd) => {
             if (processInstance) {
-                processInstance.kill();
-                socket.emit("output", "Proceso detenido.");
-                processInstance = null;
+                processInstance.stdin.write(cmd + "\n"); // Enviar el comando al proceso
+                socket.emit("output", `➡️ Enviado: ${cmd}`);
+            } else {
+                socket.emit("output", "⚠️ No hay proceso en ejecución.");
             }
         });
 

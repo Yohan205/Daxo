@@ -12,18 +12,17 @@ const { BOT } = require("../settings/config");
 const botxi = require('../DiscordBot');
 const app = express();
 
-const mainHbsPath = path.join(__dirname, '../view/layouts');
 
 app.set('port', BOT.PORT || 80)
+.set('portSSL', BOT.PORTSSL || 443)
 //Engine
     .set('views', path.join(__dirname, '../view'))
     .set('view engine', '.hbs')
     .engine('.hbs', engine({
         extname: ".hbs",
         defaultLayout: "main",
-        layoutsDir: mainHbsPath,
-    }))
-    .set('portSSL', BOT.PORTSSL || 443);
+        layoutsDir: path.join(__dirname, '../view/layouts'),
+    }));
 
 //Middlewares
 app.use(express.json())
