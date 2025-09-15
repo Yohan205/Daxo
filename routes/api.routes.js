@@ -14,7 +14,7 @@ const ytdl = new YTDL({
 
 router.get('/', (req, res) => {
     //console.log(req.body);
-    res.status(200).send({OK: 'Hi there, your application is running!'})
+    res.status(200).send({OK: 'Hi there, your application is running!... Or is burning?'})
 });
 
 router.post('/ytdl', async (req, res) => {

@@ -48,7 +48,7 @@ module.exports = {
       NAME_SQL: "bkxad7etyo8ohsqcoaen",
       KEY_MONGO: process.env.PASS_MONGO,
     },
-    //PORT: 19205,
+    PORT: 19205,
     //PORTSSL: 443,
     WEB: process.env.WEB,
     keyMiPago: { 

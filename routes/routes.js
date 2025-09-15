@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     })
 })
 
-router.get('/testjs-task', checkAuth, async (req, res) => {
+router.get('/testjs/task', checkAuth, async (req, res) => {
     var user = await dataUser(req);
     //console.log(user);
     console.log("-------------------------------");

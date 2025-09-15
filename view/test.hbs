@@ -21,7 +21,7 @@
     <script>
         const socket = io();
         function startCommand() {
-            socket.emit("startCommand", "cd /home/yoko/Escritorio/bedrock-server-1.21.50.10 && LD_LIBRARY_PATH=. ./bedrock_server");
+            socket.emit("startCommand", "cd /home/yoko/Escritorio/bedrock-server-1.21.95.1 && LD_LIBRARY_PATH=. ./bedrock_server");
         }
         function sendCommand() {
             const cmd = document.getElementById("commandInput").value;
