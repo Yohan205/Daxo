@@ -112,6 +112,9 @@ router.post('/apiGD', (req, res) => {
 // Include routes from dashboard
 router.use("/dash", require("./dash.routes"));
 
+// Notes routes (notas personales)
+router.use('/notes', require('./notes.routes'));
+
 // Page to logout
 router.get('/logout', (req, res) => {
     if (req.session.id) {

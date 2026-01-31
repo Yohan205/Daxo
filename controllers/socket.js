@@ -1,6 +1,12 @@
 const { spawn } = require("child_process");
 const socketIo = require("socket.io");
 
+/**
+ * Handles Internal Socket connections and commands
+ * Here you can start a process and send commands to it
+ * This is specifically made for long processes that need commands to be sent while running like Minecraft servers
+ * @param {any} server - The HTTP/S server instance
+ */
 const serverToSocket = (server) => {
     //@ts-ignore
     const io = socketIo(server);

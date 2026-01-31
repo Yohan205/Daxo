@@ -1,0 +1,61 @@
+<section class="content">
+    <div class="user-title" style="background-color: {{user.banner_color}}93">
+        {{#if user.avatar}}
+        <img class="icon-profile-medium" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.png" alt="icon{{user.id}}">
+        {{/if}}
+        <h1>{{user.global_name}}{{#unless user.global_name}} {{user.username}}{{/unless}}</h1>
+        <h4>{{user.email}}</h4>
+    </div>
+    <hr>
+
+    <div class="cards-content">
+        <div class="cards" style="width:100%">
+            <div>
+                <h3>Crear nueva nota</h3>
+                <form action="/notes" method="post">
+                    <input name="title" placeholder="Título" style="width:100%; padding:8px; margin-bottom:8px">
+                    <textarea name="content" placeholder="Escribe tu nota aquí..." style="width:100%; height:120px; padding:8px"></textarea>
+                    <div style="margin-top:8px">
+                        <button class="btn radius cian">Guardar nota</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {{#if notes.length}}
+            {{#each notes}}
+            <div class="cards">
+                <div class="cards-icon">
+                    <p>{{this.title}}</p>
+                </div>
+                <div>
+                    <h3>{{this.title}}</h3>
+                    <p style="white-space:pre-wrap">{{this.content}}</p>
+                    <a href="/notes/{{this._id}}" class="btn radius yellow">Editar</a>
+                </div>
+            </div>
+            {{/each}}
+        {{else}}
+            <div class="cards">
+                <div>
+                    <h3>No hay notas</h3>
+                    <p>Crea tu primera nota usando el formulario de arriba.</p>
+                </div>
+            </div>
+        {{/if}}
+
+        <!-- Paginación simple -->
+        {{#if pagination}}
+        <div style="width:100%; text-align:center; margin-top:12px">
+            {{#if pagination.prevPage}}
+                <a href="?page={{pagination.prevPage}}&limit={{pagination.limit}}" class="btn">Anterior</a>
+            {{/if}}
+            <span style="margin:0 8px">Página {{pagination.page}} de {{pagination.pages}} — Total: {{pagination.total}}</span>
+            {{#if pagination.nextPage}}
+                <a href="?page={{pagination.nextPage}}&limit={{pagination.limit}}" class="btn">Siguiente</a>
+            {{/if}}
+        </div>
+        {{/if}}
+
+    </div>
+</section>

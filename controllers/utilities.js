@@ -1,5 +1,6 @@
 //@ts-nocheck
 const fetch = require('node-fetch');
+const os = require('os');
 const operadores = require("./operadores");
 const paquetes = require("./paquetes");
 const Users = require("../settings/models/Users");
@@ -23,6 +24,21 @@ function totalArchivos(ruta, extension) {
         n += contenido.length; //Declaracion del contador que acumula la suma de los archivos de la carpeta
        }
     return n
+}
+
+function getLocalIP() {
+    const interfaces = os.networkInterfaces();
+    const addresses = [];
+    
+    for (const interfaceName in interfaces) {
+        for (const iface of interfaces[interfaceName]) {
+            // Solo IPv4 y que no sea loopback
+            if (iface.family === 'IPv4' && !iface.internal) {
+                addresses.push(iface.address);
+            }
+        }
+    }
+    return addresses;
 }
 
 async function dataUser(req) {
@@ -509,5 +525,5 @@ async function getAllPlaylistItems(playlistId, accessToken) {
 
 module.exports = {
     "countFiles": totalArchivos, dataUser, expandPinURL,
-    separarString, distubeStatus, arraysEqual, miPay, getYTPlaylistID, getAllPlaylistItems
+    separarString, distubeStatus, arraysEqual, miPay, getYTPlaylistID, getAllPlaylistItems, getLocalIP
 }

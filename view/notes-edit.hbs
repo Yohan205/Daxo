@@ -1,0 +1,29 @@
+<section class="content">
+    <div class="user-title" style="background-color: {{user.banner_color}}93">
+        {{#if user.avatar}}
+        <img class="icon-profile-medium" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.png" alt="icon{{user.id}}">
+        {{/if}}
+        <h1>Editar nota</h1>
+        <h4>{{user.email}}</h4>
+    </div>
+    <hr>
+
+    <div class="cards-content">
+        <div class="cards" style="width:100%">
+            <form action="/notes/{{note._id}}" method="post">
+                <label>Título</label>
+                <input name="title" value="{{note.title}}" style="width:100%; padding:8px; margin-bottom:8px">
+                <label>Contenido</label>
+                <textarea name="content" style="width:100%; height:200px; padding:8px">{{note.content}}</textarea>
+                <div style="margin-top:8px">
+                    <button class="btn radius yellow">Actualizar</button>
+                    <a href="/notes" class="btn">Volver</a>
+                </div>
+            </form>
+
+            <form action="/notes/{{note._id}}/delete" method="post" onsubmit="return confirm('¿Borrar esta nota?')" style="margin-top:8px">
+                <button class="btn radius red">Eliminar nota</button>
+            </form>
+        </div>
+    </div>
+</section>

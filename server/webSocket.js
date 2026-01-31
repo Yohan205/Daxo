@@ -1,6 +1,7 @@
 const WebSocket = require('ws');
+const { BOT } = require("../settings/config");
 
-const wss = new WebSocket.Server({ port: 19205 });
+const wss = new WebSocket.Server({ port: BOT.PRIV_PORT });
 
 wss.on('connection', socket => {
     socket.on('message', message => {

@@ -1,33 +1,55 @@
 require("dotenv").config(); //Use env variables
 // const chalk = require(chalk
 const { Client, GatewayIntentBits } = require("discord.js");
-// Google Callback URL
-const GCbUrl = (process.env.WEB == 'hidaxo.xyz') ? `https://${process.env.WEB}` : `http://${process.env.WEB}`;
+
+var GCallbackUrl, keyPathFile, crtPathFile;
+
+if (process.env.WEB != "localhost") {
+  // Google Callback URL
+  GCallbackUrl = `https://${process.env.WEB}`;
+  // Path to the .key and .crt files
+  keyPathFile = "./server/cert/" + process.env.WEB + "-key.key";
+  crtPathFile = "./server/cert/" + process.env.WEB + ".crt";
+} else {
+  // Google Callback URL
+  GCallbackUrl = `http://${process.env.WEB}`;
+  // Path to the .key and .crt files
+  keyPathFile = "./server/cert/" + process.env.WEB + "+3-key.pem";
+  crtPathFile = "./server/cert/" + process.env.WEB + "+3.pem";
+}
 
 module.exports = {
   DISCORD: {
     secretBot: process.env.SECRET_BOT_DISCORD,
     TOKEN: process.env.TOKEN_DISCORD,
     intents: [
-      GatewayIntentBits.Guilds, 
-      GatewayIntentBits.GuildInvites, 
-      GatewayIntentBits.GuildMessages, 
-      GatewayIntentBits.GuildMessageTyping, 
-      GatewayIntentBits.DirectMessages, 
-      GatewayIntentBits.MessageContent, 
-      GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers, 
-      GatewayIntentBits.GuildVoiceStates
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildInvites,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildMessageTyping,
+      GatewayIntentBits.DirectMessages,
+      GatewayIntentBits.MessageContent,
+      GatewayIntentBits.GuildMessageReactions,
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildVoiceStates,
     ],
     CallbackURL: `http://${process.env.WEB}/auth/discord`,
     botID: "668118265779716106",
     ownerID: "591833087139119104",
-    scopes: ["identify", "guilds", "email"]
+    scopes: ["identify", "guilds", "email"],
   },
   GOOGLE: {
     ClientID: process.env.GOOGLE_CLIENT_ID,
     Secret: process.env.GOOGLE_SECRET,
-    CallbackURL: `${GCbUrl}/auth/google/callback`,
-    Scopes: [ 'email', 'profile', 'https://www.googleapis.com/auth/tasks.readonly', 'https://www.googleapis.com/auth/tasks', 'https://www.googleapis.com/auth/youtube.readonly', 'https://www.googleapis.com/auth/youtube.force-ssl' ],
+    CallbackURL: `${GCallbackUrl}/auth/google/callback`,
+    Scopes: [
+      "email",
+      "profile",
+      "https://www.googleapis.com/auth/tasks.readonly",
+      "https://www.googleapis.com/auth/tasks",
+      "https://www.googleapis.com/auth/youtube.readonly",
+      "https://www.googleapis.com/auth/youtube.force-ssl",
+    ],
   },
   BOT: {
     TOKEN: {
@@ -48,12 +70,12 @@ module.exports = {
       NAME_SQL: "bkxad7etyo8ohsqcoaen",
       KEY_MONGO: process.env.PASS_MONGO,
     },
-    PORT: 19205,
+    PRIV_PORT: 19205,
     //PORTSSL: 443,
     WEB: process.env.WEB,
-    keyMiPago: { 
-      "usuario": process.env.USER_MIPAGO, 
-      "clave": process.env.PASS_MIPAGO
+    keyMiPago: {
+      usuario: process.env.USER_MIPAGO,
+      clave: process.env.PASS_MIPAGO,
     },
     // serverID: '654830450920914955', // Server TheBroland
     serverID: "855869897539584061", // Server Test
@@ -64,5 +86,7 @@ module.exports = {
       warn: `\x1b[33m|Daxo \-_-/| \x1b[0m`,
       db: "\x1b[33m|Daxo DB | \x1b[0m",
     },
-  }
+    keyPathFile: keyPathFile,
+    crtPathFile: crtPathFile,
+  },
 };
