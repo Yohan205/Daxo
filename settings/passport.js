@@ -1,24 +1,28 @@
-//@ts-nocheck
-const passport = require("passport");
-const { Strategy } = require("passport-discord");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const findOrCreate = require("mongoose-findorcreate");
+//ts-nocheck
+import passport from "passport";
+import { Strategy } from "passport-discord";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import findOrCreate from "mongoose-findorcreate";
 
-const Users = require("../settings/models/Users");
-const { DISCORD, GOOGLE } = require("./config.js");
+import User from "../settings/models/Users.js";
+import CONFIG from "./config.js";
 
-passport.use(Users.createStrategy());
+const { use, serializeUser, deserializeUser } = passport;
+const { createStrategy, findOne, create } = User;
+const { GOOGLE, DISCORD } = CONFIG;
 
-passport.serializeUser((user, done) => {
+use(createStrategy());
+
+serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser((obj, done) => {
+deserializeUser((obj, done) => {
   done(null, obj);
 });
 
 // GoogleStrategy
-passport.use(
+use(
   new GoogleStrategy(
     {
       clientID: GOOGLE.ClientID,
@@ -32,7 +36,7 @@ passport.use(
         data.provider = profile.provider;
         data.accessToken = accessToken;
 
-        const user = await Users.findOne({
+        const user = await findOne({
           $or: [{ googleId: profile.id }, { email: data.email }],
         }).exec();
 
@@ -45,7 +49,7 @@ passport.use(
           return done(null, saved);
         }
 
-        const newUser = await Users.create({
+        const newUser = await create({
           googleId: profile.id,
           email: data.email,
           user: profile.displayName,
@@ -61,7 +65,7 @@ passport.use(
 );
 
 ///// // Discord Strategy //////////////////////////////////
-passport.use(
+use(
   new Strategy(
     {
       clientID: DISCORD.botID,
@@ -73,7 +77,7 @@ passport.use(
       try {
         const email = profile.email || null;
 
-        const user = await Users.findOne({
+        const user = await findOne({
           $or: [{ discordId: profile.id }, { email: email }],
         }).exec();
 
@@ -91,7 +95,7 @@ passport.use(
           return cb(null, saved);
         }
 
-        const newUser = await Users.create({
+        const newUser = await create({
           discordId: profile.id,
           email: email,
           photo: profile.avatar,
@@ -107,4 +111,4 @@ passport.use(
 );
 ///// PASSPORT - DISCORD //////////////////////////////////
 
-module.exports = passport;
+export default passport;

@@ -1,6 +1,9 @@
-require("dotenv").config(); //Use env variables
-// const chalk = require(chalk
-const { Client, GatewayIntentBits } = require("discord.js");
+import dotenv from "dotenv";
+dotenv.config();
+// require("dotenv").config(); //Use env variables
+// const chalk = require(chalk);
+// const { Client, GatewayIntentBits } = require("discord.js");
+import { Client, GatewayIntentBits } from "discord.js";
 
 var GCallbackUrl, keyPathFile, crtPathFile;
 
@@ -18,7 +21,7 @@ if (process.env.WEB != "localhost") {
   crtPathFile = "./server/cert/" + process.env.WEB + "+3.pem";
 }
 
-module.exports = {
+export default {
   DISCORD: {
     secretBot: process.env.SECRET_BOT_DISCORD,
     TOKEN: process.env.TOKEN_DISCORD,
